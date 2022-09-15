@@ -21,12 +21,13 @@ Aljabar Linier dan Geometri </center> </h1>
 <li> Regresi Linear Berganda
 <li> Fungsi dan Prosedur lainnya:
     <ul>
-    <li> Create matriks
-    <li> Read matriks
-    <li> Print matriks
-    <li> Swap (tukar baris)
-    <li> Transpose 
-    <li> ( ya ini nanti ditambahin aja sendiri lah )
+    <li> (Constants and Type Declarations)
+    <li> createMatrix,
+    <li> getRowEff, getCollEff, isMatrixIdxValid, isIdxEff,
+    <li> setRow, setCol, getElmt, setElmt, setEmptyMatrix,
+    <li> printMatrix, copyMatrix, swapCol, swapRow,
+    <li> multiplyRow, multiplyCol, transpose, calculateDeterminant, 
+    <li> isZeroRow, isZeroCol, makeIdentity,
     </ul>
 </ul>
 
