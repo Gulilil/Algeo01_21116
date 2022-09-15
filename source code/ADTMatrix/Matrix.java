@@ -1,14 +1,225 @@
 package ADTMatrix;
+import java.io.*;
+import java.util.*;
 
 public class Matrix{
-    int rows = 0;
-    int cols = 0;
+    final double MARK = Double.NaN;
+    int rowLength = 0;
+    int colLength = 0;
     double[][] matrix;
+    Scanner scanObj = new Scanner(System.in);
 
     public Matrix(int rows, int cols){
         matrix = new double[rows][cols];
-        this.rows = rows;
-        this.cols = cols;
+        this.rowLength = rows;
+        this.colLength = cols;
     }
+
+    public Matrix(double[][] matrix){
+        rowLength = matrix.length;
+        colLength = matrix[0].length;
+        this.matrix = new double[rowLength][colLength];
+        for(int rows = 0; rows < rowLength; rows++){
+            for(int cols = 0; cols < colLength; cols++){
+                this.matrix[rows][cols] = matrix[rows][cols];
+            }
+        }
+    }
+
+    // ========================== SELEKTOR ==========================
+
+    // Memanggil panjang baris
+    public int getRowLength(){
+        return this.rowLength;
+    }
+
+    // Memanggil panjang kolom
+    public int getColLength(){
+        return this.colLength;
+    }
+
+    // Melakukan set panjang baris
+    public void setRowLength(int length){
+        this.rowLength = length;
+    }
+
+    // Melakukan set kolom baris
+    public void setColLength(int length){
+        this.colLength = length;
+    }
+
+    // Melakukan set untuk elemen pada suatu baris
+    public void setRowValue(int row){
+        int col = getColLength();
+        int i;
+        double val;
+
+        for (i = 0; i < col; i++){
+            System.out.print("Element Matriks Baris ke-"+row+" Kolom ke-"+i+" : ");
+            val = scanObj.nextDouble();
+            setElmt( row, i, val);
+        }
+    }
+
+    // Melakukan set untuk elemen pada suatu kolom
+    public void setColValue(int col){
+        int row = getRowLength();
+        int i;
+        double val;
+
+        for ( i=0; i < row; i++){
+            System.out.print("Element Matriks Baris ke-"+i+" Kolom ke-"+col+" : ");
+            val = scanObj.nextDouble();
+            setElmt( i, col, val);
+        }
+
+    }
+
+    // Memanggil element pada suatu baris dan kolom pada matriks
+    public double getElmt(int row, int col){
+        return matrix[row][col];
+    }
+
+    // Melakukan assignment terhadap suatu elemen pada matriks pada baris dan kolom tertentu
+    public void setElmt(int row, int col, double val){
+        matrix[row][col] = val;
+    }
+
+    // ========================== BACA TULIS ==========================
+
+    // Melakukan print matriks
+    public void printMatrix(){
+        int i;
+        int j;
+        for (i = 0; i < getRowLength(); i++){
+            System.out.print("[");
+            for (j = 0; j < getColLength(); j++){
+                if ( j == getColLength()-1) {
+                    System.out.print(getElmt(i, j));
+                } else {
+                    System.out.print(getElmt(i, j));
+                    System.out.print(",");
+                }
+            }
+            System.out.println("]");
+        }
+    }
+
+
+    // ==========================  PRIMITIF LAIN ==========================
+
+    // Melakukan perkalian skalar pada baris
+    public void scalarMultiplyRow(int scalar){
+        int row = scanObj.nextInt();
+        for(int cols = 0; cols < colLength; cols++){
+            matrix[row][cols] *= scalar;
+        }
+    }
+
+    // Melakukan perkalian skalar pada kolom
+    public void scalarMultiplyCol(int scalar){
+        int col = scanObj.nextInt();
+        for(int rows = 0; rows < rowLength; rows++){
+            matrix[rows][col] *= scalar;
+        }
+    }
+
+    // Mengecek apakah suatu matriks itu persegi
+    public boolean isSquare(){
+        return rowLength == colLength;
+    }
+    
+    // Melakukan transpose matriks
+    public void transposeMatriks(){
+        if (isSquare()){
+            for(int rows = 0; rows < rowLength; rows++){
+                for(int cols = rows; cols < colLength; cols++){
+                    double temp = matrix[rows][cols];
+                    matrix[rows][cols] = matrix[cols][rows];
+                    matrix[cols][rows] = temp;
+                }
+            }
+        }
+    }
+
+    // Mencari determinan dari sebuah matriks
+    public double calculateDeterminant(){
+        double det = 0;
+        if (isSquare()){
+            if (rowLength == 2){
+                det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+            } else {
+                for(int cols = 0; cols < colLength; cols++){
+                    // det += Math.pow(-1, cols) * matrix[0][cols] * subMatrix(0, cols).determinant();
+                }
+            }
+        }
+        return det;
+    }
+
+    // Mengecek apakah suatu baris itu nol
+    public boolean isZeroRow(int row){
+        boolean isZero = true;
+        for(int cols = 0; cols < colLength; cols++){
+            if (matrix[row][cols] != 0){
+                isZero = false;
+                break;
+            }
+        }
+        return isZero;
+    }
+
+    // Mengecek apa suatu kolom itu nol
+    public boolean isZeroCol(int col){
+        boolean isZero = true;
+        for(int rows = 0; rows < rowLength; rows++){
+            if (matrix[rows][col] != 0){
+                isZero = false;
+                break;
+            }
+        }
+        return isZero;
+    }
+
+    // Mengecek apakah suatu matriks itu identitas
+    public void makeIdentity(){
+        for(int rows = 0; rows < rowLength; rows++){
+            for(int cols = 0; cols < colLength; cols++){
+                if (rows == cols) {
+                    setElmt(rows, cols, 1);
+                } else {
+                    setElmt( rows, cols, 0);
+                }
+            }
+        }
+    }
+
+    // Membuat suatu matriks menjadi matriks kosong
+    public void makeEmptyMatrix(){
+        int i;
+        int j;
+
+        for(i=0; i< getRowLength(); i++){
+            for (j=0; j < getColLength(); j++){
+                setElmt(i, j, MARK);
+            }
+        }
+    }
+
+    // Melakukan tukar baris pada matriks
+    public void swapRow(int row1, int row2){
+        double[] temp = matrix[row1];
+        matrix[row1] = matrix[row2];
+        matrix[row2] = temp;
+    }
+
+    // Melakukan tukar baris pada matriks
+    public void swapCol(int col1, int col2){
+        transposeMatriks();
+        swapRow(col1, col2);
+        transposeMatriks();
+    }
+
+
 
 }
