@@ -15,7 +15,7 @@ public class Matrix{
         this.colLength = cols;
         for(int i =0; i < rows;i++){
             for(int j=0;j<cols;j++){
-                setElmt(i, j, MARK);
+                setElmt(i, j, 1);
             }
         }
     }
@@ -137,16 +137,20 @@ public class Matrix{
     }
     
     // Melakukan transpose matriks
-    public void transposeMatriks(){
-        if (isSquare()){
-            for(int rows = 0; rows < rowLength; rows++){
-                for(int cols = rows; cols < colLength; cols++){
-                    double temp = matrix[rows][cols];
-                    matrix[rows][cols] = matrix[cols][rows];
-                    matrix[cols][rows] = temp;
-                }
+    public Matrix transposeMatriks(){
+        Matrix m1;
+        int rowsT = this.rowLength;
+        int colsT = this.colLength;
+        m1 = new Matrix(colsT,rowsT);
+        for(int i = 0; i < colsT; i++){
+            for(int j = 0;j <rowsT; j++){
+                m1.setElmt(i, j,getElmt(j, i));
             }
         }
+        // temp = 4
+        // row = 2
+        // col = 4
+        return m1;
     }
 
     // Mencari determinan dari sebuah matriks
