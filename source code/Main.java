@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import ADTMatrix.Matrix;
+
 public class Main {
     public static void main(String[] args) {
         // program adalah variabel yang menunjukkan bahwa program masih berjalan 
@@ -120,4 +122,5 @@ public class Main {
         // Menutup scanner 
         scanObj.close();
     }
+    
 }

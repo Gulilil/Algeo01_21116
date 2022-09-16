@@ -1,5 +1,5 @@
 package ADTMatrix;
-import "Matrix";
+import Matrix;
 
 public class MatrixOps {
     

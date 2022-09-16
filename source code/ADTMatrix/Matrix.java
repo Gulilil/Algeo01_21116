@@ -13,6 +13,11 @@ public class Matrix{
         matrix = new double[rows][cols];
         this.rowLength = rows;
         this.colLength = cols;
+        for(int i =0; i < rows;i++){
+            for(int j=0;j<cols;j++){
+                setElmt(i, j, MARK);
+            }
+        }
     }
 
     public Matrix(double[][] matrix){
@@ -41,11 +46,13 @@ public class Matrix{
     // Melakukan set panjang baris
     public void setRowLength(int length){
         this.rowLength = length;
+        this.matrix = new double [this.rowLength][this.colLength];
     }
 
     // Melakukan set kolom baris
     public void setColLength(int length){
         this.colLength = length;
+        this.matrix = new double[this.rowLength][this.colLength];
     }
 
     // Melakukan set untuk elemen pada suatu baris
@@ -77,7 +84,7 @@ public class Matrix{
 
     // Memanggil element pada suatu baris dan kolom pada matriks
     public double getElmt(int row, int col){
-        return matrix[row][col];
+        return this.matrix[row][col];
     }
 
     // Melakukan assignment terhadap suatu elemen pada matriks pada baris dan kolom tertentu
