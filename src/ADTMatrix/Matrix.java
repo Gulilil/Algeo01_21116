@@ -15,8 +15,8 @@ public class Matrix{
         matrix = new double[rows][cols];
         this.rowLength = rows;
         this.colLength = cols;
-        for(int i =0; i < rows;i++){
-            for(int j=0;j<cols;j++){
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j <cols ; j++){
                 setElmt(i, j, MARK);
             }
         }
@@ -61,10 +61,8 @@ public class Matrix{
     // Melakukan set untuk elemen pada suatu baris
     public void setRowValue(int row){
         int col = getColLength();
-        int i;
         double val;
-
-        for (i = 0; i < col; i++){
+        for (int i = 0; i < col; i++){
             System.out.print("Element Matriks Baris ke-"+row+" Kolom ke-"+i+" : ");
             val = scanObj.nextDouble();
             setElmt(row, i, val);
@@ -82,13 +80,11 @@ public class Matrix{
     // Melakukan set untuk elemen pada suatu kolom
     public void setColValue(int col){
         int row = getRowLength();
-        int i;
         double val;
-
-        for ( i=0; i < row; i++){
+        for (int i = 0; i < row; i++){
             System.out.print("Element Matriks Baris ke-"+i+" Kolom ke-"+col+" : ");
             val = scanObj.nextDouble();
-            setElmt( i, col, val);
+            setElmt(i, col, val);
         }
 
     }
@@ -107,11 +103,9 @@ public class Matrix{
 
     // Melakukan print matriks
     public void printMatrix(){
-        int i;
-        int j;
-        for (i = 0; i < getRowLength(); i++){
+        for (int i = 0; i < getRowLength(); i++){
             System.out.print("[");
-            for (j = 0; j < getColLength(); j++){
+            for (int j = 0; j < getColLength(); j++){
                 if ( j == getColLength()-1) {
                     System.out.print(getElmt(i, j));
                 } else {
@@ -158,9 +152,6 @@ public class Matrix{
                 mOut.setElmt(i, j, getElmt(j, i));
             }
         }
-        // temp = 4
-        // row = 2
-        // col = 4
         return mOut;
     }
 
@@ -179,11 +170,8 @@ public class Matrix{
 
     // Membuat suatu matriks menjadi matriks kosong
     public void setToEmpty(){
-        int i;
-        int j;
-
-        for(i=0; i< getRowLength(); i++){
-            for (j=0; j < getColLength(); j++){
+        for(int i = 0; i< getRowLength(); i++){
+            for (int j = 0; j < getColLength(); j++){
                 setElmt(i, j, MARK);
             }
         }

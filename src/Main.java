@@ -1,6 +1,5 @@
+import ADTMatrix.*;
 import java.util.Scanner;
-
-import ADTMatrix.Matrix;
 
 public class Main {
     public static void main(String[] args) {
