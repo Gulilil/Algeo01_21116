@@ -1,25 +1,28 @@
 package ADTMatrix;
-import java.io.*;
 import java.util.*;
 
 public class Matrix{
     final double MARK = Double.NaN;
     int rowLength = 0;
     int colLength = 0;
+    int rowIdx = 0;
+    int colIdx = 0;
     double[][] matrix;
     Scanner scanObj = new Scanner(System.in);
 
+    //Konstruktor matriks kosong (isinya mark), dengan ukuran rowLength x colLength
     public Matrix(int rows, int cols){
         matrix = new double[rows][cols];
         this.rowLength = rows;
         this.colLength = cols;
         for(int i =0; i < rows;i++){
             for(int j=0;j<cols;j++){
-                setElmt(i, j, 1);
+                setElmt(i, j, MARK);
             }
         }
     }
 
+    //Konstruktor matriks yang isinya diisi dari keyboard ato file
     public Matrix(double[][] matrix){
         rowLength = matrix.length;
         colLength = matrix[0].length;
@@ -64,8 +67,16 @@ public class Matrix{
         for (i = 0; i < col; i++){
             System.out.print("Element Matriks Baris ke-"+row+" Kolom ke-"+i+" : ");
             val = scanObj.nextDouble();
-            setElmt( row, i, val);
+            setElmt(row, i, val);
         }
+    }
+
+    public int getRowIdx(){
+        return this.rowLength - 1;
+    }
+
+    public int getColIdx(){
+        return this.colLength - 1;
     }
 
     // Melakukan set untuk elemen pada suatu kolom
@@ -137,76 +148,37 @@ public class Matrix{
     }
     
     // Melakukan transpose matriks
-    public Matrix transposeMatriks(){
-        Matrix m1;
+    public Matrix transpose(){
+        Matrix mOut;
         int rowsT = this.rowLength;
         int colsT = this.colLength;
-        m1 = new Matrix(colsT,rowsT);
+        mOut = new Matrix(colsT,rowsT);
         for(int i = 0; i < colsT; i++){
             for(int j = 0;j <rowsT; j++){
-                m1.setElmt(i, j,getElmt(j, i));
+                mOut.setElmt(i, j, getElmt(j, i));
             }
         }
         // temp = 4
         // row = 2
         // col = 4
-        return m1;
-    }
-
-    // Mencari determinan dari sebuah matriks
-    public double calculateDeterminant(){
-        double det = 0;
-        if (isSquare()){
-            if (rowLength == 2){
-                det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
-            } else {
-                for(int cols = 0; cols < colLength; cols++){
-                    // det += Math.pow(-1, cols) * matrix[0][cols] * subMatrix(0, cols).determinant();
-                }
-            }
-        }
-        return det;
-    }
-
-    // Mengecek apakah suatu baris itu nol
-    public boolean isZeroRow(int row){
-        boolean isZero = true;
-        for(int cols = 0; cols < colLength; cols++){
-            if (matrix[row][cols] != 0){
-                isZero = false;
-                break;
-            }
-        }
-        return isZero;
-    }
-
-    // Mengecek apa suatu kolom itu nol
-    public boolean isZeroCol(int col){
-        boolean isZero = true;
-        for(int rows = 0; rows < rowLength; rows++){
-            if (matrix[rows][col] != 0){
-                isZero = false;
-                break;
-            }
-        }
-        return isZero;
+        return mOut;
     }
 
     // Mengecek apakah suatu matriks itu identitas
-    public void makeIdentity(){
+    public void setToIdentity(){
         for(int rows = 0; rows < rowLength; rows++){
             for(int cols = 0; cols < colLength; cols++){
                 if (rows == cols) {
                     setElmt(rows, cols, 1);
                 } else {
-                    setElmt( rows, cols, 0);
+                    setElmt(rows, cols, 0);
                 }
             }
         }
     }
 
     // Membuat suatu matriks menjadi matriks kosong
-    public void makeEmptyMatrix(){
+    public void setToEmpty(){
         int i;
         int j;
 
@@ -226,11 +198,48 @@ public class Matrix{
 
     // Melakukan tukar baris pada matriks
     public void swapCol(int col1, int col2){
-        transposeMatriks();
+        this.transpose();
         swapRow(col1, col2);
-        transposeMatriks();
+        this.transpose();
     }
 
+    // ========================== PREDIKAT ==========================
+    
+    // Mengecek apakah suatu baris itu nol
+    public boolean isZeroRow(int row){
+        for(int cols = 0; cols < colLength; cols++){
+            if (matrix[row][cols] != 0){
+                return false;
+            }
+        }
+        return true;
+    }
 
+    // Mengecek apa suatu kolom itu nol
+    public boolean isZeroCol(int col){
+        for(int rows = 0; rows < rowLength; rows++){
+            if (matrix[rows][col] != 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Melakukan pengecekann apakah sebuah matriks itu identitas atau bukan
+    public boolean isIdentity(){
+        for(int rows = 0; rows < rowLength; rows++){
+            for (int cols = 0; cols < colLength; cols++)
+                if (rows == cols){
+                    if (matrix[rows][cols] != 1){
+                        return false;
+                    }
+                } else {
+                    if (matrix[rows][cols] != 0){
+                        return false;
+                    }
+                }
+        }
+        return true;
+    }
 
 }
