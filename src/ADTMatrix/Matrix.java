@@ -209,6 +209,28 @@ public class Matrix{
     }
 
     // FUNCTION
+    // Mencari nilai matriks equation, dari matriks augmented
+    public Matrix getMOriginal(Matrix m){
+        Matrix mResult = new Matrix(m.getRowLength(),m.getColLength()-1);
+        for(int i =0; i< m.getRowLength();i++){
+            for(int j =0; j< m.getColLength()-1;j++){
+                double temp = m.getElmt(i,j);
+                mResult.setElmt(i,j,temp);
+            }
+        }
+        return mResult;
+    }
+
+    public Matrix getMResult(Matrix m){
+        Matrix mResult = new Matrix(m.getRowLength(),1);
+        for(int i = 0; i<m.getRowLength();i++){
+            double temp = m.getElmt(i, m.getColIdx());
+            mResult.setElmt(i, 0, temp);
+        }
+        return mResult;
+    }
+
+    // FUNCTION
     // Melakukan transpose matriks
     public Matrix transpose(){
         Matrix mOut;

@@ -162,7 +162,6 @@ public class MatrixOps {
     public Matrix inverse(Matrix m){
         double determinan = detKof(m);
         Matrix adj = adj(m);
-        // System.out.println(determinan);
         adj.multiplyByConst(adj, (1/determinan));
         return adj;
     }
@@ -368,17 +367,9 @@ public class MatrixOps {
         // Jika jordan false, maka yang dihasilkan adalah metode Gauss
 
         // Inisiasi matriks original
-        Matrix mOriginal = new Matrix(mIn.getRowLength(), mIn.getColLength()-1);
-        for (int i = 0; i < mIn.getRowLength(); i++){
-            for (int j = 0; j < mIn.getColLength()-1; j++){
-                mOriginal.setElmt(i, j, mIn.getElmt(i, j));
-            }
-        }
+        Matrix mOriginal = mIn.getMOriginal(mIn);
         // Inisasi matriks konstanta (bagian kolom paling kanan)
-        Matrix mConstant = new Matrix(mIn.getRowLength(), 1);
-        for (int i = 0; i < mIn.getRowLength(); i++){
-            mConstant.setElmt(i, 0, mIn.getElmt(i, mIn.getColIdx()));
-        }
+        Matrix mConstant = mIn.getMResult(mIn);
         System.out.println("Bentuk Awal Matriks: ");
         mOriginal.printMatrix();
         System.out.println("\n");
@@ -427,18 +418,14 @@ public class MatrixOps {
     public void splInverse(Matrix mIn){
 
         // Inisiasi matriks original
-        Matrix mOriginal = new Matrix(mIn.getRowLength(), mIn.getColLength()-1);
-        for (int i = 0; i < mIn.getRowLength(); i++){
-            for (int j = 0; j < mIn.getColLength()-1; j++){
-                mOriginal.setElmt(i, j, mIn.getElmt(i, j));
-            }
+        Matrix mOriginal = mIn.getMOriginal(mIn);
+       if(detKof(mOriginal) == 0){
+            System.out.println("SPL tidak memiliki solusi");
         }
         
         // Inisasi matriks konstanta (bagian kolom paling kanan)
-        Matrix mConstant = new Matrix(mIn.getRowLength(), 1);
-        for (int i = 0; i < mIn.getRowLength(); i++){
-            mConstant.setElmt(i, 0, mIn.getElmt(i, mIn.getColIdx()));
-        }
+        Matrix mConstant = mIn.getMResult(mIn);
+        
 
         System.out.println("Bentuk Awal Matriks: ");
         mOriginal.printMatrix();
@@ -470,18 +457,10 @@ public class MatrixOps {
     public void splCramer(Matrix mIn){
 
         // Inisiasi matriks original
-        Matrix mOriginal = new Matrix(mIn.getRowLength(), mIn.getColLength()-1);
-        for (int i = 0; i < mIn.getRowLength(); i++){
-            for (int j = 0; j < mIn.getColLength()-1; j++){
-                mOriginal.setElmt(i, j, mIn.getElmt(i, j));
-            }
-        }
+        Matrix mOriginal = mIn.getMOriginal(mIn);
 
         // Inisasi matriks konstanta (bagian kolom paling kanan)
-        Matrix mConstant = new Matrix(mIn.getRowLength(), 1);
-        for (int i = 0; i < mIn.getRowLength(); i++){
-            mConstant.setElmt(i, 0, mIn.getElmt(i, mIn.getColIdx()));
-        }
+        Matrix mConstant = mIn.getMResult(mIn);
 
         System.out.println("Bentuk Awal Matriks: ");
         mOriginal.printMatrix();
