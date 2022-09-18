@@ -127,18 +127,34 @@ public class MatrixOps {
 
 
     public void cramer(Matrix mIn){
-        double det = detKof(mIn);
+        
+        // Inisiasi matriks original
+        Matrix mOriginal = new Matrix(mIn.getRowLength(), mIn.getColLength()-1);
+        for (int i = 0; i < mIn.getRowLength(); i++){
+            for (int j = 0; j < mIn.getColLength()-1; j++){
+                mOriginal.setElmt(i, j, mIn.getElmt(i, j));
+            }
+        }
+
+        double det = detKof(mOriginal);
         if (det == 0){
             System.out.println("Matriks tidak memiliki solusi.");
         }
         else{
-            for (int i = 0; i <= mIn.getColIdx(); i++){
+            for (int i = 0; i <= mOriginal.getColIdx(); i++){
                 Matrix mTemp = copyMatrix(mIn);
-                mTemp.transpose();
-                mTemp.swapRow(i, mIn.getRowIdx());
-                delLastRow(mTemp);
-                mTemp.transpose();
-                System.out.println("X" + (i+1) + " = " + detKof(mTemp) / det);
+                Matrix mNew = new Matrix(mTemp.getColLength(), mTemp.getRowLength());
+                Matrix mTranspose = mTemp.transpose();
+                mTranspose.swapRow(i, mTranspose.getRowIdx());
+                mNew = delLastRow(mTranspose);
+                mNew = mNew.transpose();
+
+                System.out.println("Bentuk Matriks: ");
+                mNew.printMatrix();
+                System.out.println("===============");
+                mOriginal.printMatrix();
+                System.out.println("Solusi : ");
+                System.out.println("X" + (i+1) + " = " + detKof(mNew) / det);
             }
         }
     }

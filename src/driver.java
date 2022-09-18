@@ -6,11 +6,11 @@ public class driver {
     static MatrixOps mOps = new MatrixOps();
     public static void main(String[] args){
         // cek Matriks Constructor
-        Matrix m1 = new Matrix(4,4);
+        Matrix m1 = new Matrix(3,4);
         m1.setElmt(0,0,3); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 1);m1.setElmt(0, 3, 7);
         m1.setElmt(1,0,6); m1.setElmt(1, 1, 5); m1.setElmt(1, 2, 6);m1.setElmt(1, 3, 6);
         m1.setElmt(2,0,7); m1.setElmt(2, 1, 8); m1.setElmt(2, 2, 9);m1.setElmt(2, 3, 8);
-        m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2);m1.setElmt(3, 3, 6);
+        // m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2);m1.setElmt(3, 3, 6);
         System.out.println(m1.getRowIdx());
         System.out.println(m1.getColIdx());
 
@@ -34,7 +34,7 @@ public class driver {
         // m1.setElmt(1,0,10);
         // m1.setElmt(1,1,10);
         // m1.setElmt(1,2,10);
-        m1.printMatrix();
+        //m1.printMatrix();
 
         // System.out.println("================");
 
@@ -42,8 +42,9 @@ public class driver {
         //     m1.setElmt(i,0, m1.getElmt(m1.getRowIdx(), m1.getColIdx()));
         // }
 
-        System.out.println(mOps.detObe(m1));
+        //System.out.println(mOps.detObe(m1));
         
+        mOps.cramer(m1);
 
         // Matrix m2;
         // m2 = mOps.delLastRow(m1);
