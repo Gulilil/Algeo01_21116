@@ -124,24 +124,23 @@ public class MatrixOps {
         }
         return mTemp;
     }
-<<<<<<< Updated upstream
-    
-=======
+
 
     public void cramer(Matrix mIn){
-        double det = det(mIn);
+        double det = detKof(mIn);
         if (det == 0){
             System.out.println("Matriks tidak memiliki solusi.");
         }
         else{
             for (int i = 0; i <= mIn.getColIdx(); i++){
                 Matrix mTemp = copyMatrix(mIn);
-                for (int j = 0; j <= mIn.getRowIdx(); j++){
-                    mTemp.setElmt(j, i, mIn.getElmt(j, mIn.getColIdx() + 1));
-                }
-                System.out.println("X" + (i+1) + " = " + det(mTemp) / det);
+                mTemp.transpose();
+                mTemp.swapRow(i, mIn.getRowIdx());
+                delLastRow(mTemp);
+                mTemp.transpose();
+                System.out.println("X" + (i+1) + " = " + detKof(mTemp) / det);
             }
         }
     }
->>>>>>> Stashed changes
+
 }
