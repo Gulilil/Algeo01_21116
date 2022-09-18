@@ -5,36 +5,65 @@ public class driver {
     static MatrixOps mOps = new MatrixOps();
     public static void main(String[] args){
         // cek Matriks Constructor
-        Matrix m1 = new Matrix(4,3);
-        m1.setElmt(0,0,1); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 3); //m1.setElmt(0,3,1);
-        m1.setElmt(1,0,2); m1.setElmt(1, 1, 8); m1.setElmt(1, 2, 7); //m1.setElmt(1, 3, 7);
-        m1.setElmt(2,0,1); m1.setElmt(2, 1, 5); m1.setElmt(2, 2, 6);
-        m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2); //m1.setElmt(3, 3, 6);
+        Matrix m1 = new Matrix(3,4);
+        m1.setElmt(0,0,1); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 3); m1.setElmt(0, 3,1);
+        m1.setElmt(1,0,2); m1.setElmt(1, 1, 8); m1.setElmt(1, 2, 7); m1.setElmt(1, 3, 7);
+        m1.setElmt(2,0,1); m1.setElmt(2, 1, 5); m1.setElmt(2, 2, 6); m1.setElmt(2, 3, 8);
+        //m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2); m1.setElmt(3, 3, 6);
 
-        Matrix m3 = new Matrix(4,3);
+        Matrix m2 = new Matrix(2,2);
+        m2.setElmt(0, 0, 2);m2.setElmt(0, 1, 3);
+        m2.setElmt(1, 0, 4);m2.setElmt(1,1, 10);
+
+        Matrix m3 = new Matrix(3,3);
         m3.setElmt(0,0,3); m3.setElmt(0, 1, 4); m3.setElmt(0, 2, 5);
         m3.setElmt(1,0,5); m3.setElmt(1, 1, 8); m3.setElmt(1, 2, 4);
         m3.setElmt(2,0,6); m3.setElmt(2, 1, 6); m3.setElmt(2, 2, 9);
-        m3.setElmt(3,0,9); m3.setElmt(3, 1, 7); m3.setElmt(3, 2, 9);
 
+        // Matrix m4 = new Matrix (3, 1);
+        // m4.setElmt(0,0,5);
+        // m4.setElmt(1,0,7);
+        // m4.setElmt(2,0,2);
+
+        // Matrix m4 = new Matrix(3, 3);
+        // m4.setToIdentity();
+
+        // Matrix m5;
+
+        // m5 = mOps.inverse(m3);
+        // m5.printMatrix();
+        // // Test triangle matriks
+        // // m3.printMatrix();
+        // // m4.printMatrix();
+        // System.out.println("===================");
+        // mOps.lowerTriangleMatrix(m3, m4);
+        // // m3.printMatrix();
+        // // m4.printMatrix();
+        // mOps.upperTriangleMatrix(m3, m4);
+        // m3.printMatrix();
+        // m4.printMatrix();
+
+        
+
+        
+
+        
 
         // Test perkalian, penambahan, dan pengurangan
-        m1.printMatrix();
-        System.out.println("==========================");
-        m3.printMatrix();
+        // m1.printMatrix();
+        // System.out.println("==========================");
+        // m3.printMatrix();
 
-        Matrix mNew;
-        mNew = mOps.substractMatrix(m1, m3);
-        System.out.println("==========================");
-        mNew.printMatrix();
+        // Matrix mNew;
+        // mNew = mOps.substractMatrix(m1, m3);
+        // System.out.println("==========================");
+        // mNew.printMatrix();
         
 
 
         // System.out.println(m1.getRowIdx());
         // System.out.println(m1.getColIdx());
-        Matrix m2 = new Matrix(2,2);
-        m2.setElmt(0, 0, 2);m2.setElmt(0, 1, 3);
-        m2.setElmt(1, 0, 4);m2.setElmt(1,1, 10);
+
         // // Cek display matriks
         // System.out.println("Nilai awal matriks");
         // m1.printMatrix();
@@ -83,5 +112,14 @@ public class driver {
         // Matrix mtemp =mOps.inverse(m1);
         // mtemp.printMatrix();
         // System.out.print(mOps.inverse(m1));
+
+        // CEK SOAL SPL
+        // CEK GAUSS
+        // mOps.splGaussJordan(m1, true);
+        // mOps.splGaussJordan(m1, false);
+        // CEK CRAMER
+        // mOps.splCramer(m1);
+        // CEK INVERSE
+        mOps.splInverse(m1);
     }
 }

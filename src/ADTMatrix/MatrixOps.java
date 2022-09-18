@@ -162,7 +162,7 @@ public class MatrixOps {
     public Matrix inverse(Matrix m){
         double determinan = detKof(m);
         Matrix adj = adj(m);
-        System.out.println(determinan);
+        // System.out.println(determinan);
         adj.multiplyByConst(adj, (1/determinan));
         return adj;
     }
@@ -229,10 +229,144 @@ public class MatrixOps {
         return mResult;
     }
 
-    // ============================== PENYELESAIAN SPL ============================== 
     // PROCEDURE
-    // Menyelesaikan permasalahan SPL menggunakan metode Cramer
-    public void splCramer(Matrix mIn){
+    // Mengembalikan matriks segitiga bawah dari suatu matriks menggunakan OBE
+    public void lowerTriangleMatrix (Matrix m, Matrix mConst){
+        // Prosedur hanya dijalankan apabila matriks berbentuk persegi
+        if (m.isSquare()){
+            int row = 0;
+            int col = 0;
+            int i;
+            int j;
+            int k;
+            double pembuatNol;
+            double newVal;
+            double pembuatSatu;
+            boolean program = true;
+            int count;
+            
+    
+            // Variabel program menunjukkan bahwa pembuatan segitiga masih dilakukan
+            while (program == true){
+
+                // Bila program telah mencapai elemen terakhir (pojok kanan bawah) maka program dihentikan
+                if (row == m.getRowIdx() && col == m.getColIdx()){
+                    // Jika hasil akhir bukan 1, maka perlu dijadikan 1
+                    if (m.getElmt(row, col) != 1){
+                        pembuatSatu = m.getElmt(row, col);
+                        m.setElmt(row, col, 1);
+                        for (k = 0; k < mConst.getColLength(); k++){
+                            mConst.setElmt(row, k,(mConst.getElmt(row,k)/ pembuatSatu));
+                        }
+
+                    }
+                    program = false;
+                } else { 
+                    // Program masih dilakukan karena row dan col belum mencapai index terakhir
+                    // Cek dulu apakah element awal bernilai 0
+                    if (m.getElmt(row, col) == 0){
+                        count = 0;
+                        while (m.getElmt(0, 0) == 0 && count < m.getRowLength()){
+                            count++;
+                        }
+                        // Satu kolom bernilai 0 semua
+                        if ( count == m.getRowIdx()){
+                            // Jika 0 semua pada kolom tersebut, maka baris kolom tersebut dilewatkan saja
+                            row++;
+                            col++;
+                        } else {
+                            // ada satu elemen yang tidak bernilai 0 pada kolom tersebut
+                            m.swapRow(row, col+count);
+                        }
+                    }
+
+                    // Jika pada kolom baris awal bukan 1, maka dijadikan 1 terlebih dahulu
+                    if (m.getElmt(row, col) != 1){
+                        // semua elemen pada baris itu dibagi dengan elemen pada kolom awal
+                        pembuatSatu = m.getElmt(row, col);
+                        for (k = col; k < m.getColLength(); k++){
+                            m.setElmt(row, k, (m.getElmt(row, k)/ pembuatSatu));
+                        }
+                        // Matriks konstanta juga dibagi
+                        for (k = 0; k < mConst.getColLength(); k++){
+                            mConst.setElmt(row, k,(mConst.getElmt(row,k)/ pembuatSatu));
+                        }
+                        
+                    }
+                    // Melakukan loop mulai dari baris pertama setelah baris 'awal'
+                    for (i = row+1; i < m.getRowLength(); i++){
+                        // Membuat 0 semua baris lain pada kolom awal
+                        // Jika sudah 0, baris tersebut tidak perlu dilakukan apapun
+                        if (m.getElmt(row, col) != 0){
+                            pembuatNol = m.getElmt(i, col)/ m.getElmt(row, col);
+                            for (j = col; j < m.getColLength(); j++){
+                                newVal = m.getElmt(i,j) - pembuatNol * m.getElmt(row, j);
+                                m.setElmt(i, j, newVal);
+                            }
+                            // Matriks const juga dikurangi
+                            for (j = 0; j < mConst.getColLength(); j++){
+                                newVal = mConst.getElmt(i, j) - pembuatNol * mConst.getElmt(row, j);
+                                mConst.setElmt(i, j, newVal);
+                            }
+
+                        }
+                    }
+                    row++;
+                    col++;
+                }
+
+            }
+        }
+    }
+
+    // PROCEDURE
+    // Mengembalikan matriks segitiga atas dari suatu matriks menggunakan OBE 
+    // Prosedur ini adalah LANJUTAN dari lowerTriangleMatrix (JANGAN DIPAKAI TERPISAH!!)
+    public void upperTriangleMatrix(Matrix m, Matrix mConst){
+        int i;
+        int j;
+        int row = 1;
+        int col = 1;
+        double pembuatNol;
+        double newVal;
+        boolean program = true;
+
+        while (program) {
+            // Bila program telah mencapai elemen terakhir (pojok kanan bawah) maka program dihentikan
+            if (row == m.getRowLength() && col == m.getColLength()){
+                program = false;
+            } else {
+                for (i = row-1; i >= 0 ; i--){
+                    // Membuat 0 semua baris lain pada kolom awal
+                    // Jika sudah 0, baris tersebut tidak perlu dilakukan apapun
+                    if (m.getElmt(row, col) != 0){
+                        pembuatNol = m.getElmt(i, col);
+                        for (j = col; j < m.getColLength(); j++){
+                            newVal = m.getElmt(i,j) - pembuatNol * m.getElmt(row, j);
+                            m.setElmt(i,j,newVal);
+                        }
+                        // Matriks const juga dikurangi
+                        for (j =0 ; j < mConst.getColLength(); j++){
+                            newVal = mConst.getElmt(i, j) - pembuatNol * mConst.getElmt(row, j);
+                            mConst.setElmt(i,j, newVal);
+                        }
+                    }
+                }
+                row++;
+                col++;
+            }   
+        }
+    }
+
+
+    // ============================== PENYELESAIAN SPL ============================== 
+
+    // PROCEDURE
+    // Menyelesaikan permasalahan SPL menggunakan metode Gauss
+    public void splGaussJordan (Matrix mIn, boolean jordan){
+        // Jika jordan true, maka yang dihasilkan adalah metode Gauss-Jordan
+        // Jika jordan false, maka yang dihasilkan adalah metode Gauss
+
         // Inisiasi matriks original
         Matrix mOriginal = new Matrix(mIn.getRowLength(), mIn.getColLength()-1);
         for (int i = 0; i < mIn.getRowLength(); i++){
@@ -240,6 +374,124 @@ public class MatrixOps {
                 mOriginal.setElmt(i, j, mIn.getElmt(i, j));
             }
         }
+        // Inisasi matriks konstanta (bagian kolom paling kanan)
+        Matrix mConstant = new Matrix(mIn.getRowLength(), 1);
+        for (int i = 0; i < mIn.getRowLength(); i++){
+            mConstant.setElmt(i, 0, mIn.getElmt(i, mIn.getColIdx()));
+        }
+        System.out.println("Bentuk Awal Matriks: ");
+        mOriginal.printMatrix();
+        System.out.println("\n");
+
+        System.out.println("Bentuk Matriks Konstanta: ");
+        mConstant.printMatrix();
+        System.out.println("\n");
+
+        if (jordan){
+            System.out.println("================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================");
+            // User menginginkan metode Gauss Jordan
+            lowerTriangleMatrix(mOriginal, mConstant);
+            upperTriangleMatrix(mOriginal, mConstant);
+            System.out.println("Bentuk Akhir Matriks Segitiga: ");
+            mOriginal.printMatrix();
+            System.out.println("\n");
+
+            System.out.println("Bentuk Akhir Matriks Konstanta: ");
+            mConstant.printMatrix();
+            System.out.println("\n");
+
+            for (int i = 0; i < mConstant.getRowLength(); i++){
+                System.out.println("X"+(i+1)+" = "+ mConstant.getElmt(i,0));
+            }
+        } else {
+            // User menginginkan metode Gauss
+            System.out.println("================== PENYELESAIAN SPL METODE GAUSS ==================");
+            lowerTriangleMatrix(mOriginal, mConstant);
+            System.out.println("Bentuk Akhir Matriks Segitiga: ");
+            mOriginal.printMatrix();
+            System.out.println("\n");
+
+            System.out.println("Bentuk Akhir Matriks Konstanta: ");
+            mConstant.printMatrix();
+            System.out.println("\n");
+
+            upperTriangleMatrix(mOriginal, mConstant);
+            for (int i = 0; i < mConstant.getRowLength(); i++){
+                System.out.println("X"+(i+1)+" = "+ mConstant.getElmt(i,0));
+            }
+        }
+    }
+
+    // PROCEDURE
+    // Menyelesaikan permasalahan SPL menggunakan metode Inverse
+    public void splInverse(Matrix mIn){
+
+        // Inisiasi matriks original
+        Matrix mOriginal = new Matrix(mIn.getRowLength(), mIn.getColLength()-1);
+        for (int i = 0; i < mIn.getRowLength(); i++){
+            for (int j = 0; j < mIn.getColLength()-1; j++){
+                mOriginal.setElmt(i, j, mIn.getElmt(i, j));
+            }
+        }
+        
+        // Inisasi matriks konstanta (bagian kolom paling kanan)
+        Matrix mConstant = new Matrix(mIn.getRowLength(), 1);
+        for (int i = 0; i < mIn.getRowLength(); i++){
+            mConstant.setElmt(i, 0, mIn.getElmt(i, mIn.getColIdx()));
+        }
+
+        System.out.println("Bentuk Awal Matriks: ");
+        mOriginal.printMatrix();
+        System.out.println("\n");
+        
+        System.out.println("Bentuk Matriks Konstanta: ");
+        mConstant.printMatrix();
+        System.out.println("\n");
+
+        System.out.println("================== PENYELESAIAN SPL METODE INVERSE ==================");
+        Matrix mInverse = inverse(mOriginal);
+        System.out.println("Bentuk Matriks Inverse: ");
+        mInverse.printMatrix();
+        System.out.println("\n");
+
+        Matrix mResult;
+        mResult = multiplyMatrix(mInverse, mConstant);
+        System.out.println("Bentuk Matriks Akhir: ");
+        mResult.printMatrix();
+        System.out.println("\n");
+
+        for (int i =0; i < mResult.getRowLength(); i++){
+            System.out.println("X"+ (i+1) +" = " + mResult.getElmt(i, 0));
+        }
+    }
+
+    // PROCEDURE
+    // Menyelesaikan permasalahan SPL menggunakan metode Cramer
+    public void splCramer(Matrix mIn){
+
+        // Inisiasi matriks original
+        Matrix mOriginal = new Matrix(mIn.getRowLength(), mIn.getColLength()-1);
+        for (int i = 0; i < mIn.getRowLength(); i++){
+            for (int j = 0; j < mIn.getColLength()-1; j++){
+                mOriginal.setElmt(i, j, mIn.getElmt(i, j));
+            }
+        }
+
+        // Inisasi matriks konstanta (bagian kolom paling kanan)
+        Matrix mConstant = new Matrix(mIn.getRowLength(), 1);
+        for (int i = 0; i < mIn.getRowLength(); i++){
+            mConstant.setElmt(i, 0, mIn.getElmt(i, mIn.getColIdx()));
+        }
+
+        System.out.println("Bentuk Awal Matriks: ");
+        mOriginal.printMatrix();
+        System.out.println("\n");
+        
+        System.out.println("Bentuk Matriks Konstanta: ");
+        mConstant.printMatrix();
+        System.out.println("\n");
+
+        System.out.println("================== PENYELESAIAN SPL METODE CRAMER ==================");
 
         double det = detKof(mOriginal);
         if (det == 0){
@@ -260,6 +512,7 @@ public class MatrixOps {
                 mOriginal.printMatrix();
                 System.out.println("Solusi : ");
                 System.out.println("X" + (i+1) + " = " + detKof(mNew) / det);
+                System.out.println("\n");
             }
         }
     }

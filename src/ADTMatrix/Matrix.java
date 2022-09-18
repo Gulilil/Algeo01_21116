@@ -10,6 +10,7 @@ public class Matrix{
     double[][] matrix;
     Scanner scanObj = new Scanner(System.in);
 
+    // ========================== KONSTRUKTOR ==========================
     //Konstruktor matriks kosong (isinya mark), dengan ukuran rowLength x colLength
     public Matrix(int rows, int cols){
         matrix = new double[rows][cols];

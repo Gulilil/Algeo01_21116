@@ -1,4 +1,4 @@
-<h1> <center> Tugas Besar 1 <br> 
+<h1> <center> Tugas Besar 1 IF2123 <br> 
 Aljabar Linier dan Geometri </center> </h1>
 
 <h2> <b> Kelompok 7 - ImagineKelar </b> </h2>
@@ -9,12 +9,12 @@ Aljabar Linier dan Geometri </center> </h1>
 <li> Nathania Calista Djunaedi - 1352139
 </ol> </h3>
 
-<h2> <b> Pembagian Tugas </b> </h2>
-<p> List tugas pada Source Code : </p>
+<h2> <b> List Tugas </b> </h2>
+<p> <b> List tugas pada Source Code : </b> </p>
 <ul>
 <li> Sistem Persamaan Linear ( Gauss & Gauss-Jordan )
 <li> Sistem Persamaan Linear ( Matriks Balikan & Kramer )
-<li> Determinan
+<li> Determinan 
 <li> Matriks Balikan
 <li> Interpolasi Polinom 
 <li> Interpolasi Bicubic + Bonus
@@ -31,7 +31,7 @@ Aljabar Linier dan Geometri </center> </h1>
     </ul>
 </ul>
 
-<p> List tugas pada Laporan </p>
+<p><b> List tugas pada Laporan </b></p>
 <ul>
 <li> Cover 
 <li> Daftar Isi
@@ -46,5 +46,8 @@ Aljabar Linier dan Geometri </center> </h1>
 
 </ul>
 
-<h2> <b> Keterangan Tambahan Lain </b> </h2>
-<p> ~ belum ada ~ </p>
+<h2> <b> Keterangan Folder </b> </h2>
+<p> <b> Folder 'src' </b> </p>
+<p> Berisikan file-file yang mengandung program utama dari pemenuhan Tugas Besar ini. File yang dimaksud termasuk file main dan file yang berisi prosedur dan fungsi penunjang </p>
+<p> <b> Folder 'testCase' </b> </p>
+<p> Berisikan  file input dari user dan file output yang dikeluarkan dari program untuk menjawab input user </p>
