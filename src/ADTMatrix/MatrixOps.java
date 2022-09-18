@@ -113,7 +113,50 @@ public class MatrixOps {
         }
 
     }
+    
+    // Mencari matriks kofaktor dari sebuah matriks 
+    public Matrix kofaktor(Matrix mIn, int row, int col){
+        // Menerima input berupa matriks serta baris dan kolom yang tidak ingin dimasukkan 
 
+        // Inisialisasi matrix
+        Matrix mTemp = new Matrix(mIn.getRowLength()-1, mIn.getColLength()-1);
+        int a = 0; 
+        int b = 0;
+        for(int i =0;i < mIn.getRowLength();i++){
+            for(int j =0; j < mIn.getColLength(); j++){
+                if(i != row && j != col){
+                    double temp = mIn.getElmt(i,j);
+                    mTemp.setElmt(a,b,temp);
+                    b+=1;
+                    if(b == mIn.getColLength()-1){
+                        b = 0; 
+                        a++;
+                    }
+                }
+            }
+        }
+        return mTemp;
+    }
+
+    // Membentuk matriks adjoin dari sebuah matriks
+    public Matrix adj(Matrix mInput){
+        Matrix mTemp = new Matrix(mInput.getRowLength(), mInput.getColLength());
+        for(int i =0 ; i < mInput.getRowLength(); i++){
+            for(int j=0; j <mInput.getColLength(); j++){
+                double temp = Math.pow(-1, i+j) * detKof(kofaktor(mInput,i,j));
+                mTemp.setElmt(i,j,temp);
+            }
+        }
+        return mTemp.transpose();
+    }
+    // Mencari nilai matriks inverse dari sebuah matriks
+    public Matrix inverse(Matrix m){
+        double determinan = detKof(m);
+        Matrix adj = adj(m);
+        System.out.println(determinan);
+        adj.multiplyByConst(adj, (1/determinan));
+        return adj;
+    }
     // Membuat matriks baru dengan membuang baris terakhir dalam matriks
     public Matrix delLastRow (Matrix m){
         Matrix mTemp = new Matrix(m.getRowLength() - 1, m.getColLength());
@@ -125,6 +168,7 @@ public class MatrixOps {
         return mTemp;
     }
 
+    
 
     public void cramer(Matrix mIn){
         

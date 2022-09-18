@@ -136,6 +136,14 @@ public class Matrix{
         }
     }
 
+    public void multiplyByConst(Matrix m, double p){
+        for(int i = 0; i<m.getRowLength();i++){
+            for(int j =0; j<m.getColLength();j++){
+                m.setElmt(i, j, m.getElmt(i, j)*p);
+            }
+        }
+    }
+
     // Mengecek apakah suatu matriks itu persegi
     public boolean isSquare(){
         return rowLength == colLength;
@@ -149,7 +157,7 @@ public class Matrix{
         mOut = new Matrix(colsT,rowsT);
         for(int i = 0; i < colsT; i++){
             for(int j = 0;j <rowsT; j++){
-                mOut.setElmt(i, j, getElmt(j, i));
+                mOut.setElmt(i, j, this.getElmt(j, i));
             }
         }
         return mOut;

@@ -1,19 +1,20 @@
 import ADTMatrix.*;
 
-
 public class driver {
 
     static MatrixOps mOps = new MatrixOps();
     public static void main(String[] args){
         // cek Matriks Constructor
-        Matrix m1 = new Matrix(3,4);
-        m1.setElmt(0,0,3); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 1);m1.setElmt(0, 3, 7);
-        m1.setElmt(1,0,6); m1.setElmt(1, 1, 5); m1.setElmt(1, 2, 6);m1.setElmt(1, 3, 6);
-        m1.setElmt(2,0,7); m1.setElmt(2, 1, 8); m1.setElmt(2, 2, 9);m1.setElmt(2, 3, 8);
+        Matrix m1 = new Matrix(3,3);
+        m1.setElmt(0,0,1); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 3);
+        m1.setElmt(1,0,2); m1.setElmt(1, 1, 8); m1.setElmt(1, 2, 7);
+        m1.setElmt(2,0,1); m1.setElmt(2, 1, 5); m1.setElmt(2, 2, 6);
         // m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2);m1.setElmt(3, 3, 6);
-        System.out.println(m1.getRowIdx());
-        System.out.println(m1.getColIdx());
-
+        // System.out.println(m1.getRowIdx());
+        // System.out.println(m1.getColIdx());
+        Matrix m2 = new Matrix(2,2);
+        m2.setElmt(0, 0, 2);m2.setElmt(0, 1, 3);
+        m2.setElmt(1, 0, 4);m2.setElmt(1,1, 10);
         // // Cek display matriks
         // System.out.println("Nilai awal matriks");
         // m1.printMatrix();
@@ -44,7 +45,7 @@ public class driver {
 
         //System.out.println(mOps.detObe(m1));
         
-        mOps.cramer(m1);
+        // mOps.cramer(m1);
 
         // Matrix m2;
         // m2 = mOps.delLastRow(m1);
@@ -54,5 +55,13 @@ public class driver {
         // System.out.println("Matriks yang sudah ditranspose");
         // Matrix temp1 = m1.transpose();
         // temp1.printMatrix();
+        
+        // Cek determinan
+        // m1.printMatrix();
+        // System.out.println(mOps.detKof(m1));
+        // System.out.println(mOps.detObe(m1));
+        Matrix mtemp =mOps.inverse(m1);
+        mtemp.printMatrix();
+        // System.out.print(mOps.inverse(m1));
     }
 }
