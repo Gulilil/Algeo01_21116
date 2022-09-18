@@ -5,11 +5,31 @@ public class driver {
     static MatrixOps mOps = new MatrixOps();
     public static void main(String[] args){
         // cek Matriks Constructor
-        Matrix m1 = new Matrix(3,3);
-        m1.setElmt(0,0,1); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 3);
-        m1.setElmt(1,0,2); m1.setElmt(1, 1, 8); m1.setElmt(1, 2, 7);
+        Matrix m1 = new Matrix(4,3);
+        m1.setElmt(0,0,1); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 3); //m1.setElmt(0,3,1);
+        m1.setElmt(1,0,2); m1.setElmt(1, 1, 8); m1.setElmt(1, 2, 7); //m1.setElmt(1, 3, 7);
         m1.setElmt(2,0,1); m1.setElmt(2, 1, 5); m1.setElmt(2, 2, 6);
-        // m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2);m1.setElmt(3, 3, 6);
+        m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2); //m1.setElmt(3, 3, 6);
+
+        Matrix m3 = new Matrix(4,3);
+        m3.setElmt(0,0,3); m3.setElmt(0, 1, 4); m3.setElmt(0, 2, 5);
+        m3.setElmt(1,0,5); m3.setElmt(1, 1, 8); m3.setElmt(1, 2, 4);
+        m3.setElmt(2,0,6); m3.setElmt(2, 1, 6); m3.setElmt(2, 2, 9);
+        m3.setElmt(3,0,9); m3.setElmt(3, 1, 7); m3.setElmt(3, 2, 9);
+
+
+        // Test perkalian, penambahan, dan pengurangan
+        m1.printMatrix();
+        System.out.println("==========================");
+        m3.printMatrix();
+
+        Matrix mNew;
+        mNew = mOps.substractMatrix(m1, m3);
+        System.out.println("==========================");
+        mNew.printMatrix();
+        
+
+
         // System.out.println(m1.getRowIdx());
         // System.out.println(m1.getColIdx());
         Matrix m2 = new Matrix(2,2);
@@ -60,8 +80,8 @@ public class driver {
         // m1.printMatrix();
         // System.out.println(mOps.detKof(m1));
         // System.out.println(mOps.detObe(m1));
-        Matrix mtemp =mOps.inverse(m1);
-        mtemp.printMatrix();
+        // Matrix mtemp =mOps.inverse(m1);
+        // mtemp.printMatrix();
         // System.out.print(mOps.inverse(m1));
     }
 }

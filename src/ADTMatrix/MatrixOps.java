@@ -2,6 +2,9 @@ package ADTMatrix;
 
 public class MatrixOps {
 
+    // ============================== OPERASI MATRIKS ============================== 
+
+    //FUNCTION
     // Menyalin matriks pada suatu matriks lain
     public Matrix copyMatrix (Matrix m){
         Matrix mOut = new Matrix(m.getRowLength(), m.getColLength());
@@ -13,6 +16,7 @@ public class MatrixOps {
         return mOut;
     }
 
+    // FUNCTION
     // Mencari determinan dari sebuah matriks dengan Kofaktor
     public double detKof(Matrix m){
         double det = 0;
@@ -54,6 +58,7 @@ public class MatrixOps {
         }
     }
 
+    // FUNCTION
     // Mencari determinan dengan cara OBE dan Kofaktor
     public double detObe (Matrix m){
         double det;
@@ -114,6 +119,7 @@ public class MatrixOps {
 
     }
     
+    //FUNCTION
     // Mencari matriks kofaktor dari sebuah matriks 
     public Matrix kofaktor(Matrix mIn, int row, int col){
         // Menerima input berupa matriks serta baris dan kolom yang tidak ingin dimasukkan 
@@ -138,6 +144,7 @@ public class MatrixOps {
         return mTemp;
     }
 
+    //FUNCTION
     // Membentuk matriks adjoin dari sebuah matriks
     public Matrix adj(Matrix mInput){
         Matrix mTemp = new Matrix(mInput.getRowLength(), mInput.getColLength());
@@ -149,6 +156,8 @@ public class MatrixOps {
         }
         return mTemp.transpose();
     }
+
+    // FUNCTION
     // Mencari nilai matriks inverse dari sebuah matriks
     public Matrix inverse(Matrix m){
         double determinan = detKof(m);
@@ -157,6 +166,8 @@ public class MatrixOps {
         adj.multiplyByConst(adj, (1/determinan));
         return adj;
     }
+    
+    // FUNCTION
     // Membuat matriks baru dengan membuang baris terakhir dalam matriks
     public Matrix delLastRow (Matrix m){
         Matrix mTemp = new Matrix(m.getRowLength() - 1, m.getColLength());
@@ -168,10 +179,60 @@ public class MatrixOps {
         return mTemp;
     }
 
-    
+    // FUNCTION
+    // Mengembalikan matriks baru yang merupakan perkalian dua matriks
+    public Matrix addMatrix (Matrix m1, Matrix m2){
+        // Hanya dilakukan bila panjang dan lebar matriksnya sama
+        Matrix mResult = new Matrix(m1.getRowLength(), m2.getColLength());
+        // Jika ukuran matriks tidak sama maka mengembalikan matriks kosong (berisikan NaN)
+        if ((m1.getRowLength() == m2.getRowLength()) && (m1.getColLength() == m2.getColLength())){
+            for (int i = 0; i < m1.getRowLength(); i++){
+                for (int j = 0; j < m2.getColLength(); j++){
+                    mResult.setElmt(i, j, (m1.getElmt(i, j) + m2.getElmt(i, j)));
+                }
+            }
+        }
+        return mResult;
+    }
 
-    public void cramer(Matrix mIn){
-        
+    // FUNCTION
+    // Mengembalikan matriks baru yang merupakan perkalian dua matriks
+    public Matrix substractMatrix (Matrix m1, Matrix m2){
+        // Hanya dilakukan bila panjang dan lebar matriksnya sama
+        Matrix mResult = new Matrix(m1.getRowLength(), m2.getColLength());
+        // Jika ukuran matriks tidak sama maka mengembalikan matriks kosong (berisikan NaN)
+        if ((m1.getRowLength() == m2.getRowLength()) && (m1.getColLength() == m2.getColLength())){
+            for (int i = 0; i < m1.getRowLength(); i++){
+                for (int j = 0; j < m2.getColLength(); j++){
+                    mResult.setElmt(i, j, (m1.getElmt(i, j) - m2.getElmt(i, j)));
+                }
+            }
+        }
+        return mResult;
+    }
+
+    // FUNCTION
+    // Mengembalikan matriks baru yang merupakan perkalian dua matriks
+    public Matrix multiplyMatrix (Matrix m1, Matrix m2){
+        Matrix mResult = new Matrix(m1.getRowLength(), m2.getColLength());
+        double sum;
+
+        for (int i = 0; i < m1.getRowLength(); i++){
+            for (int j = 0; j < m2.getColLength(); j++){
+                sum = 0;
+                for (int k = 0; k < m1.getColLength(); k++){
+                    sum = sum + (m1.getElmt(i,k) * m2.getElmt(k ,j));
+                }
+                mResult.setElmt(i, j, sum);
+            }
+        }
+        return mResult;
+    }
+
+    // ============================== PENYELESAIAN SPL ============================== 
+    // PROCEDURE
+    // Menyelesaikan permasalahan SPL menggunakan metode Cramer
+    public void splCramer(Matrix mIn){
         // Inisiasi matriks original
         Matrix mOriginal = new Matrix(mIn.getRowLength(), mIn.getColLength()-1);
         for (int i = 0; i < mIn.getRowLength(); i++){
