@@ -107,9 +107,9 @@ public class Matrix{
             System.out.print("[");
             for (int j = 0; j < getColLength(); j++){
                 if ( j == getColLength()-1) {
-                    System.out.print(getElmt(i, j));
+                    System.out.printf("%.2f", getElmt(i, j));
                 } else {
-                    System.out.print(getElmt(i, j));
+                    System.out.printf("%.2f", getElmt(i, j));
                     System.out.print(",");
                 }
             }
@@ -229,5 +229,6 @@ public class Matrix{
         }
         return true;
     }
+
 
 }
