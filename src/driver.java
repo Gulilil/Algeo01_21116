@@ -3,6 +3,7 @@ import ADTMatrix.*;
 public class driver {
 
     static MatrixOps mOps = new MatrixOps();
+    static InputOutput io = new InputOutput();
     public static void main(String[] args){
         // cek Matriks Constructor
         Matrix m1 = new Matrix(3,4);
@@ -20,6 +21,7 @@ public class driver {
         m3.setElmt(1,0,5); m3.setElmt(1, 1, 8); m3.setElmt(1, 2, 4);
         m3.setElmt(2,0,6); m3.setElmt(2, 1, 6); m3.setElmt(2, 2, 9);
 
+        Matrix m4;
         // Matrix m4 = new Matrix (3, 1);
         // m4.setElmt(0,0,5);
         // m4.setElmt(1,0,7);
@@ -44,7 +46,8 @@ public class driver {
         // m4.printMatrix();
 
         
-
+        m4 = io.readMatrix();
+        io.printMatrix(m4);
         
 
         
@@ -120,6 +123,6 @@ public class driver {
         // CEK CRAMER
         // mOps.splCramer(m1);
         // CEK INVERSE
-        mOps.splInverse(m1);
+        // mOps.splInverse(m1);
     }
 }

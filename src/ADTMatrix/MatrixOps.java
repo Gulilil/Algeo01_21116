@@ -2,6 +2,7 @@ package ADTMatrix;
 
 public class MatrixOps {
 
+    static InputOutput io = new InputOutput();
     // ============================== OPERASI MATRIKS ============================== 
 
     //FUNCTION
@@ -371,11 +372,11 @@ public class MatrixOps {
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
         System.out.println("Bentuk Awal Matriks: ");
-        mOriginal.printMatrix();
+        io.printMatrix(mOriginal);
         System.out.println("\n");
 
         System.out.println("Bentuk Matriks Konstanta: ");
-        mConstant.printMatrix();
+        io.printMatrix(mConstant);
         System.out.println("\n");
 
         if (jordan){
@@ -384,11 +385,11 @@ public class MatrixOps {
             lowerTriangleMatrix(mOriginal, mConstant);
             upperTriangleMatrix(mOriginal, mConstant);
             System.out.println("Bentuk Akhir Matriks Segitiga: ");
-            mOriginal.printMatrix();
+            io.printMatrix(mOriginal);
             System.out.println("\n");
 
             System.out.println("Bentuk Akhir Matriks Konstanta: ");
-            mConstant.printMatrix();
+            io.printMatrix(mConstant);
             System.out.println("\n");
 
             for (int i = 0; i < mConstant.getRowLength(); i++){
@@ -399,11 +400,11 @@ public class MatrixOps {
             System.out.println("================== PENYELESAIAN SPL METODE GAUSS ==================");
             lowerTriangleMatrix(mOriginal, mConstant);
             System.out.println("Bentuk Akhir Matriks Segitiga: ");
-            mOriginal.printMatrix();
+            io.printMatrix(mOriginal);
             System.out.println("\n");
 
             System.out.println("Bentuk Akhir Matriks Konstanta: ");
-            mConstant.printMatrix();
+            io.printMatrix(mConstant);
             System.out.println("\n");
 
             upperTriangleMatrix(mOriginal, mConstant);
@@ -428,23 +429,23 @@ public class MatrixOps {
         
 
         System.out.println("Bentuk Awal Matriks: ");
-        mOriginal.printMatrix();
+        io.printMatrix(mOriginal);
         System.out.println("\n");
         
         System.out.println("Bentuk Matriks Konstanta: ");
-        mConstant.printMatrix();
+        io.printMatrix(mConstant);
         System.out.println("\n");
 
         System.out.println("================== PENYELESAIAN SPL METODE INVERSE ==================");
         Matrix mInverse = inverse(mOriginal);
         System.out.println("Bentuk Matriks Inverse: ");
-        mInverse.printMatrix();
+        io.printMatrix(mInverse);
         System.out.println("\n");
 
         Matrix mResult;
         mResult = multiplyMatrix(mInverse, mConstant);
         System.out.println("Bentuk Matriks Akhir: ");
-        mResult.printMatrix();
+        io.printMatrix(mResult);
         System.out.println("\n");
 
         for (int i =0; i < mResult.getRowLength(); i++){
@@ -463,11 +464,11 @@ public class MatrixOps {
         Matrix mConstant = mIn.getMResult(mIn);
 
         System.out.println("Bentuk Awal Matriks: ");
-        mOriginal.printMatrix();
+        io.printMatrix(mOriginal);
         System.out.println("\n");
         
         System.out.println("Bentuk Matriks Konstanta: ");
-        mConstant.printMatrix();
+        io.printMatrix(mConstant);
         System.out.println("\n");
 
         System.out.println("================== PENYELESAIAN SPL METODE CRAMER ==================");
@@ -486,9 +487,9 @@ public class MatrixOps {
                 mNew = mNew.transpose();
 
                 System.out.println("Bentuk Matriks: ");
-                mNew.printMatrix();
+                io.printMatrix(mNew);
                 System.out.println("===============");
-                mOriginal.printMatrix();
+                io.printMatrix(mOriginal);
                 System.out.println("Solusi : ");
                 System.out.println("X" + (i+1) + " = " + detKof(mNew) / det);
                 System.out.println("\n");

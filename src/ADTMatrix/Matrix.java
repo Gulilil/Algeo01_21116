@@ -1,5 +1,6 @@
 package ADTMatrix;
 import java.util.*;
+import java.io.FileReader;
 
 public class Matrix{
     final double MARK = Double.NaN;
@@ -110,25 +111,6 @@ public class Matrix{
         matrix[row][col] = val;
     }
 
-    // ========================== BACA TULIS ==========================
-
-    // PROCEDURE
-    // Melakukan print matriks
-    public void printMatrix(){
-        for (int i = 0; i < getRowLength(); i++){
-            System.out.print("[");
-            for (int j = 0; j < getColLength(); j++){
-                if ( j == getColLength()-1) {
-                    System.out.printf("%.2f", getElmt(i, j));
-                } else {
-                    System.out.printf("%.2f", getElmt(i, j));
-                    System.out.print(",");
-                }
-            }
-            System.out.println("]");
-        }
-    }
-
     // ========================== PREDIKAT ==========================
 
     // FUNCTION
@@ -221,6 +203,8 @@ public class Matrix{
         return mResult;
     }
 
+    // FUNCTION
+    // Mencari nilai matriks konstanta, dari matriks augmented
     public Matrix getMResult(Matrix m){
         Matrix mResult = new Matrix(m.getRowLength(),1);
         for(int i = 0; i<m.getRowLength();i++){

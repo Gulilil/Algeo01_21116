@@ -2,12 +2,16 @@ import ADTMatrix.*;
 import java.util.Scanner;
 
 public class Main {
+
+    static MatrixOps mOps = new MatrixOps();
+    static InputOutput io = new InputOutput();
     public static void main(String[] args) {
         // program adalah variabel yang menunjukkan bahwa program masih berjalan 
         // program bernilai true apabila Program masih dijalankan. Di sisi lain, bernilai false bila Program telah selesai dijalankan
         boolean program = true;
         boolean subprogram1 = false;
         Scanner scanObj = new Scanner(System.in);
+        
         int userNumber;         // untuk input pada main menu
         int userSubNumber;      // untuk input pada sub main menu
         while (program) {
@@ -58,25 +62,49 @@ public class Main {
                         } else {
 
                             // User memilih fitur pertama
-                            // if ( userSubNumber == 1){
+                            if ( userSubNumber == 1){
+                                Matrix m;
+                                m = io.readMatrix();
 
-                            // }
+                                mOps.splGaussJordan(m, false);
+                                
+                                subprogram1 = false;
+                                
+                            }
 
                             
                             // User memilih fitur kedua
-                            // if ( userSubNumber == 2){
+                            if ( userSubNumber == 2){
+                                Matrix m;
+                                m = io.readMatrix();
 
-                            // }
+                                mOps.splGaussJordan(m, true);
+                                
+                                subprogram1 = false;
+                                
+                            }
 
                             // User memilih fitur ketiga
-                            // if ( userSubNumber == 3){
+                            if ( userSubNumber == 3){
+                                Matrix m;
+                                m = io.readMatrix();
 
-                            // }
+                                mOps.splInverse(m);
+                                
+                                subprogram1 = false;
+                                
+                            }
 
                             // User memilih fitur keempat
-                            // if ( userSubNumber == 4){
+                            if ( userSubNumber == 4){
+                                Matrix m;
+                                m = io.readMatrix();
 
-                            // }
+                                mOps.splCramer(m);
+                                
+                                subprogram1 = false;
+                                
+                            }
 
                             // User memilih fitur kelima
                             if (userSubNumber == 5) {

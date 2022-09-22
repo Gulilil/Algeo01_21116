@@ -49,5 +49,7 @@ Aljabar Linier dan Geometri </center> </h1>
 <h2> <b> Keterangan Folder </b> </h2>
 <p> <b> Folder 'src' </b> </p>
 <p> Berisikan file-file yang mengandung program utama dari pemenuhan Tugas Besar ini. File yang dimaksud termasuk file main dan file yang berisi prosedur dan fungsi penunjang </p>
-<p> <b> Folder 'testCase' </b> </p>
+<ul> <li> <p> <b> Folder 'testCase' </b> </p> </li> </ul>
 <p> Berisikan  file input dari user dan file output yang dikeluarkan dari program untuk menjawab input user </p>
+<ul> <li> <p> <b> Folder 'ADTMatrix' </b> </p> </li> </ul>
+<p> Berisikan file yang mengandung algoritma pengolahan matriks </p>
