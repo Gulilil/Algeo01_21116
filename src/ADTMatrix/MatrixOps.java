@@ -363,7 +363,7 @@ public class MatrixOps {
 
     // PROCEDURE
     // Menyelesaikan permasalahan SPL menggunakan metode Gauss
-    public void splGaussJordan (Matrix mIn, boolean jordan){
+    public Matrix splGaussJordan (Matrix mIn, boolean jordan){
         // Jika jordan true, maka yang dihasilkan adalah metode Gauss-Jordan
         // Jika jordan false, maka yang dihasilkan adalah metode Gauss
 
@@ -412,11 +412,13 @@ public class MatrixOps {
                 System.out.println("X"+(i+1)+" = "+ mConstant.getElmt(i,0));
             }
         }
+        displaySolution(mConstant);
+        return mConstant;
     }
 
     // PROCEDURE
     // Menyelesaikan permasalahan SPL menggunakan metode Inverse
-    public void splInverse(Matrix mIn){
+    public Matrix splInverse(Matrix mIn){
 
         // Inisiasi matriks original
         Matrix mOriginal = mIn.getMOriginal(mIn);
@@ -447,10 +449,8 @@ public class MatrixOps {
         System.out.println("Bentuk Matriks Akhir: ");
         io.printMatrix(mResult);
         System.out.println("\n");
-
-        for (int i =0; i < mResult.getRowLength(); i++){
-            System.out.println("X"+ (i+1) +" = " + mResult.getElmt(i, 0));
-        }
+        displaySolution(mResult);
+        return mResult;
     }
 
     // PROCEDURE
@@ -496,5 +496,9 @@ public class MatrixOps {
             }
         }
     }
-
+    public void displaySolution(Matrix mSolution){
+        for (int i =0; i<mSolution.getRowLength();i++){
+            System.out.println("X"+ (i+1) +" = " + mSolution.getElmt(i, 0));
+        }
+    }
 }

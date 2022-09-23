@@ -4,6 +4,7 @@ public class driver {
 
     static MatrixOps mOps = new MatrixOps();
     static InputOutput io = new InputOutput();
+    static Interpolasi interpolasi = new Interpolasi();
     public static void main(String[] args){
         // cek Matriks Constructor
         Matrix m1 = new Matrix(3,4);
@@ -46,12 +47,9 @@ public class driver {
         // m4.printMatrix();
 
         
-        m4 = io.readMatrix();
-        io.printMatrix(m4);
-        
-
-        
-
+        // m4 = io.readMatrix();
+        // io.printMatrix(m4);
+        interpolasi.bacaInterpolasi();
         // Test perkalian, penambahan, dan pengurangan
         // m1.printMatrix();
         // System.out.println("==========================");
@@ -120,9 +118,10 @@ public class driver {
         // CEK GAUSS
         // mOps.splGaussJordan(m1, true);
         // mOps.splGaussJordan(m1, false);
-        // CEK CRAMER
+        // // CEK CRAMER
         // mOps.splCramer(m1);
-        // CEK INVERSE
+        // // CEK INVERSE
         // mOps.splInverse(m1);
+        
     }
 }
