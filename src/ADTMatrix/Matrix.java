@@ -1,6 +1,5 @@
 package ADTMatrix;
 import java.util.*;
-import java.io.FileReader;
 
 public class Matrix{
     final double MARK = Double.NaN;
@@ -120,7 +119,7 @@ public class Matrix{
     }
     
     //FUNCTION
-    // Mengecek apakah suatu baris itu nol
+    // Mengecek apakah semua elemen pada suatu baris itu nol
     public boolean isZeroRow(int row){
         for(int cols = 0; cols < colLength; cols++){
             if (matrix[row][cols] != 0){
@@ -131,7 +130,7 @@ public class Matrix{
     }
 
     //FUNCTION
-    // Mengecek apa suatu kolom itu nol
+    // Mengecek apakah semua elemen pada suatu kolom itu nol
     public boolean isZeroCol(int col){
         for(int rows = 0; rows < rowLength; rows++){
             if (matrix[rows][col] != 0){

@@ -231,9 +231,23 @@ public class MatrixOps {
     }
 
     // FUNCTION
-    // Melakukan pengecekan jenis solusi apa yang dikandung, setelah dilakukan analisis OBE
-    public Matrix checkSolution(Matrix m, Matrix mConst){
-        
+    // Melakukan pengecekan apakah solusi yang dihasilkan adalah tunggal dan unik
+    public boolean checkUniqueSolution(Matrix m){
+        int i;
+
+        //cek dulu apakah row yang kosong pada matriks m
+        // jika ada row yang bernilai 0 semua, maka solusi pasti bukanlah unik
+        for (i = 0; i < m.getRowLength(); i++ ){
+            if (m.isZeroRow(i)){
+                return false;
+            }
+        }
+        // jika tidak ada row kosong, lalu cek apakah matriks bersifat persegi atau bukan 
+        if (!m.isSquare()){
+            return false;
+        }
+        // bila tidak ada row kosong dan matriks berbentuk persegi, maka solusi yang dimiliki adalah tunggal dan unik
+        return true;
     }
 
     // PROCEDURE
@@ -249,18 +263,33 @@ public class MatrixOps {
         double newVal;
         double pembuatSatu;
         boolean program = true;
+        boolean allZeroBelow = false;
         int count;
 
-        io.printMatrix(m);
-        System.out.println("================");
-        io.printMatrix(mConst);
-        System.out.println("================");
 
         // Variabel program menunjukkan bahwa pembuatan segitiga masih dilakukan
         while (program == true){
 
-            // Bila program telah mencapai batas baris terakhir dalam matriks
-            if (row == m.getRowIdx() ){
+            // Mengecek jika terdapat baris yang bernilai 0 semua
+            // hanya dicek apabila program tidak berada di baris paling bawah
+            if (row < m.getRowIdx() && m.isZeroRow(row+1)){
+                allZeroBelow = true;
+                // jika baris dibawahnya adalah 0 semua, cek terlebih dahulu apakah setiap baris dibawahnya bernilai 0 semua
+                for (i = row +1 ; i < m.getRowLength(); i++){
+                    if (!m.isZeroRow(i)){
+                        // jika ada satu saja yang tidak bernilai 0 semua, maka allZeroBelow bernilai false
+                        allZeroBelow = false;
+                    }
+                }
+            }
+            if (allZeroBelow){
+                // jika benar setiap baris dibawahnya adalah baris yang mengandung 0 semua
+                // maka program akan diberhentikan
+                program = false;
+            }
+
+            // Bila program telah mencapai batas baris terakhir dalam matriks 
+            else if (row == m.getRowIdx() || (m.isZeroRow(row+1))){
                 if (col == m.getColIdx()){
                     // program berada pada elemen pojok kanan bawah (baris dan kolom terakhir)
                     if (m.getElmt(row, col) != 1 && m.getElmt(row,col) != 0){
@@ -335,7 +364,8 @@ public class MatrixOps {
             } else { 
                 // Program masih dilakukan karena row dan col belum mencapai index terakhir
                 // Cek dulu apakah element awal bernilai 0
-                while (m.getElmt(row, col) == 0){
+                while (m.getElmt(row, col) == 0 ){
+                    // keluar while apabila semua baris dibawahnya bernilai 0, hingga baris dan kolom terakhir
                     count = 0;
                     // cek elemen dibawahnya apakah bernilai 0 juga
                     // di cek elemen dari suatu row hingga row kedua dari bawah
@@ -394,13 +424,9 @@ public class MatrixOps {
                 col++;
 
                 
-
             }
-            io.printMatrix(m);
-            System.out.println("================");
-            io.printMatrix(mConst);
-            System.out.println("================");
-
+            //io.printMatrix(m);
+            //io.printMatrix(mConst);
         }
     }
 
@@ -408,9 +434,6 @@ public class MatrixOps {
     // Mengembalikan matriks segitiga bawah dari suatu matriks menggunakan OBE 
     // Prosedur ini adalah LANJUTAN dari lowerTriangleMatrix (JANGAN DIPAKAI TERPISAH!!)
     public void lowerTriangleMatrix(Matrix m, Matrix mConst){
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         int i;
         int j;
         int row = 1;
@@ -421,7 +444,10 @@ public class MatrixOps {
 
         while (program) {
             // Bila program telah menlampaui index terakhir (artinya baris paling bawah dan kolom paling kanan pun telah diubah), maka program dihentikan
-            if (row == m.getRowLength() || col == m.getColLength()){
+            //io.printMatrix(m);
+            //io.printMatrix(mConst);
+
+            if (row == m.getRowLength() || col == m.getColLength() || m.isZeroRow(row)){
                 program = false;
             } else {
                 // Jika element pada baris ke row dan kolom ke col bukanlah 1 (leading 1)
@@ -432,7 +458,6 @@ public class MatrixOps {
                 }
 
                 for (i = row-1; i >= 0 ; i--){
-                    System.out.println(row+" "+ col);
                     // Membuat 0 semua baris lain pada kolom awal
                     // Jika sudah 0, baris tersebut tidak perlu dilakukan apapun
                     if (m.getElmt(row, col) != 0){
@@ -451,10 +476,6 @@ public class MatrixOps {
                 row++;
                 col++;
             }   
-            io.printMatrix(m);
-            System.out.println("================");
-            io.printMatrix(mConst);
-            System.out.println("================");
         }
     }
 
@@ -471,7 +492,11 @@ public class MatrixOps {
 
     // PROCEDURE
     // Menyelesaikan permasalahan SPL menggunakan metode Gauss
+    
     public Matrix splGaussJordan (Matrix mIn, boolean jordan){
+        int i;
+        int j;
+        boolean solution = true;
         // Jika jordan true, maka yang dihasilkan adalah metode Gauss-Jordan
         // Jika jordan false, maka yang dihasilkan adalah metode Gauss
 
@@ -479,6 +504,8 @@ public class MatrixOps {
         Matrix mOriginal = mIn.getMOriginal(mIn);
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
+        // Inisiasi matriks result sebesar mConstant
+        Matrix mResult = new Matrix (mConstant.getRowLength(), mConstant.getColLength());
 
         /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
         System.out.println("Bentuk Awal Matriks: ");
@@ -495,6 +522,74 @@ public class MatrixOps {
             // User menginginkan metode Gauss Jordan
             upperTriangleMatrix(mOriginal, mConstant);
             lowerTriangleMatrix(mOriginal, mConstant);
+
+            // io.printMatrix(mOriginal);
+            // io.printMatrix(mConstant);
+
+            if (checkUniqueSolution(mOriginal)){
+                // Jika solusi
+                displaySolution(mConstant);
+                return mConstant;
+            } else {
+                // cek apakah matrix tersebut ada solusinya
+                for (i=0; i < mOriginal.getRowLength(); i++){
+                    if (mOriginal.isZeroRow(i)) {
+                        // bila terdapat row yang bernilai 0 semua pada mOriginal
+                        // cek terlebih dahulu apakah elemen pada mConstant juga bernilai 0
+                        if (mConstant.getElmt(i, 0) == 0){
+                            solution = true;
+                        } else {
+                            // semua kolom pada mOriginal bernilai 0 tapi pada mConstant bernilai tidak 0
+                            solution = false;
+                        }
+                    }
+                }
+                if (solution == false){
+                    // Tidak ada solusi 
+                    System.out.println("Tidak ada solusi yang dapat dihasilkan!");
+                    return mResult;
+                } else {
+                    int rowIdx = 0;
+                    // Ada solusi tapi solusi parametrik
+                    for (i = 0; i < mOriginal.getColLength(); i++){
+                        // melakukan print dalam bentuk solusi parametrik
+                        if (rowIdx > mOriginal.getRowIdx() ){
+                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                        }
+                        else if(mOriginal.isZeroRow(rowIdx)){
+                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                        }
+                        else if (mOriginal.isZeroCol(i)){
+                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                        }
+                        else if (!mOriginal.isZeroCol(i)){
+                            // hanya dituliskan untuk matriks yang barisnya tidak bernilai 0 semua
+                            System.out.print("X"+(i+1)+" =");
+                            
+                            System.out.print(" "+mConstant.getElmt(rowIdx, 0));
+
+                            for (j = i; j < mOriginal.getColLength(); j++){
+                                if ((mOriginal.getElmt(rowIdx, j)) != 0 && (j != i)){
+                                    // hanya dituliskan untuk elemen yang tidak bernilai 0
+                                    // jika i == j tidak ditulis
+                                    if (mOriginal.getElmt(rowIdx, j) < 0){
+                                        // elemen pada baris rowIdx, kolom j kurang dari 0
+                                        System.out.print(" + "+(-1*mOriginal.getElmt(rowIdx, j))+"a"+(j+1));
+                                    } else {
+                                        // elemen pada baris rowIdx, kolom j lebih besar dari 0
+                                        System.out.print(" - "+(mOriginal.getElmt(rowIdx, j))+"a"+(j+1));
+                                    }
+
+                                }
+                            }
+                            System.out.print("\n");
+                            rowIdx++;
+                        }
+                    }
+                    return mResult;
+                }
+
+            }
 
             /*  Hanya dinyalakan apabila ingin melihat keadaan matriks 
             System.out.println("Bentuk Akhir Matriks Segitiga: ");
@@ -521,11 +616,77 @@ public class MatrixOps {
             System.out.println("\n");
             */
 
-            lowerTriangleMatrix(mOriginal, mConstant);
+            if (checkUniqueSolution(mOriginal)){
+                // Jika ada solusi
+                lowerTriangleMatrix(mOriginal, mConstant);
+                displaySolution(mConstant);
+                return mConstant;
+            } else {
+                // cek apakah matrix tersebut ada solusinya
+                for (i=0; i < mOriginal.getRowLength(); i++){
+                    if (mOriginal.isZeroRow(i)) {
+                        // bila terdapat row yang bernilai 0 semua pada mOriginal
+                        // cek terlebih dahulu apakah elemen pada mConstant juga bernilai 0
+                        if (mConstant.getElmt(i, 0) == 0){
+                            solution = true;
+                        } else {
+                            // semua kolom pada mOriginal bernilai 0 tapi pada mConstant bernilai tidak 0
+                            solution = false;
+                        }
+                    }
+                }
+                if (solution == false){
+                    // Tidak ada solusi 
+                    System.out.println("Tidak ada solusi yang dapat dihasilkan!");
+                    return mResult;
+                } else {
+                    int rowIdx = 0;
+                    // Ada solusi tapi solusi parametrik
+                    for (i = 0; i < mOriginal.getColLength(); i++){
+                        // melakukan print dalam bentuk solusi parametrik
+                        if (rowIdx > mOriginal.getRowIdx() ){
+                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                        }
+                        else if(mOriginal.isZeroRow(rowIdx)){
+                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                        }
+                        else if (mOriginal.isZeroCol(i)){
+                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                        }
+
+                        else if (!mOriginal.isZeroCol(i)){
+                            // hanya dituliskan untuk matriks yang barisnya tidak bernilai 0 semua
+                            System.out.print("X"+(i+1)+" =");
+                            
+                            System.out.print(" "+mConstant.getElmt(rowIdx, 0));
+
+                            for (j = i; j < mOriginal.getColLength(); j++){
+                                if ((mOriginal.getElmt(rowIdx, j)) != 0 && (j != i)){
+                                    // hanya dituliskan untuk elemen yang tidak bernilai 0
+                                    // jika i == j tidak ditulis
+                                    if (mOriginal.getElmt(rowIdx, j) < 0){
+                                        // elemen pada baris rowIdx, kolom j kurang dari 0
+                                        System.out.print(" + "+(-1*mOriginal.getElmt(rowIdx, j))+"a"+(j+1));
+                                    } else {
+                                        // elemen pada baris rowIdx, kolom j lebih besar dari 0
+                                        System.out.print(" - "+(mOriginal.getElmt(rowIdx, j))+"a"+(j+1));
+                                    }
+
+                                }
+                            }
+                            System.out.print("\n");
+                            rowIdx++;
+                        }
+                    }
+                    return mResult;
+                }
+
+            }
+
         }
-        displaySolution(mConstant);
-        return mConstant;
+
     }
+    
 
     // PROCEDURE
     // Menyelesaikan permasalahan SPL menggunakan metode Inverse
