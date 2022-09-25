@@ -22,7 +22,23 @@ public class driver {
         m3.setElmt(1,0,5); m3.setElmt(1, 1, 8); m3.setElmt(1, 2, 4);
         m3.setElmt(2,0,6); m3.setElmt(2, 1, 6); m3.setElmt(2, 2, 9);
 
-        Matrix m4;
+        Matrix m4 = new Matrix (3, 7);
+        m4.setElmt(0,0,0); m4.setElmt(0, 1, 1); m4.setElmt(0, 2, 0); m4.setElmt(0, 3, 0); m4.setElmt(0, 4, 1); m4.setElmt(0, 5, 0); m4.setElmt(0, 6, 2);
+        m4.setElmt(1,0,0); m4.setElmt(1, 1, 0); m4.setElmt(1, 2, 0); m4.setElmt(1, 3, 1); m4.setElmt(1, 4, 1); m4.setElmt(1, 5, 0); m4.setElmt(1, 6, -1);
+        m4.setElmt(2,0,0); m4.setElmt(2, 1, 1); m4.setElmt(2, 2, 0); m4.setElmt(2, 3, 0); m4.setElmt(2, 4, 0); m4.setElmt(2, 5, 1); m4.setElmt(2, 6, 1);
+
+        Matrix m5;
+
+        
+        // Matrix m4 = new Matrix(6, 5);
+        // m4.setElmt(0,0,2); m4.setElmt(0, 1, 0); m4.setElmt(0, 2, 8); m4.setElmt(0, 3, 0); m4.setElmt(0, 4, 8); 
+        // m4.setElmt(1,0,0); m4.setElmt(1, 1, 1); m4.setElmt(1, 2, 0); m4.setElmt(1, 3, 4); m4.setElmt(1, 4, 6); 
+        // m4.setElmt(2,0,-4); m4.setElmt(2, 1, 0); m4.setElmt(2, 2, 6); m4.setElmt(2, 3, 0); m4.setElmt(2, 4, 6); 
+        // m4.setElmt(3,0,0); m4.setElmt(3, 1, -2); m4.setElmt(3, 2, 0); m4.setElmt(3, 3, 3); m4.setElmt(3, 4, -1); 
+        // m4.setElmt(4,0,2); m4.setElmt(4, 1, 0); m4.setElmt(4, 2, -4); m4.setElmt(4, 3, 0); m4.setElmt(4, 4, -4); 
+        // m4.setElmt(5,0,0); m4.setElmt(5, 1, 1); m4.setElmt(5, 2, 0); m4.setElmt(5, 3, -2); m4.setElmt(5, 4, 0); 
+        
+
         // Matrix m4 = new Matrix (3, 1);
         // m4.setElmt(0,0,5);
         // m4.setElmt(1,0,7);
@@ -49,7 +65,7 @@ public class driver {
         
         // m4 = io.readMatrix();
         // io.printMatrix(m4);
-        interpolasi.bacaInterpolasi();
+        //interpolasi.bacaInterpolasi();
         // Test perkalian, penambahan, dan pengurangan
         // m1.printMatrix();
         // System.out.println("==========================");
@@ -116,12 +132,15 @@ public class driver {
 
         // CEK SOAL SPL
         // CEK GAUSS
+        m5 = mOps.splGaussJordan(m4, true);
+        io.printMatrix(m5);
         // mOps.splGaussJordan(m1, true);
-        // mOps.splGaussJordan(m1, false);
+        
         // // CEK CRAMER
         // mOps.splCramer(m1);
         // // CEK INVERSE
-        // mOps.splInverse(m1);
+        //mOps.splInverse(m1);
+
         
     }
 }

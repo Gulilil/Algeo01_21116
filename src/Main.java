@@ -115,26 +115,47 @@ public class Main {
                 }
 
                 // User memilih fitur kedua
-                // if ( userNumber == 2){
+                // User ingin mencari determinan
+                if ( userNumber == 2){
+                    Matrix m;
+                    double determinan;
+                    
+                    m = io.readMatrix();
 
-                // }
+                    determinan = mOps.detKof(m);
+                    System.out.println("Determinan : "+determinan);
+
+
+                }
 
                 // User memilih fitur ketiga
-                // if ( userNumber == 3){
+                // User ingin mencari inverse matrix
+                if ( userNumber == 3){
+                    Matrix m;
+                    Matrix mInverse;
 
-                // }
+                    m = io.readMatrix();
+
+                    mInverse = mOps.inverse(m);
+
+                    io.printMatrix(mInverse);
+
+                }
 
                 // User memilih fitur keempat
+                // User ingin menggunakan fungsi interpolasi
                 // if ( userNumber == 4){
 
                 // }
 
                 // User memilih fitur kelima
+                // User ingin menggunakan fungsi interpolasi bicubic
                 // if ( userNumber == 5){
 
                 // }
 
                 // User memilih fitur keenam
+                // User ingin menggunakan fungsi regresi linear berganda
                 // if ( userNumber == 6){
 
                 // }

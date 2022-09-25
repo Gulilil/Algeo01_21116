@@ -19,16 +19,7 @@ Aljabar Linier dan Geometri </center> </h1>
 <li> Interpolasi Polinom 
 <li> Interpolasi Bicubic + Bonus
 <li> Regresi Linear Berganda
-<li> Fungsi dan Prosedur lainnya:
-    <ul>
-    <li> (Constants and Type Declarations)
-    <li> createMatrix,
-    <li> getRowEff, getCollEff, isMatrixIdxValid, isIdxEff,
-    <li> setRow, setCol, getElmt, setElmt, setEmptyMatrix,
-    <li> printMatrix, copyMatrix, swapCol, swapRow,
-    <li> multiplyRow, multiplyCol, transpose, calculateDeterminant, 
-    <li> isZeroRow, isZeroCol, makeIdentity,
-    </ul>
+<li> Fungsi dan Prosedur lainnya
 </ul>
 
 <p><b> List tugas pada Laporan </b></p>
@@ -50,6 +41,14 @@ Aljabar Linier dan Geometri </center> </h1>
 <p> <b> Folder 'src' </b> </p>
 <p> Berisikan file-file yang mengandung program utama dari pemenuhan Tugas Besar ini. File yang dimaksud termasuk file main dan file yang berisi prosedur dan fungsi penunjang </p>
 <ul> <li> <p> <b> Folder 'testCase' </b> </p> </li> </ul>
-<p> Berisikan  file input dari user dan file output yang dikeluarkan dari program untuk menjawab input user </p>
+<p> Berisikan folder input yang berisikan file input dari user dan folder output untuk menyimpan file output yang dikeluarkan program untuk menjawab input user </p>
 <ul> <li> <p> <b> Folder 'ADTMatrix' </b> </p> </li> </ul>
 <p> Berisikan file yang mengandung algoritma pengolahan matriks </p>
+
+<h2> <b> Keterangan File </b> </h2>
+<p> <b> File InputOutput.java </b> </p>
+<p> <b> File Matrix.java </b> </p>
+<p> <b> File MatrixOps.java </b> </p>
+<p> <b> File Main.java </b> </p>
+<p> <b> File driver.java </b> </p>
+<p> <b> File Interpolasi </b> </p>

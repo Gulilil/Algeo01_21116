@@ -1,5 +1,6 @@
 package ADTMatrix;
 
+
 public class MatrixOps {
 
     static InputOutput io = new InputOutput();
@@ -229,58 +230,52 @@ public class MatrixOps {
         return mResult;
     }
 
-    // PROCEDURE
-    // Mengembalikan matriks segitiga bawah dari suatu matriks menggunakan OBE
-    public void lowerTriangleMatrix (Matrix m, Matrix mConst){
-        // Prosedur hanya dijalankan apabila matriks berbentuk persegi
-        if (m.isSquare()){
-            int row = 0;
-            int col = 0;
-            int i;
-            int j;
-            int k;
-            double pembuatNol;
-            double newVal;
-            double pembuatSatu;
-            boolean program = true;
-            int count;
-            
-    
-            // Variabel program menunjukkan bahwa pembuatan segitiga masih dilakukan
-            while (program == true){
+    // FUNCTION
+    // Melakukan pengecekan jenis solusi apa yang dikandung, setelah dilakukan analisis OBE
+    public Matrix checkSolution(Matrix m, Matrix mConst){
+        
+    }
 
-                // Bila program telah mencapai elemen terakhir (pojok kanan bawah) maka program dihentikan
-                if (row == m.getRowIdx() && col == m.getColIdx()){
-                    // Jika hasil akhir bukan 1, maka perlu dijadikan 1
-                    if (m.getElmt(row, col) != 1){
+    // PROCEDURE
+    // Mengembalikan matriks segitiga atas dari suatu matriks menggunakan OBE
+    public void upperTriangleMatrix (Matrix m, Matrix mConst){
+        // Prosedur hanya dijalankan apabila matriks berbentuk persegi
+        int row = 0;
+        int col = 0;
+        int i;
+        int j;
+        int k;
+        double pembuatNol;
+        double newVal;
+        double pembuatSatu;
+        boolean program = true;
+        int count;
+
+        io.printMatrix(m);
+        System.out.println("================");
+        io.printMatrix(mConst);
+        System.out.println("================");
+
+        // Variabel program menunjukkan bahwa pembuatan segitiga masih dilakukan
+        while (program == true){
+
+            // Bila program telah mencapai batas baris terakhir dalam matriks
+            if (row == m.getRowIdx() ){
+                if (col == m.getColIdx()){
+                    // program berada pada elemen pojok kanan bawah (baris dan kolom terakhir)
+                    if (m.getElmt(row, col) != 1 && m.getElmt(row,col) != 0){
+                        // Jika hasil akhir bukan 1, maka perlu dijadikan 1
                         pembuatSatu = m.getElmt(row, col);
                         m.setElmt(row, col, 1);
                         for (k = 0; k < mConst.getColLength(); k++){
                             mConst.setElmt(row, k,(mConst.getElmt(row,k)/ pembuatSatu));
                         }
-
+    
                     }
                     program = false;
-                } else { 
-                    // Program masih dilakukan karena row dan col belum mencapai index terakhir
-                    // Cek dulu apakah element awal bernilai 0
-                    if (m.getElmt(row, col) == 0){
-                        count = 0;
-                        while (m.getElmt(0, 0) == 0 && count < m.getRowLength()){
-                            count++;
-                        }
-                        // Satu kolom bernilai 0 semua
-                        if ( count == m.getRowIdx()){
-                            // Jika 0 semua pada kolom tersebut, maka baris kolom tersebut dilewatkan saja
-                            row++;
-                            col++;
-                        } else {
-                            // ada satu elemen yang tidak bernilai 0 pada kolom tersebut
-                            m.swapRow(row, col+count);
-                        }
-                    }
-
-                    // Jika pada kolom baris awal bukan 1, maka dijadikan 1 terlebih dahulu
+                } else {
+                    // program berada pada baris terakhir tapi bukan kolom terakhir
+                    // membagi baris tersebut dengan pembuatSatu sehingga mendapat leading 1
                     if (m.getElmt(row, col) != 1){
                         // semua elemen pada baris itu dibagi dengan elemen pada kolom awal
                         pembuatSatu = m.getElmt(row, col);
@@ -293,36 +288,129 @@ public class MatrixOps {
                         }
                         
                     }
-                    // Melakukan loop mulai dari baris pertama setelah baris 'awal'
-                    for (i = row+1; i < m.getRowLength(); i++){
-                        // Membuat 0 semua baris lain pada kolom awal
-                        // Jika sudah 0, baris tersebut tidak perlu dilakukan apapun
-                        if (m.getElmt(row, col) != 0){
-                            pembuatNol = m.getElmt(i, col)/ m.getElmt(row, col);
-                            for (j = col; j < m.getColLength(); j++){
-                                newVal = m.getElmt(i,j) - pembuatNol * m.getElmt(row, j);
-                                m.setElmt(i, j, newVal);
-                            }
-                            // Matriks const juga dikurangi
-                            for (j = 0; j < mConst.getColLength(); j++){
-                                newVal = mConst.getElmt(i, j) - pembuatNol * mConst.getElmt(row, j);
-                                mConst.setElmt(i, j, newVal);
-                            }
+                    // karena setiap kolom telah di ubah, maka program telah selesai dijalankan
+                    program = false;
 
-                        }
+                }
+            }
+            // Bila program mencapai kolom terakhir tapi tidak mencapai baris terakhir
+            else if (col == m.getColIdx()){
+
+                // Membaut 0 baris ke row dan kolom ke 0
+                if (m.getElmt(row, col) != 1){
+                    // semua elemen pada baris itu dibagi dengan elemen pada kolom awal
+                    pembuatSatu = m.getElmt(row, col);
+                    for (k = col; k < m.getColLength(); k++){
+                        m.setElmt(row, k, (m.getElmt(row, k)/ pembuatSatu));
                     }
-                    row++;
-                    col++;
+                    // Matriks konstanta juga dibagi
+                    for (k = 0; k < mConst.getColLength(); k++){
+                        mConst.setElmt(row, k,(mConst.getElmt(row,k)/ pembuatSatu));
+                    }
+                    
                 }
 
+                // Melakukan loop mulai dari baris pertama setelah baris 'awal'
+                for (i = row+1; i < m.getRowLength(); i++){
+                    // Membuat 0 semua baris lain pada kolom awal
+                    // Jika sudah 0, baris tersebut tidak perlu dilakukan apapun
+                    if (m.getElmt(row, col) != 0){
+                        pembuatNol = m.getElmt(i, col)/ m.getElmt(row, col);
+                        for (j = col; j < m.getColLength(); j++){
+                            newVal = m.getElmt(i,j) - pembuatNol * m.getElmt(row, j);
+                            m.setElmt(i, j, newVal);
+                        }
+                        // Matriks const juga dikurangi
+                        for (j = 0; j < mConst.getColLength(); j++){
+                            newVal = mConst.getElmt(i, j) - pembuatNol * mConst.getElmt(row, j);
+                            mConst.setElmt(i, j, newVal);
+                        }
+
+                    }
+                }
+                // karena sisa dari setiap baris telah diubah, maka program telah selesai dijalankan
+                program = false;
+
+
+            } else { 
+                // Program masih dilakukan karena row dan col belum mencapai index terakhir
+                // Cek dulu apakah element awal bernilai 0
+                while (m.getElmt(row, col) == 0){
+                    count = 0;
+                    // cek elemen dibawahnya apakah bernilai 0 juga
+                    // di cek elemen dari suatu row hingga row kedua dari bawah
+                    while (m.getElmt(row + count, col) == 0 && ((row + count) < m.getRowIdx()) ){
+                        count++;
+                    }
+                    // Satu kolom bernilai 0 semua
+                    if ( (row+count) == m.getRowIdx()){
+                        if (m.getElmt(row+count, col) != 0){
+                            // count mencapai row terakhir dan bernilai bukan 0
+                            m.swapRow(row, row + count);
+                        } else {
+                            // count mencapai row terakhir dan bernilai 0
+                            col++;
+                        }
+                    } else {
+                        // ada satu elemen yang tidak bernilai 0 pada kolom tersebut
+                        m.swapRow(row, row+count);
+                    }
+                }
+
+                // Jika pada kolom baris awal bukan 1, maka dijadikan 1 terlebih dahulu
+                if (m.getElmt(row, col) != 1){
+                    // semua elemen pada baris itu dibagi dengan elemen pada kolom awal
+                    pembuatSatu = m.getElmt(row, col);
+                    for (k = col; k < m.getColLength(); k++){
+                        m.setElmt(row, k, (m.getElmt(row, k)/ pembuatSatu));
+                    }
+                    // Matriks konstanta juga dibagi
+                    for (k = 0; k < mConst.getColLength(); k++){
+                        mConst.setElmt(row, k,(mConst.getElmt(row,k)/ pembuatSatu));
+                    }
+                    
+                }
+                // Melakukan loop mulai dari baris pertama setelah baris 'awal'
+                for (i = row+1; i < m.getRowLength(); i++){
+                    // Membuat 0 semua baris lain pada kolom awal
+                    // Jika sudah 0, baris tersebut tidak perlu dilakukan apapun
+                    if (m.getElmt(row, col) != 0){
+                        pembuatNol = m.getElmt(i, col)/ m.getElmt(row, col);
+                        for (j = col; j < m.getColLength(); j++){
+                            newVal = m.getElmt(i,j) - pembuatNol * m.getElmt(row, j);
+                            m.setElmt(i, j, newVal);
+                        }
+                        // Matriks const juga dikurangi
+                        for (j = 0; j < mConst.getColLength(); j++){
+                            newVal = mConst.getElmt(i, j) - pembuatNol * mConst.getElmt(row, j);
+                            mConst.setElmt(i, j, newVal);
+                        }
+
+                    }
+                }
+                
+                // Langkah pencegahan agar tidak keluar dari index matriks
+                row++;
+                col++;
+
+                
+
             }
+            io.printMatrix(m);
+            System.out.println("================");
+            io.printMatrix(mConst);
+            System.out.println("================");
+
         }
     }
 
     // PROCEDURE
-    // Mengembalikan matriks segitiga atas dari suatu matriks menggunakan OBE 
+    // Mengembalikan matriks segitiga bawah dari suatu matriks menggunakan OBE 
     // Prosedur ini adalah LANJUTAN dari lowerTriangleMatrix (JANGAN DIPAKAI TERPISAH!!)
-    public void upperTriangleMatrix(Matrix m, Matrix mConst){
+    public void lowerTriangleMatrix(Matrix m, Matrix mConst){
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         int i;
         int j;
         int row = 1;
@@ -332,11 +420,19 @@ public class MatrixOps {
         boolean program = true;
 
         while (program) {
-            // Bila program telah mencapai elemen terakhir (pojok kanan bawah) maka program dihentikan
-            if (row == m.getRowLength() && col == m.getColLength()){
+            // Bila program telah menlampaui index terakhir (artinya baris paling bawah dan kolom paling kanan pun telah diubah), maka program dihentikan
+            if (row == m.getRowLength() || col == m.getColLength()){
                 program = false;
             } else {
+                // Jika element pada baris ke row dan kolom ke col bukanlah 1 (leading 1)
+                while (m.getElmt(row, col) != 1){
+                    // kolom dimajukan 1 tingkat
+                    // baris dibawah elemen tersebut tidak perlu di cek karena sudah di 0 kan oleh fungsi lowerTriangleMatrix
+                    col++;
+                }
+
                 for (i = row-1; i >= 0 ; i--){
+                    System.out.println(row+" "+ col);
                     // Membuat 0 semua baris lain pada kolom awal
                     // Jika sudah 0, baris tersebut tidak perlu dilakukan apapun
                     if (m.getElmt(row, col) != 0){
@@ -355,6 +451,18 @@ public class MatrixOps {
                 row++;
                 col++;
             }   
+            io.printMatrix(m);
+            System.out.println("================");
+            io.printMatrix(mConst);
+            System.out.println("================");
+        }
+    }
+
+    // PROCDEURE
+    // Melakukan print khusus untuk matriks solusi
+    public void displaySolution(Matrix mSolution){
+        for (int i =0; i<mSolution.getRowLength();i++){
+            System.out.println("X"+ (i+1) +" = " + mSolution.getElmt(i, 0));
         }
     }
 
@@ -371,6 +479,8 @@ public class MatrixOps {
         Matrix mOriginal = mIn.getMOriginal(mIn);
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
+
+        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
         System.out.println("Bentuk Awal Matriks: ");
         io.printMatrix(mOriginal);
         System.out.println("\n");
@@ -378,12 +488,15 @@ public class MatrixOps {
         System.out.println("Bentuk Matriks Konstanta: ");
         io.printMatrix(mConstant);
         System.out.println("\n");
+        */
 
         if (jordan){
             System.out.println("================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================");
             // User menginginkan metode Gauss Jordan
-            lowerTriangleMatrix(mOriginal, mConstant);
             upperTriangleMatrix(mOriginal, mConstant);
+            lowerTriangleMatrix(mOriginal, mConstant);
+
+            /*  Hanya dinyalakan apabila ingin melihat keadaan matriks 
             System.out.println("Bentuk Akhir Matriks Segitiga: ");
             io.printMatrix(mOriginal);
             System.out.println("\n");
@@ -391,14 +504,14 @@ public class MatrixOps {
             System.out.println("Bentuk Akhir Matriks Konstanta: ");
             io.printMatrix(mConstant);
             System.out.println("\n");
+            */
 
-            for (int i = 0; i < mConstant.getRowLength(); i++){
-                System.out.println("X"+(i+1)+" = "+ mConstant.getElmt(i,0));
-            }
         } else {
             // User menginginkan metode Gauss
             System.out.println("================== PENYELESAIAN SPL METODE GAUSS ==================");
-            lowerTriangleMatrix(mOriginal, mConstant);
+            upperTriangleMatrix(mOriginal, mConstant);
+
+            /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
             System.out.println("Bentuk Akhir Matriks Segitiga: ");
             io.printMatrix(mOriginal);
             System.out.println("\n");
@@ -406,11 +519,9 @@ public class MatrixOps {
             System.out.println("Bentuk Akhir Matriks Konstanta: ");
             io.printMatrix(mConstant);
             System.out.println("\n");
+            */
 
-            upperTriangleMatrix(mOriginal, mConstant);
-            for (int i = 0; i < mConstant.getRowLength(); i++){
-                System.out.println("X"+(i+1)+" = "+ mConstant.getElmt(i,0));
-            }
+            lowerTriangleMatrix(mOriginal, mConstant);
         }
         displaySolution(mConstant);
         return mConstant;
@@ -429,7 +540,7 @@ public class MatrixOps {
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
         
-
+        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
         System.out.println("Bentuk Awal Matriks: ");
         io.printMatrix(mOriginal);
         System.out.println("\n");
@@ -437,25 +548,32 @@ public class MatrixOps {
         System.out.println("Bentuk Matriks Konstanta: ");
         io.printMatrix(mConstant);
         System.out.println("\n");
+        */
 
         System.out.println("================== PENYELESAIAN SPL METODE INVERSE ==================");
         Matrix mInverse = inverse(mOriginal);
+
+        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
         System.out.println("Bentuk Matriks Inverse: ");
         io.printMatrix(mInverse);
         System.out.println("\n");
+        */
 
         Matrix mResult;
         mResult = multiplyMatrix(mInverse, mConstant);
+
+        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
         System.out.println("Bentuk Matriks Akhir: ");
         io.printMatrix(mResult);
         System.out.println("\n");
+        */
         displaySolution(mResult);
         return mResult;
     }
 
     // PROCEDURE
     // Menyelesaikan permasalahan SPL menggunakan metode Cramer
-    public void splCramer(Matrix mIn){
+    public Matrix splCramer(Matrix mIn){
 
         // Inisiasi matriks original
         Matrix mOriginal = mIn.getMOriginal(mIn);
@@ -463,6 +581,10 @@ public class MatrixOps {
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
 
+        // Insiasi matriks hasil akhir
+        Matrix mResult = new Matrix(mConstant.getRowLength(), 1);
+
+        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
         System.out.println("Bentuk Awal Matriks: ");
         io.printMatrix(mOriginal);
         System.out.println("\n");
@@ -470,6 +592,7 @@ public class MatrixOps {
         System.out.println("Bentuk Matriks Konstanta: ");
         io.printMatrix(mConstant);
         System.out.println("\n");
+        */
 
         System.out.println("================== PENYELESAIAN SPL METODE CRAMER ==================");
 
@@ -486,6 +609,7 @@ public class MatrixOps {
                 mNew = delLastRow(mTranspose);
                 mNew = mNew.transpose();
 
+                /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
                 System.out.println("Bentuk Matriks: ");
                 io.printMatrix(mNew);
                 System.out.println("===============");
@@ -493,12 +617,14 @@ public class MatrixOps {
                 System.out.println("Solusi : ");
                 System.out.println("X" + (i+1) + " = " + detKof(mNew) / det);
                 System.out.println("\n");
+                */
+
+                // Memasukkan nilai pembagian determinan mNew dengan det mOriginal pada mResult
+                mResult.setElmt(i, 0, detKof(mNew)/ det);
             }
         }
+        displaySolution(mResult);
+        return mResult;
     }
-    public void displaySolution(Matrix mSolution){
-        for (int i =0; i<mSolution.getRowLength();i++){
-            System.out.println("X"+ (i+1) +" = " + mSolution.getElmt(i, 0));
-        }
-    }
+
 }
