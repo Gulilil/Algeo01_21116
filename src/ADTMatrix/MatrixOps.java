@@ -588,7 +588,6 @@ public class MatrixOps {
                     }
                     return mResult;
                 }
-
             }
 
             /*  Hanya dinyalakan apabila ingin melihat keadaan matriks 

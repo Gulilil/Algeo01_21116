@@ -161,8 +161,47 @@ public class InputOutput {
     // Melakukan print matriks pada text
     public void printMatrixText(Matrix m){
 
+        Scanner scanObj = new Scanner(System.in);
+        System.out.print("Masukkan nama file (.txt): ");
+        scanObj.nextLine(); // Read the leftover new line
+        String fileName = scanObj.nextLine();
+
+
+        String currentPath = System.getProperty("user.dir");
+        String filePath = currentPath+"\\testCase\\output\\"+ fileName;
+        File file = new File(filePath);
+
+        if (file.exists()){
+            file.delete();
+
+        }
+        try {
+            file.createNewFile();
+            FileWriter writer = new FileWriter(file);
+            BufferedWriter buffWriter = new BufferedWriter(writer);
+
+            for (int i = 0; i < m.getRowLength(); i++){
+                for (int j = 0; j < m.getColLength(); j++){
+                    if ( j == m.getColLength()-1) {
+                        buffWriter.write(String.format("%.2f", m.getElmt(i, j)));
+                    } else {
+                        buffWriter.write(String.format("%.2f", m.getElmt(i, j)));
+                        buffWriter.write(",");
+                    }
+                }
+                buffWriter.newLine();
+            }
+
+            buffWriter.close();
+            writer.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
+    public void printStringText(String s){
+
+    }
 
 
 }
