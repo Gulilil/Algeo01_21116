@@ -5,6 +5,7 @@ public class Main {
 
     static MatrixOps mOps = new MatrixOps();
     static InputOutput io = new InputOutput();
+    static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
     public static void main(String[] args) {
         // program adalah variabel yang menunjukkan bahwa program masih berjalan 
         // program bernilai true apabila Program masih dijalankan. Di sisi lain, bernilai false bila Program telah selesai dijalankan
@@ -156,9 +157,12 @@ public class Main {
 
                 // User memilih fitur keenam
                 // User ingin menggunakan fungsi regresi linear berganda
-                // if ( userNumber == 6){
+                if ( userNumber == 6){
+                    Matrix m;
+                    m = io.readMatrix();
+                    regresiLinear.regresiLinear(m);
 
-                // }
+                }
 
 
                 // User memilih fitur ketujuh

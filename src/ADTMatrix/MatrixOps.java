@@ -425,8 +425,8 @@ public class MatrixOps {
 
                 
             }
-            io.printMatrix(m);
-            io.printMatrix(mConst);
+            //io.printMatrix(m);
+            //io.printMatrix(mConst);
         }
     }
 
@@ -444,8 +444,8 @@ public class MatrixOps {
 
         while (program) {
             // Bila program telah menlampaui index terakhir (artinya baris paling bawah dan kolom paling kanan pun telah diubah), maka program dihentikan
-            io.printMatrix(m);
-            io.printMatrix(mConst);
+            //io.printMatrix(m);
+            //io.printMatrix(mConst);
 
             if (row == m.getRowLength() || col == m.getColLength() || m.isZeroRow(row)){
                 program = false;

@@ -28,10 +28,10 @@ public class driver {
         // m4.setElmt(1,0,0); m4.setElmt(1, 1, 0); m4.setElmt(1, 2, 0); m4.setElmt(1, 3, 1); m4.setElmt(1, 4, 1); m4.setElmt(1, 5, 0); m4.setElmt(1, 6, -1);
         // m4.setElmt(2,0,0); m4.setElmt(2, 1, 1); m4.setElmt(2, 2, 0); m4.setElmt(2, 3, 0); m4.setElmt(2, 4, 0); m4.setElmt(2, 5, 1); m4.setElmt(2, 6, 1);
 
-        Matrix m5 = mOps.multiplyMatrix(m3,m1);
-        io.printMatrix(m3);
-        io.printMatrix(m1);
-        io.printMatrix(m5);
+        // Matrix m5 = mOps.multiplyMatrix(m3,m1);
+        // io.printMatrix(m3);
+        // io.printMatrix(m1);
+        // io.printMatrix(m5);
         
         
         Matrix m4 = new Matrix(6, 5);
@@ -42,7 +42,9 @@ public class driver {
         m4.setElmt(4,0,2); m4.setElmt(4, 1, 0); m4.setElmt(4, 2, -4); m4.setElmt(4, 3, 0); m4.setElmt(4, 4, -4); 
         m4.setElmt(5,0,0); m4.setElmt(5, 1, 1); m4.setElmt(5, 2, 0); m4.setElmt(5, 3, -2); m4.setElmt(5, 4, 0); 
         
-        regresiLinear.regresiLinear();
+        Matrix m;
+        m = io.readMatrix();
+        regresiLinear.regresiLinear(m);
         // Matrix m4 = new Matrix (3, 1);
         // m4.setElmt(0,0,5);
         // m4.setElmt(1,0,7);
