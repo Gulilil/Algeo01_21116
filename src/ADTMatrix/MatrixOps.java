@@ -507,24 +507,11 @@ public class MatrixOps {
         // Inisiasi matriks result sebesar mConstant
         Matrix mResult = new Matrix (mConstant.getRowLength(), mConstant.getColLength());
 
-        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
-        System.out.println("Bentuk Awal Matriks: ");
-        io.printMatrix(mOriginal);
-        System.out.println("\n");
-
-        System.out.println("Bentuk Matriks Konstanta: ");
-        io.printMatrix(mConstant);
-        System.out.println("\n");
-        */
 
         if (jordan){
-            System.out.println("================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================");
             // User menginginkan metode Gauss Jordan
             upperTriangleMatrix(mOriginal, mConstant);
             lowerTriangleMatrix(mOriginal, mConstant);
-
-            //io.printMatrix(mOriginal);
-            //io.printMatrix(mConstant);
 
             if (checkUniqueSolution(mOriginal)){
                 // Jika solusi
@@ -588,33 +575,13 @@ public class MatrixOps {
                     }
                     return mResult;
                 }
-
             }
 
-            /*  Hanya dinyalakan apabila ingin melihat keadaan matriks 
-            System.out.println("Bentuk Akhir Matriks Segitiga: ");
-            io.printMatrix(mOriginal);
-            System.out.println("\n");
-
-            System.out.println("Bentuk Akhir Matriks Konstanta: ");
-            io.printMatrix(mConstant);
-            System.out.println("\n");
-            */
 
         } else {
             // User menginginkan metode Gauss
-            System.out.println("================== PENYELESAIAN SPL METODE GAUSS ==================");
             upperTriangleMatrix(mOriginal, mConstant);
 
-            /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
-            System.out.println("Bentuk Akhir Matriks Segitiga: ");
-            io.printMatrix(mOriginal);
-            System.out.println("\n");
-
-            System.out.println("Bentuk Akhir Matriks Konstanta: ");
-            io.printMatrix(mConstant);
-            System.out.println("\n");
-            */
 
             if (checkUniqueSolution(mOriginal)){
                 // Jika ada solusi
@@ -701,24 +668,9 @@ public class MatrixOps {
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
         
-        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
-        System.out.println("Bentuk Awal Matriks: ");
-        io.printMatrix(mOriginal);
-        System.out.println("\n");
-        
-        System.out.println("Bentuk Matriks Konstanta: ");
-        io.printMatrix(mConstant);
-        System.out.println("\n");
-        */
 
-        System.out.println("================== PENYELESAIAN SPL METODE INVERSE ==================");
         Matrix mInverse = inverse(mOriginal);
 
-        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
-        System.out.println("Bentuk Matriks Inverse: ");
-        io.printMatrix(mInverse);
-        System.out.println("\n");
-        */
 
         Matrix mResult;
         System.out.println("Matriks inverse ");
@@ -727,11 +679,6 @@ public class MatrixOps {
         io.printMatrix(mConstant);
         mResult = multiplyMatrix(mInverse, mConstant);
 
-        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
-        System.out.println("Bentuk Matriks Akhir: ");
-        io.printMatrix(mResult);
-        System.out.println("\n");
-        */
         displaySolution(mResult);
         return mResult;
     }
@@ -749,17 +696,6 @@ public class MatrixOps {
         // Insiasi matriks hasil akhir
         Matrix mResult = new Matrix(mConstant.getRowLength(), 1);
 
-        /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
-        System.out.println("Bentuk Awal Matriks: ");
-        io.printMatrix(mOriginal);
-        System.out.println("\n");
-        
-        System.out.println("Bentuk Matriks Konstanta: ");
-        io.printMatrix(mConstant);
-        System.out.println("\n");
-        */
-
-        System.out.println("================== PENYELESAIAN SPL METODE CRAMER ==================");
 
         double det = detKof(mOriginal);
         if (det == 0){
@@ -773,16 +709,6 @@ public class MatrixOps {
                 mTranspose.swapRow(i, mTranspose.getRowIdx());
                 mNew = delLastRow(mTranspose);
                 mNew = mNew.transpose();
-
-                /* Hanya dinyalakan apabila ingin melihat keadaan matriks 
-                System.out.println("Bentuk Matriks: ");
-                io.printMatrix(mNew);
-                System.out.println("===============");
-                io.printMatrix(mOriginal);
-                System.out.println("Solusi : ");
-                System.out.println("X" + (i+1) + " = " + detKof(mNew) / det);
-                System.out.println("\n");
-                */
 
                 // Memasukkan nilai pembagian determinan mNew dengan det mOriginal pada mResult
                 mResult.setElmt(i, 0, detKof(mNew)/ det);

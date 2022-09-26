@@ -94,7 +94,7 @@ public class MultipleLinearRegression {
         io.printMatrix(mReg);
 
         // Memisahkan augmented matriks mReg
-        MatrixOps.upperTriangleMatrix();
+        //MatrixOps.upperTriangleMatrix();
 
         Matrix mResult = op.splGaussJordan(mReg, true);
         // Matrix mResult2 = op.splInverse(mReg);
