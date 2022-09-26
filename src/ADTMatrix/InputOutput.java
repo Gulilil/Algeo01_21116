@@ -131,7 +131,6 @@ public class InputOutput {
             }
         }
         // bagian terakhir belum dimasukkan
-        System.out.println(val);
         dVal = Double.parseDouble(val);
         m.setElmt(0, count, dVal);
 

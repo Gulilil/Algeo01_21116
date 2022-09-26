@@ -523,8 +523,8 @@ public class MatrixOps {
             upperTriangleMatrix(mOriginal, mConstant);
             lowerTriangleMatrix(mOriginal, mConstant);
 
-            // io.printMatrix(mOriginal);
-            // io.printMatrix(mConstant);
+            //io.printMatrix(mOriginal);
+            //io.printMatrix(mConstant);
 
             if (checkUniqueSolution(mOriginal)){
                 // Jika solusi

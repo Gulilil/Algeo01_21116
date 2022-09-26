@@ -11,6 +11,7 @@ public class Main {
         // program bernilai true apabila Program masih dijalankan. Di sisi lain, bernilai false bila Program telah selesai dijalankan
         boolean program = true;
         boolean subprogram1 = false;
+        boolean subprogram2 = false;
         Scanner scanObj = new Scanner(System.in);
         
         int userNumber;         // untuk input pada main menu
@@ -118,15 +119,64 @@ public class Main {
                 // User memilih fitur kedua
                 // User ingin mencari determinan
                 if ( userNumber == 2){
-                    Matrix m;
-                    double determinan;
+                    // variabel subprogram bernilai true ( dijalankan )
+                    subprogram2 = true;
+                    while (subprogram2) {
+                        System.out.println("=================================");
+                        System.out.println("======       MENU  2       ======");
+                        System.out.println("=================================");
+                        System.out.println("1. Determinan metode Kofaktor");
+                        System.out.println("2. Determinan metode Operasi Baris Elementer");
+                        System.out.println("3. Kembali ke Main Menu");
+
+                        System.out.print("Masukkan angkanya saja (1-3): ");
+
+                        // Membaca input dari user
+                        userSubNumber = scanObj.nextInt();
+
+                        // Jika inputnya tidak valid, maka akan diberikan pesan bahwa input tidak valid
+                        if ((userSubNumber < 1) || (userSubNumber > 3)){
+                            System.out.println("Input "+ userSubNumber +" tidak valid. Silahkan masukan input yang valid.");
+                        } else {
+
+                            // User memilih fitur pertama
+                            if ( userSubNumber == 1){
+                                Matrix m;
+                                double determinan;
+                                
+                                m = io.readMatrix();
+
+                                determinan = mOps.detKof(m);
+                                System.out.println("=============== HASIL DETERMINAN ===============");
+                                System.out.println("Determinan : "+determinan);
+
+                                subprogram2 = false;
+                                
+                            }
+
+                            
+                            // User memilih fitur kedua
+                            if ( userSubNumber == 2){
+                                Matrix m;
+                                double determinan;
+                                
+                                m = io.readMatrix();
+
+                                determinan = mOps.detObe(m);
+                                System.out.println("=============== HASIL DETERMINAN ===============");
+                                System.out.println("Determinan : "+determinan);
+                                
+                                subprogram2 = false;
+                                
+                            }
+
+                            // User memilih fitur ketiga
+                            if (userSubNumber == 3){
+                                subprogram2 = false;
+                            }
+                        }
+                    }
                     
-                    m = io.readMatrix();
-
-                    determinan = mOps.detKof(m);
-                    System.out.println("Determinan : "+determinan);
-
-
                 }
 
                 // User memilih fitur ketiga
@@ -139,6 +189,7 @@ public class Main {
 
                     mInverse = mOps.inverse(m);
 
+                    System.out.println("=============== HASIL INVERSE ===============");
                     io.printMatrix(mInverse);
 
                 }
