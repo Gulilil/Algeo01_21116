@@ -268,4 +268,11 @@ public class Matrix{
         this.transpose();
     }
 
+    public double getColSum(Matrix m,int j){
+        float sum = 0;
+        for(int i = 0; i< m.getRowLength();i++){
+            sum += getElmt(i,j);
+        }
+        return sum;
+    }
 }

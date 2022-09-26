@@ -5,6 +5,7 @@ public class driver {
     static MatrixOps mOps = new MatrixOps();
     static InputOutput io = new InputOutput();
     static Interpolasi interpolasi = new Interpolasi();
+    static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
     public static void main(String[] args){
         // cek Matriks Constructor
         Matrix m1 = new Matrix(3,4);
@@ -27,8 +28,11 @@ public class driver {
         // m4.setElmt(1,0,0); m4.setElmt(1, 1, 0); m4.setElmt(1, 2, 0); m4.setElmt(1, 3, 1); m4.setElmt(1, 4, 1); m4.setElmt(1, 5, 0); m4.setElmt(1, 6, -1);
         // m4.setElmt(2,0,0); m4.setElmt(2, 1, 1); m4.setElmt(2, 2, 0); m4.setElmt(2, 3, 0); m4.setElmt(2, 4, 0); m4.setElmt(2, 5, 1); m4.setElmt(2, 6, 1);
 
-        Matrix m5;
-
+        Matrix m5 = mOps.multiplyMatrix(m3,m1);
+        io.printMatrix(m3);
+        io.printMatrix(m1);
+        io.printMatrix(m5);
+        
         
         Matrix m4 = new Matrix(6, 5);
         m4.setElmt(0,0,2); m4.setElmt(0, 1, 0); m4.setElmt(0, 2, 8); m4.setElmt(0, 3, 0); m4.setElmt(0, 4, 8); 
@@ -38,7 +42,7 @@ public class driver {
         m4.setElmt(4,0,2); m4.setElmt(4, 1, 0); m4.setElmt(4, 2, -4); m4.setElmt(4, 3, 0); m4.setElmt(4, 4, -4); 
         m4.setElmt(5,0,0); m4.setElmt(5, 1, 1); m4.setElmt(5, 2, 0); m4.setElmt(5, 3, -2); m4.setElmt(5, 4, 0); 
         
-
+        regresiLinear.regresiLinear();
         // Matrix m4 = new Matrix (3, 1);
         // m4.setElmt(0,0,5);
         // m4.setElmt(1,0,7);
@@ -132,8 +136,8 @@ public class driver {
 
         // CEK SOAL SPL
         // CEK GAUSS
-        m5 = mOps.splGaussJordan(m4, false);
-        io.printMatrix(m5);
+        // m5 = mOps.splGaussJordan(m4, false);
+        // io.printMatrix(m5);
         // mOps.splGaussJordan(m1, true);
         
         // // CEK CRAMER
