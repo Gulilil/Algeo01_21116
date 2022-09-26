@@ -159,13 +159,11 @@ public class InputOutput {
 
     // PROCEDURE
     // Melakukan print matriks pada text
-    public void printMatrixText(Matrix m){
+    public void printMatrixToText(Matrix m){
 
         Scanner scanObj = new Scanner(System.in);
         System.out.print("Masukkan nama file (.txt): ");
-        scanObj.nextLine(); // Read the leftover new line
         String fileName = scanObj.nextLine();
-
 
         String currentPath = System.getProperty("user.dir");
         String filePath = currentPath+"\\testCase\\output\\"+ fileName;
@@ -173,8 +171,8 @@ public class InputOutput {
 
         if (file.exists()){
             file.delete();
-
         }
+
         try {
             file.createNewFile();
             FileWriter writer = new FileWriter(file);
@@ -186,10 +184,12 @@ public class InputOutput {
                         buffWriter.write(String.format("%.2f", m.getElmt(i, j)));
                     } else {
                         buffWriter.write(String.format("%.2f", m.getElmt(i, j)));
-                        buffWriter.write(",");
+                        buffWriter.write(" ");
                     }
                 }
-                buffWriter.newLine();
+                if( i <= m.getRowLength() - 1){
+                    buffWriter.newLine();
+                }
             }
 
             buffWriter.close();
@@ -199,9 +199,29 @@ public class InputOutput {
         }
     }
 
-    public void printStringText(String s){
+    public void printStringToText(String fileName, String str){
+        String currentPath = System.getProperty("user.dir");
+        String filePath = currentPath+"\\testCase\\output\\"+ fileName;
+        File file = new File(filePath);
 
+        try {
+            
+            if(!file.exists()){
+                file.createNewFile();
+            }
+
+            FileWriter writer = new FileWriter(file, true);
+            BufferedWriter buffWriter = new BufferedWriter(writer);
+            PrintWriter pw = new PrintWriter(buffWriter);
+
+            pw.println(str);
+
+            pw.close();
+            buffWriter.close();
+            writer.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
-
-
 }

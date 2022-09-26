@@ -5,20 +5,17 @@ public class driver {
 
     static MatrixOps mOps = new MatrixOps();
     static InputOutput io = new InputOutput();
-    static BicubicInterpolation bi = new BicubicInterpolation();
+    // static BicubicInterpolation bi = new BicubicInterpolation();
     static Interpolasi interpolasi = new Interpolasi();
     static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
     public static void main(String[] args){
 
-        io.printMatrix(bi.getAugMatrix());
-
-
         // cek Matriks Constructor
-        // Matrix m1 = new Matrix(3,4);
+        // Matrix m1 = new Matrix(4,4);
         // m1.setElmt(0,0,1); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 3); m1.setElmt(0, 3,1);
         // m1.setElmt(1,0,2); m1.setElmt(1, 1, 8); m1.setElmt(1, 2, 7); m1.setElmt(1, 3, 7);
         // m1.setElmt(2,0,1); m1.setElmt(2, 1, 5); m1.setElmt(2, 2, 6); m1.setElmt(2, 3, 8);
-        // //m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2); m1.setElmt(3, 3, 6);
+        // m1.setElmt(3,0,7); m1.setElmt(3, 1, 3); m1.setElmt(3, 2, 2); m1.setElmt(3, 3, 6);
 
         // Matrix m2 = new Matrix(2,3);
         // m2.setElmt(0, 0, 3);m2.setElmt(0, 1, 26.5);m2.setElmt(0, 2, 6.5279);
