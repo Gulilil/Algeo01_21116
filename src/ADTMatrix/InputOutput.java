@@ -197,11 +197,7 @@ public class InputOutput {
 
     // PROCEDURE
     // Melakukan print matriks pada text
-    public void printMatrixToText(Matrix m){
-
-        Scanner scanObj = new Scanner(System.in);
-        System.out.print("Masukkan nama file (.txt): ");
-        String fileName = scanObj.nextLine();
+    public void printMatrixToText(String fileName, Matrix m){
 
         // Membaca current working path dan memanipulasi path
         String currentPath = System.getProperty("user.dir");
@@ -304,6 +300,22 @@ public class InputOutput {
 
         }
         return text;
+    }
+
+    // PROCEDURE 
+    // Menghapus file tertentu pada tempat penyimpanan file output
+    public void delFile(String fileName){
+        // Membaca current working path dan memanipulasi path
+        String currentPath = System.getProperty("user.dir");
+        currentPath = currentPath.replaceAll("src","");
+        // Menggabungkan currentPath dengan lokasi file
+        String filePath = currentPath+"test\\output\\"+ fileName;
+
+        File file = new File(filePath);
+
+        if (file.exists()){
+            file.delete();
+        }
     }
 
 }

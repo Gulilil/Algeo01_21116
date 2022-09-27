@@ -89,9 +89,9 @@ public class MultipleLinearRegression {
             }
         }
 
-        System.out.println("Matriks hasil akhir ");
-        System.out.println("===================================================");
-        io.printMatrix(mReg);
+        // System.out.println("Matriks hasil akhir ");
+        // System.out.println("===================================================");
+        // io.printMatrix(mReg);
 
         // Memisahkan augmented matriks mReg
         //MatrixOps.upperTriangleMatrix();

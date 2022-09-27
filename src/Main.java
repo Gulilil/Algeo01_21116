@@ -80,7 +80,7 @@ public class Main {
                             
                             // User memilih fitur kedua
                             if ( userSubNumber == 2){
-                                System.out.println("================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================");
+                                // System.out.println("================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================");
                                 Matrix m;
                                 m = io.readMatrix();
 
@@ -162,6 +162,7 @@ public class Main {
                                     System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
                                     scanObj.nextLine(); // Read the leftover new line
                                     fileName = scanObj.nextLine();
+                                    io.delFile(fileName);
                                     resultString = "Determinan : "+ Double.toString(determinan);
                                     
                                     io.printStringToText(fileName, "=============== HASIL DETERMINAN ===============");
@@ -187,11 +188,13 @@ public class Main {
                                 m = io.readMatrix();
 
                                 determinan = mOps.detObe(m);
+
                                 printOnText = io.askUserPrint();
                                 if (printOnText){
                                     System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
                                     scanObj.nextLine(); // Read the leftover new line
                                     fileName = scanObj.nextLine();
+                                    io.delFile(fileName);
                                     resultString = "Determinan : "+ Double.toString(determinan);
                                     
                                     io.printStringToText(fileName, "=============== HASIL DETERMINAN ===============");
@@ -241,12 +244,27 @@ public class Main {
                             if ( userSubNumber == 1){
                                 Matrix m;
                                 Matrix mInverse;
+                                boolean printOnText;
+                                String fileName;
                                 
                                 m = io.readMatrix();
 
                                 mInverse = mOps.inverse(m);
-                                System.out.println("=============== HASIL INVERSE ===============");
-                                io.printMatrix(mInverse);
+
+                                printOnText = io.askUserPrint();
+                                if (printOnText){
+                                    System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                                    scanObj.nextLine(); // Read the leftover new line
+                                    fileName = scanObj.nextLine();
+                                    io.delFile(fileName);
+                                    
+                                    io.printMatrixToText(fileName, mInverse);
+                                    io.printStringToText(fileName, "=============== HASIL INVERSE ===============");
+                                } else {
+                                    System.out.println("=============== HASIL INVERSE ===============");
+                                    io.printMatrix(mInverse);
+                                }
+
 
                                 subprogram3 = false;
                                 
@@ -256,6 +274,8 @@ public class Main {
                             // User memilih fitur kedua
                             if ( userSubNumber == 2){
                                 Matrix m;
+                                boolean printOnText;
+                                String fileName;
                                 
                                 m = io.readMatrix();
                                 Matrix mInverse = new Matrix(m.getRowLength(), m.getColLength());
@@ -264,8 +284,19 @@ public class Main {
                                 mOps.upperTriangleMatrix(m, mInverse);
                                 mOps.lowerTriangleMatrix(m, mInverse);
 
-                                System.out.println("=============== HASIL INVERSE ===============");
-                                io.printMatrix(mInverse);
+                                printOnText = io.askUserPrint();
+                                if (printOnText){
+                                    System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                                    scanObj.nextLine(); // Read the leftover new line
+                                    fileName = scanObj.nextLine();
+                                    io.delFile(fileName);
+                                    
+                                    io.printMatrixToText(fileName, mInverse);
+                                    io.printStringToText(fileName, "=============== HASIL INVERSE ===============");
+                                } else {
+                                    System.out.println("=============== HASIL INVERSE ===============");
+                                    io.printMatrix(mInverse);
+                                }
                                 
                                 subprogram3 = false;
                                 

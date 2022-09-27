@@ -1,9 +1,11 @@
 package ADTMatrix;
+import java.util.*;
 
 
 public class MatrixOps {
 
     static InputOutput io = new InputOutput();
+    Scanner scanObj = new Scanner(System.in);
     // ============================== OPERASI MATRIKS ============================== 
 
     //FUNCTION
@@ -444,14 +446,12 @@ public class MatrixOps {
 
         while (program) {
             // Bila program telah menlampaui index terakhir (artinya baris paling bawah dan kolom paling kanan pun telah diubah), maka program dihentikan
-            //io.printMatrix(m);
-            //io.printMatrix(mConst);
 
             if (row == m.getRowLength() || col == m.getColLength() || m.isZeroRow(row)){
                 program = false;
             } else {
                 // Jika element pada baris ke row dan kolom ke col bukanlah 1 (leading 1)
-                while (m.getElmt(row, col) != 1){
+                while (m.getElmt(row, col) != 1 && col < m.getColIdx()){
                     // kolom dimajukan 1 tingkat
                     // baris dibawah elemen tersebut tidak perlu di cek karena sudah di 0 kan oleh fungsi lowerTriangleMatrix
                     col++;
@@ -497,6 +497,9 @@ public class MatrixOps {
         int i;
         int j;
         boolean solution = true;
+        boolean printOnText;
+        String fileName = "";
+        String resultString;
         // Jika jordan true, maka yang dihasilkan adalah metode Gauss-Jordan
         // Jika jordan false, maka yang dihasilkan adalah metode Gauss
 
@@ -513,10 +516,29 @@ public class MatrixOps {
             upperTriangleMatrix(mOriginal, mConstant);
             lowerTriangleMatrix(mOriginal, mConstant);
 
+            printOnText = io.askUserPrint();
+            // hanya ditanyakan namafile apabila pengguna ingin melakukan output pada file
+            if (printOnText){
+                System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                fileName = scanObj.nextLine();
+                io.delFile(fileName);
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================" );
+            }else{
+                System.out.println("================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================");
+            }
+
             if (checkUniqueSolution(mOriginal)){
-                // Jika solusi
-                displaySolution(mConstant);
+                // Jika solusi  
+                if (printOnText){
+                    for (i = 0; i < mConstant.getRowLength(); i++){
+                        resultString = "X"+ Integer.toString(i+1)+" = "+ Double.toString(mConstant.getElmt(i,0));
+                        io.printStringToText(fileName, resultString);
+                    }
+                } else {
+                    displaySolution(mConstant);
+                }
                 return mConstant;
+
             } else {
                 // cek apakah matrix tersebut ada solusinya
                 for (i=0; i < mOriginal.getRowLength(); i++){
@@ -533,27 +555,34 @@ public class MatrixOps {
                 }
                 if (solution == false){
                     // Tidak ada solusi 
-                    System.out.println("Tidak ada solusi yang dapat dihasilkan!");
+                    if (printOnText){
+                        io.printStringToText(fileName, "Tidak ada solusi yang dapat dihasilkan!");
+                    }else {
+                        System.out.println("Tidak ada solusi yang dapat dihasilkan!");
+                    }
+                    
                     return mResult;
                 } else {
                     int rowIdx = 0;
                     // Ada solusi tapi solusi parametrik
                     for (i = 0; i < mOriginal.getColLength(); i++){
+                        resultString = "";
+
                         // melakukan print dalam bentuk solusi parametrik
                         if (rowIdx > mOriginal.getRowIdx() ){
-                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                            resultString = "X"+Integer.toString(i+1)+" = a"+Integer.toString(i+1);
                         }
                         else if(mOriginal.isZeroRow(rowIdx)){
-                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                            resultString = "X"+Integer.toString(i+1)+" = a"+Integer.toString(i+1);
                         }
                         else if (mOriginal.isZeroCol(i)){
-                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                            resultString = "X"+Integer.toString(i+1)+" = a"+Integer.toString(i+1);
                         }
                         else if (!mOriginal.isZeroCol(i)){
                             // hanya dituliskan untuk matriks yang barisnya tidak bernilai 0 semua
-                            System.out.print("X"+(i+1)+" =");
+                            resultString += "X"+Integer.toString(i+1)+" =";
                             
-                            System.out.print(" "+mConstant.getElmt(rowIdx, 0));
+                            resultString += " "+Double.toString(mConstant.getElmt(rowIdx, 0));
 
                             for (j = i; j < mOriginal.getColLength(); j++){
                                 if ((mOriginal.getElmt(rowIdx, j)) != 0 && (j != i)){
@@ -561,16 +590,21 @@ public class MatrixOps {
                                     // jika i == j tidak ditulis
                                     if (mOriginal.getElmt(rowIdx, j) < 0){
                                         // elemen pada baris rowIdx, kolom j kurang dari 0
-                                        System.out.print(" + "+(-1*mOriginal.getElmt(rowIdx, j))+"a"+(j+1));
+                                        resultString += " + "+Double.toString(-1*mOriginal.getElmt(rowIdx, j))+"a"+Integer.toString(j+1);
                                     } else {
                                         // elemen pada baris rowIdx, kolom j lebih besar dari 0
-                                        System.out.print(" - "+(mOriginal.getElmt(rowIdx, j))+"a"+(j+1));
+                                        resultString += " - "+Double.toString(mOriginal.getElmt(rowIdx, j))+"a"+Integer.toString(j+1);
                                     }
 
                                 }
                             }
-                            System.out.print("\n");
+                            //System.out.print("\n");
                             rowIdx++;
+                        }
+                        if (printOnText){
+                            io.printStringToText(fileName, resultString);
+                        } else {
+                            System.out.println(resultString);
                         }
                     }
                     return mResult;
@@ -582,11 +616,31 @@ public class MatrixOps {
             // User menginginkan metode Gauss
             upperTriangleMatrix(mOriginal, mConstant);
 
+            printOnText = io.askUserPrint();
+            // hanya ditanyakan namafile apabila pengguna ingin melakukan output pada file
+            if (printOnText){
+                System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                fileName = scanObj.nextLine();
+                io.delFile(fileName);
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE GAUSS ==================" );
+            }else{
+                System.out.println("================== PENYELESAIAN SPL METODE GAUSS ==================");
+            }
+
 
             if (checkUniqueSolution(mOriginal)){
                 // Jika ada solusi
                 lowerTriangleMatrix(mOriginal, mConstant);
-                displaySolution(mConstant);
+
+                if (printOnText){
+                    for (i = 0; i < mConstant.getRowLength(); i++){
+                        resultString = "X"+ Integer.toString(i+1)+" = "+ Double.toString(mConstant.getElmt(i,0));
+                        io.printStringToText(fileName, resultString);
+                    }
+                } else {
+                    displaySolution(mConstant);
+                }
+
                 return mConstant;
             } else {
                 // cek apakah matrix tersebut ada solusinya
@@ -604,28 +658,34 @@ public class MatrixOps {
                 }
                 if (solution == false){
                     // Tidak ada solusi 
-                    System.out.println("Tidak ada solusi yang dapat dihasilkan!");
+                    if (printOnText){
+                        io.printStringToText(fileName, "Tidak ada solusi yang dapat dihasilkan!");
+                    }else {
+                        System.out.println("Tidak ada solusi yang dapat dihasilkan!");
+                    }
+                    
                     return mResult;
                 } else {
                     int rowIdx = 0;
                     // Ada solusi tapi solusi parametrik
                     for (i = 0; i < mOriginal.getColLength(); i++){
+                        resultString = "";
+
                         // melakukan print dalam bentuk solusi parametrik
                         if (rowIdx > mOriginal.getRowIdx() ){
-                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                            resultString = "X"+Integer.toString(i+1)+" = a"+Integer.toString(i+1);
                         }
                         else if(mOriginal.isZeroRow(rowIdx)){
-                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                            resultString = "X"+Integer.toString(i+1)+" = a"+Integer.toString(i+1);
                         }
                         else if (mOriginal.isZeroCol(i)){
-                            System.out.println("X"+(i+1)+" = a"+(i+1));
+                            resultString = "X"+Integer.toString(i+1)+" = a"+Integer.toString(i+1);
                         }
-
                         else if (!mOriginal.isZeroCol(i)){
                             // hanya dituliskan untuk matriks yang barisnya tidak bernilai 0 semua
-                            System.out.print("X"+(i+1)+" =");
+                            resultString += "X"+Integer.toString(i+1)+" =";
                             
-                            System.out.print(" "+mConstant.getElmt(rowIdx, 0));
+                            resultString += " "+Double.toString(mConstant.getElmt(rowIdx, 0));
 
                             for (j = i; j < mOriginal.getColLength(); j++){
                                 if ((mOriginal.getElmt(rowIdx, j)) != 0 && (j != i)){
@@ -633,21 +693,25 @@ public class MatrixOps {
                                     // jika i == j tidak ditulis
                                     if (mOriginal.getElmt(rowIdx, j) < 0){
                                         // elemen pada baris rowIdx, kolom j kurang dari 0
-                                        System.out.print(" + "+(-1*mOriginal.getElmt(rowIdx, j))+"a"+(j+1));
+                                        resultString += " + "+Double.toString(-1*mOriginal.getElmt(rowIdx, j))+"a"+Integer.toString(j+1);
                                     } else {
                                         // elemen pada baris rowIdx, kolom j lebih besar dari 0
-                                        System.out.print(" - "+(mOriginal.getElmt(rowIdx, j))+"a"+(j+1));
+                                        resultString += " - "+Double.toString(mOriginal.getElmt(rowIdx, j))+"a"+Integer.toString(j+1);
                                     }
 
                                 }
                             }
-                            System.out.print("\n");
+                            //System.out.print("\n");
                             rowIdx++;
+                        }
+                        if (printOnText){
+                            io.printStringToText(fileName, resultString);
+                        } else {
+                            System.out.println(resultString);
                         }
                     }
                     return mResult;
                 }
-
             }
 
         }

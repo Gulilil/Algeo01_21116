@@ -1,11 +1,12 @@
 import ADTMatrix.*;
 // import BicubicInterpolation.*;
+import BicubicInterpolation.BicubicInterpolation;
 
 public class driver {
 
     static MatrixOps mOps = new MatrixOps();
     static InputOutput io = new InputOutput();
-    // static BicubicInterpolation bi = new BicubicInterpolation();
+    static BicubicInterpolation bicubic = new BicubicInterpolation();
     static Interpolasi interpolasi = new Interpolasi();
     static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
     public static void main(String[] args){
@@ -56,7 +57,7 @@ public class driver {
         // Matrix m4 = new Matrix(3, 3);
         // m4.setToIdentity();
 
-        // Matrix m5;
+        Matrix m5;
 
         // m5 = mOps.inverse(m3);
         // m5.printMatrix();
@@ -150,6 +151,7 @@ public class driver {
         // // CEK INVERSE
         //mOps.splInverse(m1);
 
-        
+        m5 = bicubic.getAugMatrix();
+        io.printMatrix(m5);
     }
 }
