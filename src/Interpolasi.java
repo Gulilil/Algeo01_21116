@@ -11,11 +11,14 @@ public class Interpolasi {
     public void bacaInterpolasi(){
         System.out.println("Masukkan nilai n yang diinginkan : ");
         int n = scanObj.nextInt();
+
+        System.out.println("Masukkan nilai x yang ingin di-interpolasi : ");
         float xOutput = scanObj.nextFloat();
         Matrix mTemp = new Matrix(n, n+1);
         // Membuat matriks dari persamaan - persamaan berdasarkan input user
         for(int i =0 ; i<n; i++){
 
+            System.out.println("Masukkan nilai titik ke- " + (i+1));
             // Meminta input dari user untuk nilai x dan y 
             float x = scanObj.nextFloat();
             float y = scanObj.nextFloat();
@@ -29,13 +32,34 @@ public class Interpolasi {
                 }
             }
         }
-
-        Matrix mResult = op.splGaussJordan(mTemp, true);
-        float result =0;
-        for(int i =0 ; i<mResult.getRowLength();i++){
-            result += mResult.getElmt(i,0)*Math.pow(xOutput, i);
+        Matrix mOriginal = mTemp.getMOriginal(mTemp);
+        Matrix mConst = mTemp.getMResult(mTemp);
+        op.upperTriangleMatrix(mOriginal, mConst);
+        op.lowerTriangleMatrix(mOriginal, mConst);
+        System.out.println("=================================================");
+        System.out.println("Persamaan interpolasi : ");
+        System.out.print("f(x) = ");
+        for(int i = 0 ; i < mConst.getRowLength();i++){
+            if(i == 0){
+                System.out.print(mConst.getElmt(i,0) + " + ");
+            }else if ( i == mConst.getRowLength()-1){
+                if(i != 1){
+                    System.out.println(mConst.getElmt(i, 0) + "x^" +i);
+                }else{
+                    System.out.println(mConst.getElmt(i, 0) + "x");
+                }
+            }else if(i == 1 && i != mConst.getRowLength()-1){
+                System.out.print(mConst.getElmt(i, 0) + "x ");
+            }else{
+                System.out.print(mConst.getElmt(i, 0) + "x^" + i + "+ ");
+            }
         }
-        System.out.println(result);
-        // io.printMatrix(mTemp);        
-    }
+        
+        float result =0;
+        for(int i =0 ; i<mConst.getRowLength();i++){
+            result += mConst.getElmt(i,0)*Math.pow(xOutput, i);
+        }
+        System.out.println( "Hasil interpolasi dari " + xOutput + " adalah " + result);
+    }        
+    
 }

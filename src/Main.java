@@ -5,6 +5,7 @@ public class Main {
 
     static MatrixOps mOps = new MatrixOps();
     static InputOutput io = new InputOutput();
+    static Interpolasi interpolas = new Interpolasi();
     static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
     public static void main(String[] args) {
         // program adalah variabel yang menunjukkan bahwa program masih berjalan 
@@ -282,14 +283,14 @@ public class Main {
                 // User memilih fitur keempat
                 // User ingin menggunakan fungsi interpolasi
                 // if ( userNumber == 4){
-
+                    if(userNumber == 4){
+                        interpolas.bacaInterpolasi();
+                    }
                 // }
 
                 // User memilih fitur kelima
                 // User ingin menggunakan fungsi interpolasi bicubic
-                // if ( userNumber == 5){
-
-                // }
+                
 
                 // User memilih fitur keenam
                 // User ingin menggunakan fungsi regresi linear berganda
