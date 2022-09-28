@@ -125,12 +125,12 @@ public class InputOutput {
         
     }
 
-    public Matrix readBicubicMatrix(){
+    // public Matrix readBicubicMatrix(){
         
-    }
+    // }
 
-    public Matrix readBicubicFunction(){
-    }
+    // public Matrix readBicubicFunction(){
+    // }
 
 
     // FUNCTION

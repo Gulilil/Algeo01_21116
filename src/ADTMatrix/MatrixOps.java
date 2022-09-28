@@ -790,4 +790,17 @@ public class MatrixOps {
         return mI;
     }
 
+    public Matrix transform4x4To16x1(Matrix m){
+        Matrix mResult = new Matrix(16, 1);
+        int i, j, k;
+        k = 0;
+        for (i = 0; i < m.getRowLength(); i++){
+            for (j = 0; j < m.getColLength(); j++){
+                mResult.setElmt(k, 0, m.getElmt(i, j));
+                k++;
+            }
+        }
+        return mResult;
+    }
+
 }
