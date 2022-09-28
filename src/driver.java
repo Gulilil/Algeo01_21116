@@ -150,8 +150,7 @@ public class driver {
         // mOps.splCramer(m2);
         // // CEK INVERSE
         //mOps.splInverse(m1);
-
-        m5 = bicubic.getAugMatrix();
-        io.printMatrix(m5);
+        // m5 = bicubic.getAugMatrix();
+        io.printMatrix(bicubic.getInvMatrix());
     }
 }
