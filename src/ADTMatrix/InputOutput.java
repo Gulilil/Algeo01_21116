@@ -126,10 +126,14 @@ public class InputOutput {
         
     }
 
+    // FUNCTION
+    // Mengembalikan matriks utama dari bacaan text untuk fungsi bicubic
     // public Matrix readBicubicMatrix(){
         
     // }
 
+    // FUNCTION
+    // Mengembalikan matriks uji dari bacaan text untuk fungsi bicubic
     // public Matrix readBicubicFunction(){
     // }
 

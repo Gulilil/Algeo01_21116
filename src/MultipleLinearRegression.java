@@ -105,9 +105,9 @@ public class MultipleLinearRegression {
         // Matrix mResult2 = op.splInverse(mReg);
         for(int i =0 ; i < mResult.getRowLength();i++){
             if(i ==0){
-                System.out.print(mResult.getElmt(i,0) + " + ");
+                System.out.print(mResult.getElmt(i,0) + (mResult.getElmt(i+1, 0)<0?" " : " + "));
             }else if(i == 1 && i != mResult.getRowLength()-1){
-                System.out.print(mResult.getElmt(i, 0) + "x1 + ");
+                System.out.print(mResult.getElmt(i, 0) + "x1" + (mResult.getElmt(i+1, 0)< 0? " " : "+"));
             }else if(i == mResult.getRowLength()-1){
                 if(i == 1){
                     System.out.println(mResult.getElmt(i, 0));
@@ -115,7 +115,7 @@ public class MultipleLinearRegression {
                     System.out.println(mResult.getElmt(i, 0) + "x"+Integer.toString(i));
                 }
             }else{
-                System.out.print(mResult.getElmt(i, 0) + "x" + Integer.toString(i) + " + ");
+                System.out.print(mResult.getElmt(i, 0) + "x" + Integer.toString(i) + (mResult.getElmt(i+1, 0)<0 ? " ":" + "));
             }
         }
         boolean check = true; 

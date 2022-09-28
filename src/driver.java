@@ -57,7 +57,6 @@ public class driver {
         // Matrix m4 = new Matrix(3, 3);
         // m4.setToIdentity();
 
-        Matrix m5;
 
         // m5 = mOps.inverse(m3);
         // m5.printMatrix();
@@ -151,6 +150,5 @@ public class driver {
         // // CEK INVERSE
         //mOps.splInverse(m1);
         // m5 = bicubic.getAugMatrix();
-        io.printMatrix(bicubic.getInvMatrix());
     }
 }
