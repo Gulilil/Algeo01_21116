@@ -782,4 +782,12 @@ public class MatrixOps {
         return mResult;
     }
 
+    public Matrix gaJoInverse(Matrix m){
+        Matrix mI = new Matrix(m.getColIdx()+1, m.getColIdx()+1);
+        mI.setToIdentity();
+        upperTriangleMatrix(m, mI);
+        lowerTriangleMatrix(m, mI);
+        return mI;
+    }
+
 }
