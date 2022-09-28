@@ -41,7 +41,6 @@ public class Interpolasi {
                 }
             }
         }
-        io.printMatrix(mTemp);
         Matrix mOriginal = mTemp.getMOriginal(mTemp);
         Matrix mConst = mTemp.getMResult(mTemp);
         op.upperTriangleMatrix(mOriginal, mConst);
@@ -67,11 +66,12 @@ public class Interpolasi {
         
         double result =0;
         for(int i =0 ; i<mConst.getRowLength();i++){
-            double temp = mConst.getElmt(i,0);
-            System.out.println(temp);
             result += mConst.getElmt(i,0)*Math.pow(xOutput, i);
         }
+
         System.out.println( "Hasil interpolasi dari " + xOutput + " adalah " + result);
+       
+
     }        
     
 }
