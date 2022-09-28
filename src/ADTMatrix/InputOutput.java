@@ -55,8 +55,9 @@ public class InputOutput {
                 // Membaca current working path dan memanipulasi path
                 currentPath = System.getProperty("user.dir");
                 currentPath = currentPath.replaceAll("src","");
+                System.out.println(currentPath);
                 // Menggabungkan currentPath dengan lokasi file
-                filePath = currentPath+"\\test\\input\\"+ fileName;
+                filePath = currentPath+"test\\input\\"+ fileName;
                 File file = new File(filePath);
                 
                 // Melakukan pencarian apakah file tersebut ada
@@ -125,12 +126,12 @@ public class InputOutput {
         
     }
 
-    public Matrix readBicubicMatrix(){
+    // public Matrix readBicubicMatrix(){
         
-    }
+    // }
 
-    public Matrix readBicubicFunction(){
-    }
+    // public Matrix readBicubicFunction(){
+    // }
 
 
     // FUNCTION
