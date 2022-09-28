@@ -58,7 +58,7 @@ public class Interpolasi {
                     System.out.println(mConst.getElmt(i, 0) + "x");
                 }
             }else if(i == 1 && i != mConst.getRowLength()-1){
-                System.out.print(mConst.getElmt(i, 0) + "x ");
+                System.out.print(mConst.getElmt(i, 0) + "x + ");
             }else{
                 System.out.print(mConst.getElmt(i, 0) + "x^" + i + "+ ");
             }

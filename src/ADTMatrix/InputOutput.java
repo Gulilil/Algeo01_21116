@@ -56,7 +56,7 @@ public class InputOutput {
                 currentPath = System.getProperty("user.dir");
                 currentPath = currentPath.replaceAll("src","");
                 // Menggabungkan currentPath dengan lokasi file
-                filePath = currentPath+"test\\input\\"+ fileName;
+                filePath = currentPath+"\\test\\input\\"+ fileName;
                 File file = new File(filePath);
                 
                 // Melakukan pencarian apakah file tersebut ada
