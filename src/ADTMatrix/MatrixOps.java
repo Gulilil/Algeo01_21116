@@ -489,7 +489,6 @@ public class MatrixOps {
 
 
     // ============================== PENYELESAIAN SPL ============================== 
-
     // PROCEDURE
     // Menyelesaikan permasalahan SPL menggunakan metode Gauss
     
@@ -731,10 +730,7 @@ public class MatrixOps {
         
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
-        
-
         Matrix mInverse = inverse(mOriginal);
-
 
         Matrix mResult;
         System.out.println("Matriks inverse ");
@@ -801,6 +797,23 @@ public class MatrixOps {
             }
         }
         return mResult;
+    }
+
+    public Matrix readBicubicMatrix(Matrix m){
+        Matrix mOut = new Matrix(4, 4);
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
+                mOut.setElmt(i, j, m.getElmt(i, j));
+            }
+        }
+        return mOut;
+    }
+
+    public Matrix readBicubicFunctionValue(Matrix m){
+        Matrix mOut = new Matrix(1, 2);
+        mOut.setElmt(0, 0, m.getElmt(4, 0));
+        mOut.setElmt(0, 1, m.getElmt(4, 1));
+        return mOut;
     }
 
 }

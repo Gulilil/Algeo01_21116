@@ -125,14 +125,6 @@ public class InputOutput {
         
     }
 
-    // public Matrix readBicubicMatrix(){
-        
-    // }
-
-    // public Matrix readBicubicFunction(){
-    // }
-
-
     // FUNCTION
     // Membaca line dari teks lalu mengubahnya menjadi matriks
     public Matrix lineToRow(String line, int col){
@@ -183,7 +175,6 @@ public class InputOutput {
 
         return count;
     }
-
 
     // PROCEDURE
     // Melakukan print matriks
