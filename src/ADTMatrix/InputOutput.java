@@ -125,6 +125,13 @@ public class InputOutput {
         
     }
 
+    // public Matrix readBicubicMatrix(){
+        
+    // }
+
+    // public Matrix readBicubicFunction(){
+    // }
+
 
     // FUNCTION
     // Membaca line dari teks lalu mengubahnya menjadi matriks

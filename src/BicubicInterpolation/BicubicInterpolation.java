@@ -21,7 +21,7 @@ public class BicubicInterpolation{
             }
         }
     }
-    
+
     //Rumus Model
     public double calcElmt(double x, double y, int i, int j){
         return Math.pow(x, i) * Math.pow(y, j);
@@ -33,11 +33,11 @@ public class BicubicInterpolation{
     }
 
     public Matrix getInvMatrix(){
-        return mo.inverse(augMatrix);
+        return mo.gaJoInverse(augMatrix);
     }
 
     public Matrix getCoefMatrix(Matrix sol){
-        return mo.multiplyMatrix(mo.inverse(this.augMatrix), sol);
+        return mo.multiplyMatrix(getInvMatrix(), sol);
     }
     
     public double interpolate(double x, double y, Matrix coef){
