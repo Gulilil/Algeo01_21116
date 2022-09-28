@@ -1,21 +1,15 @@
 package BicubicInterpolation;
 
-import java.util.Scanner;
 import ADTMatrix.*;
 
 public class BicubicInterpolation{
 
-    Scanner scanObj = new Scanner(System.in);
     MatrixOps mo = new MatrixOps();
-
-    Matrix sol = new Matrix(16, 1);
     Matrix augMatrix = new Matrix(16, 16);
-    
-    public double calcElmt(double x, double y, int i, int j){
-        return Math.pow(x, i) * Math.pow(y, j);
-    }
+    Matrix invAugMatrix = new Matrix(16, 16);
 
-    public Matrix getAugMatrix(){
+    // Konstruktor aug matrix
+    public BicubicInterpolation(){
         for(int y = -1; y <= 2; y++){
             for(int x = -1; x <= 2; x++){
                 for(int j = 0; j <= 3; j++){
@@ -26,17 +20,33 @@ public class BicubicInterpolation{
                 }
             }
         }
+    }
+    
+    //Rumus Model
+    public double calcElmt(double x, double y, int i, int j){
+        return Math.pow(x, i) * Math.pow(y, j);
+    }
+
+    //Mengambil augMatrix Bicubic
+    public Matrix getAugMatrix(){
         return this.augMatrix;
     }
 
-    public void isiSol(){
-        for(int i = 0; i <= 16; i++){
-            this.sol.setElmt(i, 0, scanObj.nextDouble());
+    public Matrix getInvMatrix(){
+        return mo.inverse(augMatrix);
+    }
+
+    public Matrix getCoefMatrix(Matrix sol){
+        return mo.multiplyMatrix(mo.inverse(this.augMatrix), sol);
+    }
+    
+    public double interpolate(double x, double y, Matrix coef){
+        double result = 0;
+        for(int j = 0; j <= 3; j++){
+            for(int i = 0; i <= 3; i++){
+                result += coef.getElmt((4*j + i), 0) * calcElmt(x, y, i, j);
+            }
         }
+        return result;
     }
-
-    public Matrix hasilKoef(Matrix augMatrix, Matrix sol){
-        return mo.multiplyMatrix(mo.inverse(augMatrix), sol);
-    }
-
 }

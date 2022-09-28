@@ -1,10 +1,13 @@
 import ADTMatrix.*;
+import BicubicInterpolation.BicubicInterpolation;
+
 import java.util.Scanner;
 
 public class Main {
 
     static MatrixOps mOps = new MatrixOps();
     static InputOutput io = new InputOutput();
+    static BicubicInterpolation bi = new BicubicInterpolation();
     static Interpolasi interpolas = new Interpolasi();
     static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
     public static void main(String[] args) {
@@ -318,6 +321,12 @@ public class Main {
                         interpolas.bacaInterpolasi();
                     }
                 // }
+
+                    if(userNumber == 5){
+                        Matrix sol;
+                        sol = io.readMatrix();
+                        bi.getCoefMatrix(sol);
+                    }
 
                 // User memilih fitur kelima
                 // User ingin menggunakan fungsi interpolasi bicubic
