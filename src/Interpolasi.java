@@ -13,22 +13,31 @@ public class Interpolasi {
         int n = scanObj.nextInt();
 
         System.out.println("Masukkan nilai x yang ingin di-interpolasi : ");
-        float xOutput = scanObj.nextFloat();
+        double xOutput = scanObj.nextDouble();
+        
+        Matrix mPersamaan = new Matrix(n, 2);
+        for(int i = 0 ; i<n;i++){
+            System.out.println("Masukkan nilai titik ke -"+ (i+1));
+            double x = scanObj.nextDouble();
+            double y = scanObj.nextDouble();
+            for(int j =0; j<2;j++){
+                if(j != 1){
+                    mPersamaan.setElmt(i, j, x);
+                }else{
+                    mPersamaan.setElmt(i, j, y);
+                }
+            }
+        }
+
         Matrix mTemp = new Matrix(n, n+1);
         // Membuat matriks dari persamaan - persamaan berdasarkan input user
         for(int i =0 ; i<n; i++){
-
-            System.out.println("Masukkan nilai titik ke- " + (i+1));
-            // Meminta input dari user untuk nilai x dan y 
-            float x = scanObj.nextFloat();
-            float y = scanObj.nextFloat();
-
             // Meng-assign nilai x dipangkatkan dengan integer tertentu ke dalam matriks
             for(int j =0 ; j<n+1; j++){
                 if(j != n){
-                    mTemp.setElmt(i, j, Math.pow(x, j));
+                    mTemp.setElmt(i, j, Math.pow(mPersamaan.getElmt(i, 0), j));
                 }else{
-                    mTemp.setElmt(i,j,y);
+                    mTemp.setElmt(i,j,mPersamaan.getElmt(i, 1));
                 }
             }
         }
@@ -55,11 +64,14 @@ public class Interpolasi {
             }
         }
         
-        float result =0;
+        double result =0;
         for(int i =0 ; i<mConst.getRowLength();i++){
             result += mConst.getElmt(i,0)*Math.pow(xOutput, i);
         }
+
         System.out.println( "Hasil interpolasi dari " + xOutput + " adalah " + result);
+       
+
     }        
     
 }
