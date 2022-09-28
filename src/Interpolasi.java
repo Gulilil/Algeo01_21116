@@ -50,7 +50,7 @@ public class Interpolasi {
         System.out.print("f(x) = ");
         for(int i = 0 ; i < mConst.getRowLength();i++){
             if(i == 0){
-                System.out.print(mConst.getElmt(i,0) + " + ");
+                System.out.print(mConst.getElmt(i,0) + (mConst.getElmt(i+1,0)<0 ? " " : " + "));
             }else if ( i == mConst.getRowLength()-1){
                 if(i != 1){
                     System.out.println(mConst.getElmt(i, 0) + "x^" +i);
@@ -58,9 +58,9 @@ public class Interpolasi {
                     System.out.println(mConst.getElmt(i, 0) + "x");
                 }
             }else if(i == 1 && i != mConst.getRowLength()-1){
-                System.out.print(mConst.getElmt(i, 0) + "x + ");
+                System.out.print(mConst.getElmt(i, 0) + "x " + (mConst.getElmt(i+1, 0) < 0 ? " " : " + "));
             }else{
-                System.out.print(mConst.getElmt(i, 0) + "x^" + i + "+ ");
+                System.out.print(mConst.getElmt(i, 0) + "x^" + i + (mConst.getElmt(i+1, 0) < 0 ? " " : " + "));
             }
         }
         
