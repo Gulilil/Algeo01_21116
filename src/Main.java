@@ -8,7 +8,7 @@ public class Main {
     static MatrixOps mOps = new MatrixOps();
     static InputOutput io = new InputOutput();
     static BicubicInterpolation bi = new BicubicInterpolation();
-    static Interpolasi interpolas = new Interpolasi();
+    static Interpolasi interpolasi = new Interpolasi();
     static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
     public static void main(String[] args) {
         // program adalah variabel yang menunjukkan bahwa program masih berjalan 
@@ -318,7 +318,33 @@ public class Main {
                 // User ingin menggunakan fungsi interpolasi
                 // if ( userNumber == 4){
                     if(userNumber == 4){
-                        interpolas.bacaInterpolasi();
+                        Matrix mIn; 
+                        double x;
+                        String text = "";
+                        mIn = io.readMatrix();
+                        double lastElement = mIn.getElmt(mIn.getRowLength()-1, 1);
+                        if(Double.isNaN(lastElement)){
+                            System.out.println("Ada nan");
+                            Matrix mTemp = mOps.delLastRow(mIn);
+                            x = mIn.getElmt(mIn.getRowLength()-1, 0); 
+                            text = interpolasi.bacaInterpolasi(mTemp, x); 
+                        }else{
+                            System.out.println("Masukkan nilai x yang ingin di-interpolasi : ");
+                            x = scanObj.nextDouble();
+                            text = interpolasi.bacaInterpolasi(mIn,x);
+                        }                        
+                        boolean printOnText = io.askUserPrint();
+                        if(printOnText){
+                            System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                            scanObj.nextLine(); // Read the leftover new line
+                            String fileName = scanObj.nextLine();
+                            io.delFile(fileName);       
+                            io.printStringToText(fileName, "=============== HASIL INVERSE ===============");
+                            io.printStringToText(fileName, text);
+                        }else{
+                            System.out.println("====== Fungsi Interpolasi ================");
+                            System.out.println(text);
+                        }
                     }
                 // }
 
