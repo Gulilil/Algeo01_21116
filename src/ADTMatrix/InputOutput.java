@@ -15,7 +15,6 @@ public class InputOutput {
         int userInput;
         String fileName;
         String filePath;
-        String currentPath;
         int row; int col;
         int i; int j;
         Matrix m = new Matrix(1, 1);
@@ -53,11 +52,7 @@ public class InputOutput {
                 scanObj.nextLine(); // Read the leftover new line
                 fileName = scanObj.nextLine();
                 // Membaca current working path dan memanipulasi path
-                currentPath = System.getProperty("user.dir");
-                currentPath = currentPath.replaceAll("src","");
-                System.out.println(currentPath);
-                // Menggabungkan currentPath dengan lokasi file
-                filePath = currentPath+"test\\input\\"+ fileName;
+                filePath = getPathInput(fileName);
                 File file = new File(filePath);
                 
                 // Melakukan pencarian apakah file tersebut ada
@@ -198,11 +193,8 @@ public class InputOutput {
     // Melakukan print matriks pada text
     public void printMatrixToText(String fileName, Matrix m){
 
-        // Membaca current working path dan memanipulasi path
-        String currentPath = System.getProperty("user.dir");
-        currentPath = currentPath.replaceAll("src","");
-        // Menggabungkan currentPath dengan lokasi file
-        String filePath = currentPath+"test\\output\\"+ fileName;
+        // Menentukan filepath tempat file output disimpan
+        String filePath = getPathOutput(fileName);
 
         File file = new File(filePath);
 
@@ -240,11 +232,8 @@ public class InputOutput {
     // Melakukan print suatu string pada text dengan menambahkan line baru
     public void printStringToText(String fileName, String str){
 
-        // Membaca current working path dan memanipulasi path
-        String currentPath = System.getProperty("user.dir");
-        currentPath = currentPath.replaceAll("src","");
-        // Menggabungkan currentPath dengan lokasi file
-        String filePath = currentPath+"test\\output\\"+ fileName;
+        // Menentukan filePath tempat file output disimpan
+        String filePath = getPathOutput(fileName);
 
         File file = new File(filePath);
 
@@ -315,6 +304,50 @@ public class InputOutput {
         if (file.exists()){
             file.delete();
         }
+    }
+
+    // FUNCTION
+    // mengembalikan string dari path suatu file untuk input
+    public String getPathInput(String fileName){
+        String filePath;
+        String currentPath;
+
+        // Membaca current working path dan memanipulasi path
+        currentPath = System.getProperty("user.dir");
+        if (currentPath.contains("src")){
+            // jika currentPath user.dir berhenti hingga directory src
+            currentPath = currentPath.replaceAll("src","");
+            // Menggabungkan currentPath dengan lokasi file
+            filePath = currentPath+"test\\input\\"+ fileName;
+        } else {
+            // jika currentPath user.dir tidak sampai directory src
+            // Menggabungkan currentPath dengan lokasi file
+            filePath = currentPath+"\\test\\input\\"+ fileName;
+        }
+
+        return filePath;
+    }
+
+    // FUNCTION
+    // mengembalikan string dari path suatu file 
+    public String getPathOutput(String fileName){
+        String filePath;
+        String currentPath;
+
+        // Membaca current working path dan memanipulasi path
+        currentPath = System.getProperty("user.dir");
+        if (currentPath.contains("src")){
+            // jika currentPath user.dir berhenti hingga directory src
+            currentPath = currentPath.replaceAll("src","");
+            // Menggabungkan currentPath dengan lokasi file
+            filePath = currentPath+"test\\output\\"+ fileName;
+        } else {
+            // jika currentPath user.dir tidak sampai directory src
+            // Menggabungkan currentPath dengan lokasi file
+            filePath = currentPath+"\\test\\output\\"+ fileName;
+        }
+
+        return filePath;
     }
 
 }
