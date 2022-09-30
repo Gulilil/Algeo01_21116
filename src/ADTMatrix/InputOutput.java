@@ -36,8 +36,8 @@ public class InputOutput {
                 // Baca matriks
                 for (i = 0; i < row; i++){
                     for (j = 0; j < col ; j++){
-                        userInput = scanObj.nextInt();
-                        m.setElmt(i, j, userInput);
+                        Double input = scanObj.nextDouble();
+                        m.setElmt(i, j, input);
                     }
                 }
 
@@ -348,5 +348,4 @@ public class InputOutput {
 
         return filePath;
     }
-
 }

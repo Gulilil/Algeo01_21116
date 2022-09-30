@@ -8,7 +8,7 @@ public class BicubicInterpolation{
     Matrix augMatrix = new Matrix(16, 16);
     Matrix invAugMatrix = new Matrix(16, 16);
 
-    // Konstruktor aug matrix
+    // Konstruktor aug matrix dan invers
     public BicubicInterpolation(){
         for(int y = -1; y <= 2; y++){
             for(int x = -1; x <= 2; x++){

@@ -1,9 +1,11 @@
-import ADTMatrix.*;
+import java.util.Scanner;
+
+import ADTMatrix.InputOutput;
+import ADTMatrix.Matrix;
+import ADTMatrix.MatrixOps;
 import BicubicInterpolation.BicubicInterpolation;
 import Interpolation.Interpolasi;
 import MultipleLinearRegession.MultipleLinearRegression;
-
-import java.util.Scanner;
 
 public class Main {
 
@@ -351,15 +353,14 @@ public class Main {
                 // }
 
                     if(userNumber == 5){
-                        Matrix input = new Matrix(5, 5);
-                        input = io.readMatrix();
+                        Matrix input = io.readMatrix();
 
                         Matrix koefFungsi = new Matrix(4, 4);
                         koefFungsi = mOps.readBicubicMatrix(input);
                         koefFungsi = mOps.transform4x4To16x1(koefFungsi);
                         koefFungsi = bi.getCoefMatrix(koefFungsi);
 
-                        Matrix nilaiFungsi = mOps.readBicubicMatrix(input);
+                        Matrix nilaiFungsi = mOps.readBicubicFunctionValue(input);
                         double x = nilaiFungsi.getElmt(0, 0);
                         double y = nilaiFungsi.getElmt(0, 1);
                         
