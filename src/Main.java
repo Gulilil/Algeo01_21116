@@ -362,8 +362,8 @@ public class Main {
                 // User ingin menggunakan fungsi regresi linear berganda
                 if ( userNumber == 6){
                     Matrix m;
+                    String displayAnswer = "";
                     m = io.readMatrix();
-                    System.out.println(io.userInput);
                     if(io.userInput == 2){
                         regresiLinear.userInput = io.userInput;
                         regresiLinear.mX = new Matrix(m.getColLength()-1,1);
@@ -371,11 +371,22 @@ public class Main {
                             regresiLinear.mX.setElmt(i, 0, m.getElmt(m.getRowLength()-1, i));
                         }
                         Matrix mIn = mOps.delLastRow(m);
-                        regresiLinear.regresiLinear(mIn);
+                        displayAnswer = regresiLinear.regresiLinear(mIn);
                     }else{
-                        regresiLinear.regresiLinear(m);
+                        displayAnswer = regresiLinear.regresiLinear(m);
                     }
-
+                    boolean printOnText = io.askUserPrint();
+                    if(printOnText){
+                        System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                        scanObj.nextLine(); // Read the leftover new line
+                        String fileName = scanObj.nextLine();
+                        io.delFile(fileName);       
+                        io.printStringToText(fileName, "=============== HASIL REGRESI ===============");
+                        io.printStringToText(fileName, displayAnswer);
+                    }else{
+                        System.out.println("====== Hasil Regresi ================");
+                        System.out.println(displayAnswer);
+                    }
                 }
 
 

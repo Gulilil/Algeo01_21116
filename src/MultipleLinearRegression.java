@@ -14,7 +14,7 @@ public class MultipleLinearRegression {
     static MatrixOps op = new MatrixOps();
     Scanner scanObj = new Scanner(System.in); 
 
-    public void regresiLinear(Matrix mIn){
+    public String regresiLinear(Matrix mIn){
         int n, m;
 
         // Memisahkan augmented matrix
@@ -105,23 +105,23 @@ public class MultipleLinearRegression {
         op.upperTriangleMatrix(mTemp, mResult);
         op.lowerTriangleMatrix(mTemp, mResult);
         // Matrix mResult2 = op.splInverse(mReg);
+        String answerText = "f(x) = ";
         for(int i =0 ; i < mResult.getRowLength();i++){
             if(i ==0){
-                System.out.print(mResult.getElmt(i,0) + (mResult.getElmt(i+1, 0)<0?" " : " + "));
+                answerText += Double.toString(mResult.getElmt(i,0)) + (mResult.getElmt(i+1, 0)<0?" " : " + ");
             }else if(i == 1 && i != mResult.getRowLength()-1){
-                System.out.print(mResult.getElmt(i, 0) + "x1" + (mResult.getElmt(i+1, 0)< 0? " " : "+"));
+                answerText += Double.toString(mResult.getElmt(i, 0)) + "x1" + (mResult.getElmt(i+1, 0)< 0? " " : "+");
             }else if(i == mResult.getRowLength()-1){
                 if(i == 1){
-                    System.out.println(mResult.getElmt(i, 0));
+                    answerText+= Double.toString(mResult.getElmt(i, 0));
                 }else{
-                    System.out.println(mResult.getElmt(i, 0) + "x"+Integer.toString(i));
+                    answerText+= Double.toString(mResult.getElmt(i, 0)) + "x"+Integer.toString(i);
                 }
             }else{
-                System.out.print(mResult.getElmt(i, 0) + "x" + Integer.toString(i) + (mResult.getElmt(i+1, 0)<0 ? " ":" + "));
+                answerText += Double.toString(mResult.getElmt(i, 0)) + "x" + Integer.toString(i) + (mResult.getElmt(i+1, 0)<0 ? " ":" + ");
             }
         }
         double result = mResult.getElmt(0, 0);
-        System.out.println(userInput);
         if(userInput != 2){
             mX= new Matrix(mIn.getColLength()-1, 1);
             for(int i = 0; i < mIn.getColLength()-1;i++){
@@ -130,11 +130,11 @@ public class MultipleLinearRegression {
                 mX.setElmt(i, 0, temp);
             }
         }
-        io.printMatrix(mX);
-        io.printMatrix(mResult);
         for(int i =0 ;i<mX.getRowLength();i++){
             result += mResult.getElmt(i, 0) * mX.getElmt(i, 0);
         }            
-        System.out.println(result);   
+        answerText += "\nhasil interpolasi = " + Double.toString(result);
+        return answerText;  
     }
+
 }
