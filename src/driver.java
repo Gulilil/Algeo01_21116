@@ -1,6 +1,8 @@
 import ADTMatrix.*;
 // import BicubicInterpolation.*;
 import BicubicInterpolation.BicubicInterpolation;
+import Interpolation.Interpolasi;
+import MultipleLinearRegession.MultipleLinearRegression;
 
 public class driver {
 

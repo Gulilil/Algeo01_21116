@@ -1,3 +1,4 @@
+package Interpolation;
 import java.util.Scanner;
 import ADTMatrix.Matrix;
 import ADTMatrix.InputOutput;

@@ -1,3 +1,4 @@
+package MultipleLinearRegession;
 // import java.util.Scanner;
 
 import java.util.Scanner;
