@@ -363,7 +363,18 @@ public class Main {
                 if ( userNumber == 6){
                     Matrix m;
                     m = io.readMatrix();
-                    regresiLinear.regresiLinear(m);
+                    System.out.println(io.userInput);
+                    if(io.userInput == 2){
+                        regresiLinear.userInput = io.userInput;
+                        regresiLinear.mX = new Matrix(m.getColLength()-1,1);
+                        for(int i =0; i < m.getColLength()-1;i++){
+                            regresiLinear.mX.setElmt(i, 0, m.getElmt(m.getRowLength()-1, i));
+                        }
+                        Matrix mIn = mOps.delLastRow(m);
+                        regresiLinear.regresiLinear(mIn);
+                    }else{
+                        regresiLinear.regresiLinear(m);
+                    }
 
                 }
 

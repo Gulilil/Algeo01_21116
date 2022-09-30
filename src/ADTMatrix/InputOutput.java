@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.*;
 
 public class InputOutput {
-
+    public int userInput;
     Scanner scanObj = new Scanner(System.in);
     
     // ========================== BACA TULIS ==========================
@@ -12,7 +12,6 @@ public class InputOutput {
     // Membaca file text dengan mengembalikan matrix berdasarkan file text tersebut
     public Matrix readMatrix() {
         boolean program = true;
-        int userInput;
         String fileName;
         String filePath;
         int row; int col;
