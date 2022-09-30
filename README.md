@@ -39,11 +39,19 @@ Aljabar Linier dan Geometri </center> </h1>
 
 <h2> <b> Keterangan Folder </b> </h2>
 <p> <b> Folder 'src' </b> </p>
-<p> Berisikan file-file yang mengandung program utama dari pemenuhan Tugas Besar ini. File yang dimaksud termasuk file main dan file yang berisi prosedur dan fungsi penunjang </p>
-<ul> <li> <p> <b> Folder 'testCase' </b> </p> </li> </ul>
-<p> Berisikan folder input yang berisikan file input dari user dan folder output untuk menyimpan file output yang dikeluarkan program untuk menjawab input user </p>
+<p> Berisikan file-file yang mengandung program utama dari pemenuhan Tugas Besar ini. File yang dimaksud termasuk file main dan file yang berisi prosedur dan fungsi penunjang. </p>
 <ul> <li> <p> <b> Folder 'ADTMatrix' </b> </p> </li> </ul>
-<p> Berisikan file yang mengandung algoritma pengolahan matriks </p>
+<p> Berisikan file yang mengandung algoritma pengolahan matriks, baik algoritma pengolahan di dalam matriks maupun algoritma pengolahan antar matriks.</p>
+<ul> <li> <p> <b> Folder 'Interpolation' </b> </p> </li> </ul>
+<p> Berisikan file yang mengandung algoritma untuk mengerjakan fungsi interpolasi. </b>
+<ul> <li> <p> <b> Folder 'BicubicInterpolation' </b> </p> </li> </ul>
+<p> Berisikan file yang mengandung algoritma untuk mengerjakan fungsi interpolasi bikubik. </p>
+<ul> <li> <p> <b> Folder 'MultipleLinearRegression' </b> </p> </li> </ul>
+<p> Berisikan file yang mengandung algoritma untuk mengerjakan fungsi regresi linier berganda </p>
+<ul> <li> <p> <b> Folder 'ImageResizing' </b> </p> </li> </ul>
+<p> Berisikan file yang mengandung algoritma untuk pemrosesan citra (Image Processing) dan pembesaran gambar. </p>
+<p> <b> Folder 'testCase' </b> </p>
+<p> Berisikan folder input yang berisikan file input dari user dan folder output untuk menyimpan file output yang dikeluarkan program untuk menjawab input user </p>
 
 <h2> <b> Keterangan File </b> </h2>
 <p> <b> File InputOutput.java </b> </p>
@@ -51,4 +59,7 @@ Aljabar Linier dan Geometri </center> </h1>
 <p> <b> File MatrixOps.java </b> </p>
 <p> <b> File Main.java </b> </p>
 <p> <b> File driver.java </b> </p>
-<p> <b> File Interpolasi </b> </p>
+<p> <b> File Interpolasi.java </b> </p>
+<p> <b> File BicubicInterpolation.java </b></p>
+<p> <b> File MultipleLinearRegression.java </b></p>
+<p> <b> File ImageResizing.java </b> </p>
