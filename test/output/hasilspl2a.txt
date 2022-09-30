@@ -1,0 +1,5 @@
+================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================
+X1 = -1.0 + 1.0a4
+X2 = 0.0 + 2.0a3
+X3 = a3
+X4 = a4
