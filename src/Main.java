@@ -1,7 +1,11 @@
-import ADTMatrix.*;
-import BicubicInterpolation.BicubicInterpolation;
-
 import java.util.Scanner;
+
+import ADTMatrix.InputOutput;
+import ADTMatrix.Matrix;
+import ADTMatrix.MatrixOps;
+import BicubicInterpolation.BicubicInterpolation;
+import Interpolation.Interpolasi;
+import MultipleLinearRegession.MultipleLinearRegression;
 
 public class Main {
 
@@ -316,55 +320,98 @@ public class Main {
 
                 // User memilih fitur keempat
                 // User ingin menggunakan fungsi interpolasi
-                // if ( userNumber == 4){
-                    if(userNumber == 4){
-                        Matrix mIn; 
-                        double x;
-                        String text = "";
-                        mIn = io.readMatrix();
-                        double lastElement = mIn.getElmt(mIn.getRowLength()-1, 1);
-                        if(Double.isNaN(lastElement)){
-                            System.out.println("Ada nan");
-                            Matrix mTemp = mOps.delLastRow(mIn);
-                            x = mIn.getElmt(mIn.getRowLength()-1, 0); 
-                            text = interpolasi.bacaInterpolasi(mTemp, x); 
-                        }else{
-                            System.out.println("Masukkan nilai x yang ingin di-interpolasi : ");
-                            x = scanObj.nextDouble();
-                            text = interpolasi.bacaInterpolasi(mIn,x);
-                        }                        
-                        boolean printOnText = io.askUserPrint();
-                        if(printOnText){
-                            System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
-                            scanObj.nextLine(); // Read the leftover new line
-                            String fileName = scanObj.nextLine();
-                            io.delFile(fileName);       
-                            io.printStringToText(fileName, "=============== HASIL INVERSE ===============");
-                            io.printStringToText(fileName, text);
-                        }else{
-                            System.out.println("====== Fungsi Interpolasi ================");
-                            System.out.println(text);
-                        }
+                if(userNumber == 4){
+                    Matrix mIn; 
+                    double x;
+                    String text = "";
+                    mIn = io.readMatrix();
+                    double lastElement = mIn.getElmt(mIn.getRowLength()-1, 1);
+                    if(Double.isNaN(lastElement)){
+                        System.out.println("Ada nan");
+                        Matrix mTemp = mOps.delLastRow(mIn);
+                        x = mIn.getElmt(mIn.getRowLength()-1, 0); 
+                        text = interpolasi.bacaInterpolasi(mTemp, x); 
+                    }else{
+                        System.out.println("Masukkan nilai x yang ingin di-interpolasi : ");
+                        x = scanObj.nextDouble();
+                        text = interpolasi.bacaInterpolasi(mIn,x);
+                    }                        
+                    boolean printOnText = io.askUserPrint();
+                    if(printOnText){
+                        System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                        scanObj.nextLine(); // Read the leftover new line
+                        String fileName = scanObj.nextLine();
+                        io.delFile(fileName);       
+                        io.printStringToText(fileName, "=============== HASIL INVERSE ===============");
+                        io.printStringToText(fileName, text);
+                    }else{
+                        System.out.println("====== Fungsi Interpolasi ================");
+                        System.out.println(text);
                     }
-                // }
-
-                    if(userNumber == 5){
-                        Matrix sol;
-                        sol = io.readMatrix();
-                        bi.getCoefMatrix(sol);
-                    }
+                }
 
                 // User memilih fitur kelima
                 // User ingin menggunakan fungsi interpolasi bicubic
-                
+                if(userNumber == 5){
+                    Matrix input = io.readMatrix();
+
+                    Matrix koefFungsi = new Matrix(4, 4);
+                    koefFungsi = mOps.readBicubicMatrix(input);
+                    koefFungsi = mOps.transform4x4To16x1(koefFungsi);
+                    koefFungsi = bi.getCoefMatrix(koefFungsi);
+
+                    Matrix nilaiFungsi = mOps.readBicubicFunctionValue(input);
+                    double x = nilaiFungsi.getElmt(0, 0);
+                    double y = nilaiFungsi.getElmt(0, 1);
+                    
+                    double hasilInterpolasi = bi.interpolate(x, y, koefFungsi);
+
+                    //Bagian Print
+                    boolean printOnText = io.askUserPrint();
+                    if (printOnText){
+                        System.out.println("Masukkan nama file (.txt) lengkap dengan .txt: ");
+                        scanObj.nextLine();
+                        String fileName = scanObj.nextLine();
+                        io.delFile(fileName);
+                        String resultString = "f(" + Double.toString(x) + "," + Double.toString(y) + ") = " + Double.toString(hasilInterpolasi);
+                        
+                        io.printStringToText(fileName, "=============== HASIL INTERPOLASI ===============");
+                        io.printStringToText(fileName, resultString);
+                    } else {
+                        System.out.println("=============== HASIL INTERPOLASI ===============");
+                        System.out.println("f(" + Double.toString(x) + "," + Double.toString(y) + ") = " + Double.toString(hasilInterpolasi));
+                    }
+                }
 
                 // User memilih fitur keenam
                 // User ingin menggunakan fungsi regresi linear berganda
                 if ( userNumber == 6){
                     Matrix m;
+                    String displayAnswer = "";
                     m = io.readMatrix();
-                    regresiLinear.regresiLinear(m);
-
+                    if(io.userInput == 2){
+                        regresiLinear.userInput = io.userInput;
+                        regresiLinear.mX = new Matrix(m.getColLength()-1,1);
+                        for(int i =0; i < m.getColLength()-1;i++){
+                            regresiLinear.mX.setElmt(i, 0, m.getElmt(m.getRowLength()-1, i));
+                        }
+                        Matrix mIn = mOps.delLastRow(m);
+                        displayAnswer = regresiLinear.regresiLinear(mIn);
+                    }else{
+                        displayAnswer = regresiLinear.regresiLinear(m);
+                    }
+                    boolean printOnText = io.askUserPrint();
+                    if(printOnText){
+                        System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                        scanObj.nextLine(); // Read the leftover new line
+                        String fileName = scanObj.nextLine();
+                        io.delFile(fileName);       
+                        io.printStringToText(fileName, "=============== HASIL REGRESI ===============");
+                        io.printStringToText(fileName, displayAnswer);
+                    }else{
+                        System.out.println("====== Hasil Regresi ================");
+                        System.out.println(displayAnswer);
+                    }
                 }
 
 

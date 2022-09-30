@@ -1,6 +1,9 @@
 import ADTMatrix.*;
 // import BicubicInterpolation.*;
 import BicubicInterpolation.BicubicInterpolation;
+import ImageResizing.ImageResizing;
+import MultipleLinearRegession.MultipleLinearRegression;
+import Interpolation.Interpolasi;
 
 public class driver {
 
@@ -9,8 +12,10 @@ public class driver {
     static BicubicInterpolation bicubic = new BicubicInterpolation();
     static Interpolasi interpolasi = new Interpolasi();
     static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
+    static ImageResizing img = new ImageResizing();
     public static void main(String[] args){
 
+        img.ImageProcess();
         // cek Matriks Constructor
         // Matrix m1 = new Matrix(4,4);
         // m1.setElmt(0,0,1); m1.setElmt(0, 1, 2); m1.setElmt(0, 2, 3); m1.setElmt(0, 3,1);
@@ -150,5 +155,14 @@ public class driver {
         // // CEK INVERSE
         //mOps.splInverse(m1);
         // m5 = bicubic.getAugMatrix();
+
+        // Matrix m = io.readMatrix();
+        // Matrix m4 = mOps.readBicubicFunctionValue(m);
+        // // Matrix m6 = mOps.readBicubicMatrix(m);
+        // // Matrix mNew = mOps.transform4x4To16x1(m6);
+        // // Matrix coef = bicubic.getCoefMatrix(mNew);
+        // // double x = m4.getElmt(0, 0);
+        // double y = m4.getElmt(0, 1);
+        // System.out.println(bicubic.interpolate(x, y, coef));
     }
 }

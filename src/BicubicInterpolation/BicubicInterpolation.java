@@ -8,7 +8,7 @@ public class BicubicInterpolation{
     Matrix augMatrix = new Matrix(16, 16);
     Matrix invAugMatrix = new Matrix(16, 16);
 
-    // Konstruktor aug matrix
+    // Konstruktor aug matrix dan invers
     public BicubicInterpolation(){
         for(int y = -1; y <= 2; y++){
             for(int x = -1; x <= 2; x++){
@@ -20,6 +20,8 @@ public class BicubicInterpolation{
                 }
             }
         }
+        Matrix tempInv = mo.gaJoInverse(augMatrix);
+        invAugMatrix = tempInv;
     }
 
     //Rumus Model
@@ -32,14 +34,17 @@ public class BicubicInterpolation{
         return this.augMatrix;
     }
 
+    //Mendapatkan inverse matriks
     public Matrix getInvMatrix(){
-        return mo.gaJoInverse(augMatrix);
+        return this.invAugMatrix;
     }
 
+    //Mendapatkan matriks koefisien
     public Matrix getCoefMatrix(Matrix sol){
-        return mo.multiplyMatrix(getInvMatrix(), sol);
+        return mo.multiplyMatrix(this.invAugMatrix, sol);
     }
-    
+
+    //Melakukan proses interpolasi suatu nilai
     public double interpolate(double x, double y, Matrix coef){
         double result = 0;
         for(int j = 0; j <= 3; j++){

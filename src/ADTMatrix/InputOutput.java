@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.*;
 
 public class InputOutput {
-
+    public int userInput;
     Scanner scanObj = new Scanner(System.in);
     
     // ========================== BACA TULIS ==========================
@@ -12,7 +12,6 @@ public class InputOutput {
     // Membaca file text dengan mengembalikan matrix berdasarkan file text tersebut
     public Matrix readMatrix() {
         boolean program = true;
-        int userInput;
         String fileName;
         String filePath;
         int row; int col;
@@ -37,8 +36,8 @@ public class InputOutput {
                 // Baca matriks
                 for (i = 0; i < row; i++){
                     for (j = 0; j < col ; j++){
-                        userInput = scanObj.nextInt();
-                        m.setElmt(i, j, userInput);
+                        Double input = scanObj.nextDouble();
+                        m.setElmt(i, j, input);
                     }
                 }
 
@@ -59,10 +58,6 @@ public class InputOutput {
                 if (file.exists()){
                     try {
                         // Meminta user untuk memasukkan panjang baris dan kolom matriks
-                        // System.out.print("Masukkan panjang baris dan panjang kolom matriks: ");
-                        // row = scanObj.nextInt(); 
-                        // col = scanObj.nextInt();
-                        // m = new Matrix(row, col);
 
                         FileReader reader = new FileReader(file);
                         BufferedReader buffReader = new BufferedReader(reader);
@@ -349,5 +344,4 @@ public class InputOutput {
 
         return filePath;
     }
-
 }

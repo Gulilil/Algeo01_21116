@@ -1,3 +1,4 @@
+package Interpolation;
 import java.util.Scanner;
 import ADTMatrix.Matrix;
 import ADTMatrix.InputOutput;
@@ -7,6 +8,7 @@ public class Interpolasi {
     Scanner scanObj = new Scanner(System.in);
     static InputOutput io = new InputOutput();
     static MatrixOps op = new MatrixOps();
+    
     public String bacaInterpolasi(Matrix mIn, double xOutput){
         // System.out.println("Masukkan nilai n yang diinginkan : ");
         // int n = scanObj.nextInt();

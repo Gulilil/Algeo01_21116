@@ -1,3 +1,4 @@
+package MultipleLinearRegession;
 // import java.util.Scanner;
 
 import java.util.Scanner;
@@ -8,11 +9,13 @@ import ADTMatrix.MatrixOps;
 
 public class MultipleLinearRegression {
     // Scanner scanObj = new Scanner(System.in);
+    public Matrix mX;
+    public int userInput; 
     static InputOutput io = new InputOutput();
     static MatrixOps op = new MatrixOps();
     Scanner scanObj = new Scanner(System.in); 
 
-    public void regresiLinear(Matrix mIn){
+    public String regresiLinear(Matrix mIn){
         int n, m;
 
         // Memisahkan augmented matrix
@@ -103,37 +106,36 @@ public class MultipleLinearRegression {
         op.upperTriangleMatrix(mTemp, mResult);
         op.lowerTriangleMatrix(mTemp, mResult);
         // Matrix mResult2 = op.splInverse(mReg);
+        String answerText = "f(x) = ";
         for(int i =0 ; i < mResult.getRowLength();i++){
             if(i ==0){
-                System.out.print(mResult.getElmt(i,0) + (mResult.getElmt(i+1, 0)<0?" " : " + "));
+                answerText += Double.toString(mResult.getElmt(i,0)) + (mResult.getElmt(i+1, 0)<0?" " : " + ");
             }else if(i == 1 && i != mResult.getRowLength()-1){
-                System.out.print(mResult.getElmt(i, 0) + "x1" + (mResult.getElmt(i+1, 0)< 0? " " : "+"));
+                answerText += Double.toString(mResult.getElmt(i, 0)) + "x1" + (mResult.getElmt(i+1, 0)< 0? " " : "+");
             }else if(i == mResult.getRowLength()-1){
                 if(i == 1){
-                    System.out.println(mResult.getElmt(i, 0));
+                    answerText+= Double.toString(mResult.getElmt(i, 0));
                 }else{
-                    System.out.println(mResult.getElmt(i, 0) + "x"+Integer.toString(i));
+                    answerText+= Double.toString(mResult.getElmt(i, 0)) + "x"+Integer.toString(i);
                 }
             }else{
-                System.out.print(mResult.getElmt(i, 0) + "x" + Integer.toString(i) + (mResult.getElmt(i+1, 0)<0 ? " ":" + "));
+                answerText += Double.toString(mResult.getElmt(i, 0)) + "x" + Integer.toString(i) + (mResult.getElmt(i+1, 0)<0 ? " ":" + ");
             }
         }
-        boolean check = true; 
         double result = mResult.getElmt(0, 0);
-        while(check){
-            System.out.println("Masukkan nilai X peubah yang ingin dicek");
-            for(int i =0; i< n;i++){
-                System.out.println("Masukkan nilai X peubah ke- " + Integer.toString(i));
+        if(userInput != 2){
+            mX= new Matrix(mIn.getColLength()-1, 1);
+            for(int i = 0; i < mIn.getColLength()-1;i++){
+                System.out.println("Masukkan nilai peubah X-" + Integer.toString(i+1));
                 double temp = scanObj.nextDouble();
-                result += mResult.getElmt(i+1, 0) * temp;
-            }
-            System.out.println(result);
-            System.out.println("Apakah masih ingin mengecek nilai X peubah lain dengan f(x) yang sama? (1 : iya, 2 : tidak)");
-            int option = scanObj.nextInt();
-            if(option ==2){
-                check = false;
+                mX.setElmt(i, 0, temp);
             }
         }
-        
+        for(int i =0 ;i<mX.getRowLength();i++){
+            result += mResult.getElmt(i, 0) * mX.getElmt(i, 0);
+        }            
+        answerText += "\nhasil interpolasi = " + Double.toString(result);
+        return answerText;  
     }
+
 }
