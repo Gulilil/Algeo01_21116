@@ -50,8 +50,10 @@ Aljabar Linier dan Geometri </center> </h1>
 <p> Berisikan file yang mengandung algoritma untuk mengerjakan fungsi regresi linier berganda </p>
 <ul> <li> <p> <b> Folder 'ImageResizing' </b> </p> </li> </ul>
 <p> Berisikan file yang mengandung algoritma untuk pemrosesan citra (Image Processing) dan pembesaran gambar. </p>
-<p> <b> Folder 'testCase' </b> </p>
+<p> <b> Folder 'test' </b> </p>
 <p> Berisikan folder input yang berisikan file input dari user dan folder output untuk menyimpan file output yang dikeluarkan program untuk menjawab input user </p>
+<p> <b> Folder 'bin' </b> </p>
+<p> <b> Folder 'doc' </b> </p>
 
 <h2> <b> Keterangan File </b> </h2>
 <p> <b> File InputOutput.java </b> </p>
