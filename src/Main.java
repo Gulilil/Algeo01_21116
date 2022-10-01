@@ -4,6 +4,7 @@ import ADTMatrix.InputOutput;
 import ADTMatrix.Matrix;
 import ADTMatrix.MatrixOps;
 import BicubicInterpolation.BicubicInterpolation;
+import ImageResizing.ImageResizing;
 import Interpolation.Interpolasi;
 import MultipleLinearRegession.MultipleLinearRegression;
 
@@ -14,6 +15,7 @@ public class Main {
     static BicubicInterpolation bi = new BicubicInterpolation();
     static Interpolasi interpolasi = new Interpolasi();
     static MultipleLinearRegression regresiLinear = new MultipleLinearRegression();
+    static ImageResizing img = new ImageResizing();
     public static void main(String[] args) {
         // program adalah variabel yang menunjukkan bahwa program masih berjalan 
         // program bernilai true apabila Program masih dijalankan. Di sisi lain, bernilai false bila Program telah selesai dijalankan
@@ -35,14 +37,15 @@ public class Main {
             System.out.println("4. Interpolasi Polinom");
             System.out.println("5. Interpolasi Bicubic");
             System.out.println("6. Regresi Linier Berganda");
-            System.out.println("7. Keluar");
-            System.out.print("Masukkan angkanya saja (1-7): ");
+            System.out.println("7. Pembesaran Citra");
+            System.out.println("8. Keluar");
+            System.out.print("Masukkan angkanya saja (1-8): ");
             
             // Membaca input dari user
             userNumber = scanObj.nextInt();
 
             // Meminta ulang input dari user bila input yang diberikan tidak valid. Diberikan pesan apabila input tidak valid
-            if ((userNumber < 1) || (userNumber > 7)){
+            if ((userNumber < 1) || (userNumber > 8)){
                 System.out.println("Input "+ userNumber +" tidak valid. Silahkan masukan input yang valid.");
             }
             // Bila input yang diberikan bersifat valid
@@ -414,9 +417,15 @@ public class Main {
                     }
                 }
 
-
+                
                 // User memilih fitur ketujuh
+                // User ingin menggunakan fungsi image processing
                 if ( userNumber == 7){
+                   img.ImageProcess();
+                }
+
+                // User memilih fitur kedelapan
+                if ( userNumber == 8){
                     program = false;
                 }
             }
