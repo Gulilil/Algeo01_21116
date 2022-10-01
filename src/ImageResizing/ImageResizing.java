@@ -85,11 +85,12 @@ public class ImageResizing {
 
         // RESIZING IMAGE
         System.out.println("Resizing Image...");
-        newImage = new BufferedImage (2*width, 2*height, BufferedImage.TYPE_INT_ARGB);
+        newImage = new BufferedImage (2*width, 2*height, BufferedImage.TYPE_INT_RGB);
 
         for(i = 0; i < width; i++){
             for (j = 0; j < height; j++){
                 newImage.setRGB(2*i,2*j, image.getRGB(i,j));
+
             }
         }
 
