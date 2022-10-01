@@ -57,11 +57,20 @@ Aljabar Linier dan Geometri </center> </h1>
 
 <h2> <b> Keterangan File </b> </h2>
 <p> <b> File InputOutput.java </b> </p>
+<p> File yang berisikan segala algoritma untuk mengatur input dan output matriks, baik pada terminal maupun pada text. </p>
 <p> <b> File Matrix.java </b> </p>
+<p> File yang berisikan segala algoritma pengolahan matriks dan operasi di dalam suatu matriks. </p>
 <p> <b> File MatrixOps.java </b> </p>
+<p> File yang berisikan segala algoritma pengolahan antar 2 atau lebih matriks. </p>
 <p> <b> File Main.java </b> </p>
+<p> File yang berisikan program utama untuk menjalankan segala fungsi matriks. </p>
 <p> <b> File driver.java </b> </p>
+<p> File yang digunakan untuk melakukan testing sebelum dimasukkan ke dalam file Main. </p>
 <p> <b> File Interpolasi.java </b> </p>
+<p> File yang berisikan semua algoritma untuk melakukan fungsi interpolasi. </p>
 <p> <b> File BicubicInterpolation.java </b></p>
+<p> File yang berisikan semua algoritma untuk melakukan fungsi interpolasi bikubik. </p>
 <p> <b> File MultipleLinearRegression.java </b></p>
+<p> File yang berisikan semua algoritma untuk melakukan fungsi regresi linear berganda. </p>
 <p> <b> File ImageResizing.java </b> </p>
+<p> File yang berisikan semua algoritma untuk melakukan fungsi perbesaran citra (Image Enlargement). </p>

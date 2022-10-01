@@ -1,5 +1,7 @@
 package ImageResizing;
 import ADTMatrix.*;
+import BicubicInterpolation.BicubicInterpolation;
+
 import java.io.*; 
 import java.util.*;
 import java.awt.image.BufferedImage; 
@@ -10,7 +12,7 @@ public class ImageResizing {
     Scanner scanObj = new Scanner(System.in);
     static InputOutput io = new InputOutput();
     static MatrixOps mOps = new MatrixOps();
-
+    static BicubicInterpolation bi = new BicubicInterpolation();
 
     // Program Utama dari Image Resizing
     public void ImageProcess()
@@ -21,11 +23,13 @@ public class ImageResizing {
         String outputName;
         String imagePath;
         int i, j;
+        int k, l;
         Matrix mColorTemp;
         Matrix mColor;
 
         // For storing image in RAM 
         BufferedImage image = null; 
+        BufferedImage padImage = null; // padImage adalah image yang sudah diberikan padding
         BufferedImage newImage = null;
 
         
@@ -81,18 +85,87 @@ public class ImageResizing {
         }
 
         System.out.println("Converting To Grayscale - DONE."); 
+        
+        // IMAGE WITH PADDING
+        System.out.println("Making Image with Padding...");
+        padImage = new BufferedImage (width+4, height+4, BufferedImage.TYPE_INT_RGB);
+        for (i = 0; i < width; i++){
+            for (j = 0; j <  height; j++){
+                padImage.setRGB(i+2, j+2, image.getRGB(i,j));
+            }
+        }
+        System.out.println("Making Image with Padding - DONE");
+
 
 
         // RESIZING IMAGE
         System.out.println("Resizing Image...");
         newImage = new BufferedImage (2*width, 2*height, BufferedImage.TYPE_INT_RGB);
 
+        // Membuat frame gambarnya 
         for(i = 0; i < width; i++){
             for (j = 0; j < height; j++){
-                newImage.setRGB(2*i,2*j, image.getRGB(i,j));
+                newImage.setRGB((2*i), (2*j), image.getRGB(i,j));     
 
+                // membuat matriks 4x4
+                Matrix m4x4 = new Matrix (4,4);
+                int mRow = 0;
+                // start loop mulai dari index -1 sampai index +3 (untuk membuat 4x4)
+                for (k = i-1; k < i+3 ; k++){
+                    int mCol = 0;
+                    for (l = j-1; l < j+3; l++){
+                        // System.out.println(k + " "+ l);
+                        // ambil salah satu dari value RGB pada padImage
+                        int val = getRed(padImage.getRGB(k+2, l+2));
+                        m4x4.setElmt(mRow, mCol, val);
+                        mCol++;
+                    }
+                    mRow++;
+                }
+
+                // Mengubah matriks 4x4 menjadi 16x1
+                Matrix m16x1 = mOps.transform4x4To16x1(m4x4);
+
+                int pixel = image.getRGB(i, j);
+                int alpha = getAlpha(pixel);
+
+                int pxl = getRed(image.getRGB(i, j));
+                double right, bottom, rightBottom;
+
+                if (pxl <= 51){
+                    right = bi.interpolate(0.2, 0, m16x1);
+                    bottom = bi.interpolate(0, 0.2, m16x1);
+                    rightBottom = bi.interpolate(0.2, 0.2, m16x1);
+                } else if (pxl <= 102){
+                    right = bi.interpolate(0.4, 0, m16x1);
+                    bottom = bi.interpolate(0, 0.4, m16x1);
+                    rightBottom = bi.interpolate(0.4, 0.4, m16x1);
+                } else if (pxl <= 153) {
+                    right = bi.interpolate(0.6, 0, m16x1);
+                    bottom = bi.interpolate(0, 0.6, m16x1);
+                    rightBottom = bi.interpolate(0.6, 0.6, m16x1);
+                } else if (pxl <= 204) {
+                    right = bi.interpolate(0.8, 0, m16x1);
+                    bottom = bi.interpolate(0, 0.8, m16x1);
+                    rightBottom = bi.interpolate(0.8, 0.8, m16x1);
+                } else {
+                    right = bi.interpolate(1, 0, m16x1);
+                    bottom = bi.interpolate(0, 1, m16x1);
+                    rightBottom = bi.interpolate(1, 1, m16x1);
+                }
+
+
+                //Mengisi pixel yang kosong
+                // set Right
+                int rightVal = ((int) alpha << 24) | ((int) right << 16) | ((int) right << 8) | ((int) right);
+                newImage.setRGB(2*i+1, 2*j, rightVal);
+                int bottomVal = ((int) alpha << 24) | ((int) bottom << 16) | ((int) bottom << 8) | ((int) bottom);
+                newImage.setRGB(2*i, 2*j+1, bottomVal);
+                int rightBottomVal = ((int) alpha << 24) | ((int) rightBottom << 16) | ((int) rightBottom << 8) | ((int) rightBottom);
+                newImage.setRGB(2*i+1, 2*j+1, rightBottomVal);
             }
         }
+
 
         System.out.println("Resizing Image - DONE");
 
@@ -108,10 +181,7 @@ public class ImageResizing {
         System.out.println("Writing Image...");
         writeImage(outputName, newImage);
         System.out.println("Writing Image - DONE");
-            
-
-
-
+        
     }
     
     //  =================================================== BATAS MAIN PROGRAM =========================================================
