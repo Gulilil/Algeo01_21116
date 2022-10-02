@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 import ADTMatrix.InputOutput;
 import ADTMatrix.Matrix;
 import ADTMatrix.MatrixOps;
@@ -7,6 +5,8 @@ import BicubicInterpolation.BicubicInterpolation;
 import ImageResizing.ImageResizing;
 import Interpolation.Interpolasi;
 import MultipleLinearRegession.MultipleLinearRegression;
+
+import java.util.Scanner;
 
 public class Main {
 
