@@ -721,25 +721,45 @@ public class MatrixOps {
     // PROCEDURE
     // Menyelesaikan permasalahan SPL menggunakan metode Inverse
     public Matrix splInverse(Matrix mIn){
+        String fileName;
 
         // Inisiasi matriks original
         Matrix mOriginal = mIn.getMOriginal(mIn);
-       if(detKof(mOriginal) == 0){
-            System.out.println("SPL tidak memiliki solusi");
-        }
         
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
         Matrix mInverse = inverse(mOriginal);
 
         Matrix mResult;
-        System.out.println("Matriks inverse ");
-        System.out.println("======================================");
-        io.printMatrix(mInverse);
-        io.printMatrix(mConstant);
-        mResult = multiplyMatrix(mInverse, mConstant);
 
-        displaySolution(mResult);
+        boolean printOnText = io.askUserPrint();
+        if (printOnText){
+            if(detKof(mOriginal) == 0){
+                System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                fileName = scanObj.nextLine();
+                io.delFile(fileName);
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE BALIKAN ==================" );
+                io.printStringToText(fileName, "SPL tidak memiliki solusi.");
+            } else {
+                mResult = multiplyMatrix(mInverse, mConstant);
+                System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                fileName = scanObj.nextLine();
+                io.delFile(fileName);
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE BALIKAN ==================" );
+                io.printMatrixToText(fileName, mResult);
+            }
+        } else {
+            if (detKof(mOriginal) == 0){
+                System.out.println("SPL tidak memiliki solusi");
+            } else {
+                System.out.println( "================== PENYELESAIAN SPL METODE BALIKAN ==================");
+                // io.printMatrix(mInverse);
+                // io.printMatrix(mConstant);
+                mResult = multiplyMatrix(mInverse, mConstant);
+                displaySolution(mResult);
+            }
+        }
+        mResult = multiplyMatrix(mInverse, mConstant);
         return mResult;
     }
 
@@ -756,25 +776,49 @@ public class MatrixOps {
         // Insiasi matriks hasil akhir
         Matrix mResult = new Matrix(mConstant.getRowLength(), 1);
 
+        String fileName;
 
         double det = detKof(mOriginal);
-        if (det == 0){
-            System.out.println("Matriks tidak memiliki solusi.");
-        }
-        else{
-            for (int i = 0; i <= mOriginal.getColIdx(); i++){
-                Matrix mTemp = copyMatrix(mIn);
-                Matrix mNew = new Matrix(mTemp.getColLength(), mTemp.getRowLength());
-                Matrix mTranspose = mTemp.transpose();
-                mTranspose.swapRow(i, mTranspose.getRowIdx());
-                mNew = delLastRow(mTranspose);
-                mNew = mNew.transpose();
 
-                // Memasukkan nilai pembagian determinan mNew dengan det mOriginal pada mResult
-                mResult.setElmt(i, 0, detKof(mNew)/ det);
+        boolean checkNotCramerable = ((det == 0) || !(mOriginal.isSquare())); 
+
+        boolean printOnText = io.askUserPrint();
+        if (printOnText){
+            if (checkNotCramerable){
+                System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                fileName = scanObj.nextLine();
+                io.delFile(fileName);
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE CRAMER ==================" );
+                io.printStringToText(fileName, "SPL tidak memiliki solusi.");
+                return mResult;
+            } else {
+                System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                fileName = scanObj.nextLine();
+                io.delFile(fileName);
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE CRAMER ==================" );
+                io.printMatrixToText(fileName, mResult);
             }
+        } else {
+            if (checkNotCramerable){
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE CRAMER ==================" );
+                System.out.println("SPL tidak memiliki solusi.");
+                return mResult;
+            }
+            else{
+                for (int i = 0; i <= mOriginal.getColIdx(); i++){
+                    Matrix mTemp = copyMatrix(mIn);
+                    Matrix mNew = new Matrix(mTemp.getColLength(), mTemp.getRowLength());
+                    Matrix mTranspose = mTemp.transpose();
+                    mTranspose.swapRow(i, mTranspose.getRowIdx());
+                    mNew = delLastRow(mTranspose);
+                    mNew = mNew.transpose();
+    
+                    // Memasukkan nilai pembagian determinan mNew dengan det mOriginal pada mResult
+                    mResult.setElmt(i, 0, detKof(mNew)/ det);
+                }
+            }
+            displaySolution(mResult);
         }
-        displaySolution(mResult);
         return mResult;
     }
 

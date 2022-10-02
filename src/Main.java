@@ -90,7 +90,7 @@ public class Main {
                             
                             // User memilih fitur kedua
                             if ( userSubNumber == 2){
-                                // System.out.println("================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================");
+                                System.out.println("================== PENYELESAIAN SPL METODE GAUSS JORDAN ==================");
                                 Matrix m;
                                 m = io.readMatrix();
 
