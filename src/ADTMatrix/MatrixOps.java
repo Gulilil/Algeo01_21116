@@ -800,7 +800,7 @@ public class MatrixOps {
             }
         } else {
             if (checkNotCramerable){
-                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE CRAMER ==================" );
+                System.out.println("================== PENYELESAIAN SPL METODE CRAMER ==================");
                 System.out.println("SPL tidak memiliki solusi.");
                 return mResult;
             }
