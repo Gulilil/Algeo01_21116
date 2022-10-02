@@ -39,7 +39,7 @@ public class ImageResizing {
         fileName = scanObj.nextLine();
 
         System.out.println("Reading Image...");
-        imagePath = getImagePath(fileName);
+        imagePath = getImagePathInput(fileName);
         File imageFile = new File( imagePath); 
 
         // image file path create an object of 
@@ -211,20 +211,44 @@ public class ImageResizing {
     }
 
     // FUNCTION 
-    // Mengembalikan path dari sebuah image
-    public String getImagePath (String fileName){
+    // Mengembalikan path input dari sebuah image
+    public String getImagePathInput (String fileName){
         String filePath;
         String currentPath;
 
         // Membaca current working path dan memanipulasi path
         currentPath = System.getProperty("user.dir");
         if (currentPath.contains("src")){
+            // jika currentPath user.dir berhenti hingga directory src
+            currentPath = currentPath.replaceAll("src","");
             // Menggabungkan currentPath dengan lokasi file
-            filePath = currentPath+"\\ImageResizing\\"+ fileName;
+            filePath = currentPath+"test\\input\\"+ fileName;
         } else {
             // jika currentPath user.dir tidak sampai directory src
             // Menggabungkan currentPath dengan lokasi file
-            filePath = currentPath+"\\src\\ImageResizing\\"+ fileName;
+            filePath = currentPath+"\\test\\input\\"+ fileName;
+        }
+
+        return filePath;
+    }
+
+    // FUNCTION 
+    // Mengembalikan path output dari sebuah image
+    public String getImagePathOutput (String fileName){
+        String filePath;
+        String currentPath;
+
+        // Membaca current working path dan memanipulasi path
+        currentPath = System.getProperty("user.dir");
+        if (currentPath.contains("src")){
+            // jika currentPath user.dir berhenti hingga directory src
+            currentPath = currentPath.replaceAll("src","");
+            // Menggabungkan currentPath dengan lokasi file
+            filePath = currentPath+"test\\output\\"+ fileName;
+        } else {
+            // jika currentPath user.dir tidak sampai directory src
+            // Menggabungkan currentPath dengan lokasi file
+            filePath = currentPath+"\\test\\output\\"+ fileName;
         }
 
         return filePath;
@@ -255,7 +279,7 @@ public class ImageResizing {
     // Melakukan write image
     public void writeImage (String outputName, BufferedImage image){
         try { 
-            String outputPath = getImagePath(outputName);
+            String outputPath = getImagePathOutput(outputName);
             File outputFile = new File( outputPath); 
 
             // Writing to file taking type and path as 
