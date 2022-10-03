@@ -9,6 +9,11 @@ Aljabar Linier dan Geometri </center> </h1>
 <li> Nathania Calista Djunaedi - 1352139
 </ol> </h3>
 
+<h2> <b> Cara Menjalankan File (Dalam Sekali Klik!) </b> </h2>
+<ul> 
+<li> Klik start.bat
+</ul>
+
 <h2> <b> List Tugas </b> </h2>
 <p> <b> List tugas pada Source Code : </b> </p>
 <ul>
