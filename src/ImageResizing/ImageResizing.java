@@ -24,8 +24,8 @@ public class ImageResizing {
         String imagePath;
         int i, j;
         int k, l;
-        Matrix mColorTemp;
-        Matrix mColor;
+        // Matrix mColorTemp;
+        // Matrix mColor;
 
         // For storing image in RAM 
         BufferedImage image = null; 
@@ -53,30 +53,30 @@ public class ImageResizing {
         System.out.println("Reading Image - DONE");
 
 
-        // GrayScaling Image
-        System.out.println("Converting To Grayscale...");
-        for (i = 0; i < width; i++){
-            for (j = 0; j < height; j++){
-                mColorTemp = new Matrix (1, 4);
-                int pixel = image.getRGB(i, j);
-                int a = getAlpha(pixel);
-                int r = getRed(pixel);
-                int g = getGreen(pixel);
-                int b = getBlue(pixel);
+        // // GrayScaling Image
+        // System.out.println("Converting To Grayscale...");
+        // for (i = 0; i < width; i++){
+        //     for (j = 0; j < height; j++){
+        //         mColorTemp = new Matrix (1, 4);
+        //         int pixel = image.getRGB(i, j);
+        //         int a = getAlpha(pixel);
+        //         int r = getRed(pixel);
+        //         int g = getGreen(pixel);
+        //         int b = getBlue(pixel);
 
-                mColorTemp.setElmt(0, 0, a);
-                mColorTemp.setElmt(0, 1, r);
-                mColorTemp.setElmt(0, 2, g);
-                mColorTemp.setElmt(0, 3, b);
+        //         mColorTemp.setElmt(0, 0, a);
+        //         mColorTemp.setElmt(0, 1, r);
+        //         mColorTemp.setElmt(0, 2, g);
+        //         mColorTemp.setElmt(0, 3, b);
 
-                mColor = grayscale(mColorTemp);
-                pixel = ((int)(mColor.getElmt(0,0)) << 24) | ((int) (mColor.getElmt(0, 1))<< 16) | ((int)(mColor.getElmt(0,2))<<8) | (int) (mColor.getElmt(0, 3));
-                //System.out.println(pixel);
-                image.setRGB(i, j, pixel);
-            }
-        }
+        //         mColor = grayscale(mColorTemp);
+        //         pixel = ((int)(mColor.getElmt(0,0)) << 24) | ((int) (mColor.getElmt(0, 1))<< 16) | ((int)(mColor.getElmt(0,2))<<8) | (int) (mColor.getElmt(0, 3));
+        //         //System.out.println(pixel);
+        //         image.setRGB(i, j, pixel);
+        //     }
+        // }
 
-        System.out.println("Converting To Grayscale - DONE."); 
+        // System.out.println("Converting To Grayscale - DONE."); 
         
         // IMAGE WITH PADDING
         System.out.println("Making Image with Padding...");
@@ -87,18 +87,18 @@ public class ImageResizing {
             }
         }
 
-        // Making white padding
-        for (i = 0; i < padImage.getWidth(); i++){
-            for (j = 0; j < padImage.getHeight(); j++){
-                int whitePixel = (255 << 24) | (255 << 16) | (255 << 8) | 255;
-                if (i == 0 || i == 1|| i == padImage.getWidth()-2|| i == padImage.getWidth()-1 ){
-                    padImage.setRGB(i,j, whitePixel);
-                } else if (j == 0 || j == 1|| j == padImage.getHeight()-2|| j == padImage.getHeight()-1 ){
-                    padImage.setRGB(i,j, whitePixel);
-                }
-            }
-        }
-        System.out.println("Making Image with Padding - DONE");
+        // // Making white padding
+        // for (i = 0; i < padImage.getWidth(); i++){
+        //     for (j = 0; j < padImage.getHeight(); j++){
+        //         int whitePixel = (255 << 24) | (255 << 16) | (255 << 8) | 255;
+        //         if (i == 0 || i == 1|| i == padImage.getWidth()-2|| i == padImage.getWidth()-1 ){
+        //             padImage.setRGB(i,j, whitePixel);
+        //         } else if (j == 0 || j == 1|| j == padImage.getHeight()-2|| j == padImage.getHeight()-1 ){
+        //             padImage.setRGB(i,j, whitePixel);
+        //         }
+        //     }
+        // }
+        // System.out.println("Making Image with Padding - DONE");
 
 
 
@@ -136,27 +136,30 @@ public class ImageResizing {
                 int pxl = getRed(image.getRGB(i, j));
                 double right, bottom, rightBottom;
 
-                if (pxl <= 51){
-                    right = bi.interpolate(0.2, 0, m16x1);
-                    bottom = bi.interpolate(0, 0.2, m16x1);
-                    rightBottom = bi.interpolate(0.2, 0.2, m16x1);
-                } else if (pxl <= 102){
-                    right = bi.interpolate(0.4, 0, m16x1);
-                    bottom = bi.interpolate(0, 0.4, m16x1);
-                    rightBottom = bi.interpolate(0.4, 0.4, m16x1);
-                } else if (pxl <= 153) {
-                    right = bi.interpolate(0.6, 0, m16x1);
-                    bottom = bi.interpolate(0, 0.6, m16x1);
-                    rightBottom = bi.interpolate(0.6, 0.6, m16x1);
-                } else if (pxl <= 204) {
-                    right = bi.interpolate(0.8, 0, m16x1);
-                    bottom = bi.interpolate(0, 0.8, m16x1);
-                    rightBottom = bi.interpolate(0.8, 0.8, m16x1);
-                } else {
-                    right = bi.interpolate(1, 0, m16x1);
-                    bottom = bi.interpolate(0, 1, m16x1);
-                    rightBottom = bi.interpolate(1, 1, m16x1);
-                }
+                right = bi.interpolate(0.5, 0, m16x1);
+                bottom = bi.interpolate(0, 0.5, m16x1);
+                rightBottom = bi.interpolate(0.5, 0.5, m16x1);
+                // if (pxl <= 51){
+                //     right = bi.interpolate(0.2, 0, m16x1);
+                //     bottom = bi.interpolate(0, 0.2, m16x1);
+                //     rightBottom = bi.interpolate(0.2, 0.2, m16x1);
+                // } else if (pxl <= 102){
+                //     right = bi.interpolate(0.4, 0, m16x1);
+                //     bottom = bi.interpolate(0, 0.4, m16x1);
+                //     rightBottom = bi.interpolate(0.4, 0.4, m16x1);
+                // } else if (pxl <= 153) {
+                //     right = bi.interpolate(0.6, 0, m16x1);
+                //     bottom = bi.interpolate(0, 0.6, m16x1);
+                //     rightBottom = bi.interpolate(0.6, 0.6, m16x1);
+                // } else if (pxl <= 204) {
+                //     right = bi.interpolate(0.8, 0, m16x1);
+                //     bottom = bi.interpolate(0, 0.8, m16x1);
+                //     rightBottom = bi.interpolate(0.8, 0.8, m16x1);
+                // } else {
+                //     right = bi.interpolate(1, 0, m16x1);
+                //     bottom = bi.interpolate(0, 1, m16x1);
+                //     rightBottom = bi.interpolate(1, 1, m16x1);
+                // }
 
 
                 //Mengisi pixel yang kosong

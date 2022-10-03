@@ -10,17 +10,25 @@ public class BicubicInterpolation{
 
     // Konstruktor aug matrix dan invers
     public BicubicInterpolation(){
-        for(int y = -1; y <= 2; y++){
-            for(int x = -1; x <= 2; x++){
-                for(int j = 0; j <= 3; j++){
-                    for(int i = 0; i <= 3; i++){
-                        double val = calcElmt(x, y, i, j);
-                        augMatrix.setElmt((4*(y+1)+(x+1)), (4*j + i), val);
+        Matrix koef = new Matrix(16, 16); //matrix variable dari tiap fungsi
+        int i, j;
+        int baris=0;
+        int kolom=0;
+        double x, y;
+
+        for (x = -1; x < 3;x++){
+            for (y = -1; y < 3; y++) {
+                kolom = 0;
+                for (i = 0; i < 4; i++) {
+                    for (j = 0; j < 4; j++) {
+                        koef.setElmt(baris, kolom, Math.pow(x, i) * Math.pow(y, j));
+                        kolom++;
                     }
                 }
+                baris++;
             }
         }
-        Matrix tempInv = mo.gaJoInverse(augMatrix);
+        Matrix tempInv = mo.gaJoInverse(koef);
         invAugMatrix = tempInv;
     }
 
@@ -46,12 +54,16 @@ public class BicubicInterpolation{
 
     //Melakukan proses interpolasi suatu nilai
     public double interpolate(double x, double y, Matrix coef){
-        double result = 0;
-        for(int j = 0; j <= 3; j++){
-            for(int i = 0; i <= 3; i++){
-                result += coef.getElmt((4*j + i), 0) * calcElmt(x, y, i, j);
+        int row = 0;
+        double hasil = 0;
+        int i, j;
+        
+        for (i = 0; i <= 3; i++) {
+            for (j = 0; j <= 3; j++) {
+                hasil += Math.pow(x, i) * Math.pow(y, j) * coef.getElmt(row, 0);
+                row++;
             }
         }
-        return result;
+        return hasil;
     }
 }
