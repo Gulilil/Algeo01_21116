@@ -154,7 +154,7 @@ public class MatrixOps {
         Matrix mTemp = new Matrix(mInput.getRowLength(), mInput.getColLength());
         for(int i =0 ; i < mInput.getRowLength(); i++){
             for(int j=0; j <mInput.getColLength(); j++){
-                double temp = Math.pow(-1, i+j) * detKof(kofaktor(mInput,i,j));
+                double temp = Math.pow(-1, i+j) * detObe(kofaktor(mInput,i,j));
                 mTemp.setElmt(i,j,temp);
             }
         }
@@ -778,7 +778,7 @@ public class MatrixOps {
 
         String fileName;
 
-        double det = detKof(mOriginal);
+        double det = detObe(mOriginal);
 
         boolean checkNotCramerable = ((det == 0) || !(mOriginal.isSquare())); 
 
@@ -814,7 +814,7 @@ public class MatrixOps {
                     mNew = mNew.transpose();
     
                     // Memasukkan nilai pembagian determinan mNew dengan det mOriginal pada mResult
-                    mResult.setElmt(i, 0, detKof(mNew)/ det);
+                    mResult.setElmt(i, 0, detObe(mNew)/ det);
                 }
             }
             displaySolution(mResult);
