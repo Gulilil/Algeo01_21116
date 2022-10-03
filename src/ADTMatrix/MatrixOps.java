@@ -732,9 +732,18 @@ public class MatrixOps {
 
         Matrix mResult;
 
+        boolean checkNonDeterministic = ((detKof(mOriginal) == 0)) ;
+        boolean checkNotSquare = !((mOriginal.isSquare())); 
+
         boolean printOnText = io.askUserPrint();
         if (printOnText){
-            if(detKof(mOriginal) == 0){
+            if(checkNotSquare){
+                System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                fileName = scanObj.nextLine();
+                io.delFile(fileName);
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE BALIKAN ==================" );
+                io.printStringToText(fileName, "SPL tidak dapat dikerjakan dengan metode ini.");
+            } else if (checkNonDeterministic){
                 System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
                 fileName = scanObj.nextLine();
                 io.delFile(fileName);
@@ -749,7 +758,11 @@ public class MatrixOps {
                 io.printMatrixToText(fileName, mResult);
             }
         } else {
-            if (detKof(mOriginal) == 0){
+            if (checkNotSquare){
+                System.out.println( "================== PENYELESAIAN SPL METODE BALIKAN ==================");
+                System.out.println("SPL tidak dapat dikerjakan dengan metode ini.");
+            } else if (checkNonDeterministic){
+                System.out.println( "================== PENYELESAIAN SPL METODE BALIKAN ==================");
                 System.out.println("SPL tidak memiliki solusi");
             } else {
                 System.out.println( "================== PENYELESAIAN SPL METODE BALIKAN ==================");
@@ -780,11 +793,19 @@ public class MatrixOps {
 
         double det = detKof(mOriginal);
 
-        boolean checkNotCramerable = ((det == 0) || !(mOriginal.isSquare())); 
+        boolean checkNonDeterministic = ((det == 0)) ;
+        boolean checkNotSquare = !((mOriginal.isSquare())); 
 
         boolean printOnText = io.askUserPrint();
         if (printOnText){
-            if (checkNotCramerable){
+            if (checkNotSquare){
+                System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
+                fileName = scanObj.nextLine();
+                io.delFile(fileName);
+                io.printStringToText(fileName, "================== PENYELESAIAN SPL METODE CRAMER ==================" );
+                io.printStringToText(fileName, "SPL tidak dapat dikerjakan menggunakan metode ini.");
+                return mResult;
+            } else if (checkNonDeterministic){
                 System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");
                 fileName = scanObj.nextLine();
                 io.delFile(fileName);
@@ -799,12 +820,17 @@ public class MatrixOps {
                 io.printMatrixToText(fileName, mResult);
             }
         } else {
-            if (checkNotCramerable){
+            if (checkNotSquare){
+                System.out.println("================== PENYELESAIAN SPL METODE CRAMER ==================");
+                System.out.println("SPL tidak dapat dikerjakan menggunakan metode ini.");
+                return mResult;
+            } else if (checkNonDeterministic){
                 System.out.println("================== PENYELESAIAN SPL METODE CRAMER ==================");
                 System.out.println("SPL tidak memiliki solusi.");
                 return mResult;
             }
             else{
+                System.out.println("================== PENYELESAIAN SPL METODE CRAMER ==================");
                 for (int i = 0; i <= mOriginal.getColIdx(); i++){
                     Matrix mTemp = copyMatrix(mIn);
                     Matrix mNew = new Matrix(mTemp.getColLength(), mTemp.getRowLength());

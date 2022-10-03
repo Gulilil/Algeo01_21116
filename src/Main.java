@@ -291,9 +291,6 @@ public class Main {
                                 Matrix mInverse = new Matrix(m.getRowLength(), m.getColLength());
                                 mInverse.setToIdentity();
 
-                                mOps.upperTriangleMatrix(m, mInverse);
-                                mOps.lowerTriangleMatrix(m, mInverse);
-
                                 printOnText = io.askUserPrint();
                                 if (printOnText){
                                     System.out.print("Masukkan nama file (.txt) lengkap dengan .txt : ");

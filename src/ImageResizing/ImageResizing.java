@@ -42,14 +42,6 @@ public class ImageResizing {
         imagePath = getImagePathInput(fileName);
         File imageFile = new File( imagePath); 
 
-        // image file path create an object of 
-        // BufferedImage type and pass as parameter the 
-        // width,  height and image int 
-        // type. TYPE_INT_ARGB means that we are 
-        // representing the Alpha , Red, Green and Blue 
-        // component of the image pixel using 8 bit 
-        // integer value. 
-
         try{
             // Reading input file 
             image = ImageIO.read(imageFile); 
@@ -92,6 +84,18 @@ public class ImageResizing {
         for (i = 0; i < width; i++){
             for (j = 0; j <  height; j++){
                 padImage.setRGB(i+2, j+2, image.getRGB(i,j));
+            }
+        }
+
+        // Making white padding
+        for (i = 0; i < padImage.getWidth(); i++){
+            for (j = 0; j < padImage.getHeight(); j++){
+                int whitePixel = (255 << 24) | (255 << 16) | (255 << 8) | 255;
+                if (i == 0 || i == 1|| i == padImage.getWidth()-2|| i == padImage.getWidth()-1 ){
+                    padImage.setRGB(i,j, whitePixel);
+                } else if (j == 0 || j == 1|| j == padImage.getHeight()-2|| j == padImage.getHeight()-1 ){
+                    padImage.setRGB(i,j, whitePixel);
+                }
             }
         }
         System.out.println("Making Image with Padding - DONE");
