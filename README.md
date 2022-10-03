@@ -58,7 +58,9 @@ Aljabar Linier dan Geometri </center> </h1>
 <p> <b> Folder 'test' </b> </p>
 <p> Berisikan folder input yang berisikan file input dari user dan folder output untuk menyimpan file output yang dikeluarkan program untuk menjawab input user </p>
 <p> <b> Folder 'bin' </b> </p>
+<p> Berisikan folder java bytecode .class </p>
 <p> <b> Folder 'doc' </b> </p>
+<p> Berisikan file hasil laporan dan file spek tugas dari tugas besar Algeo </p>
 
 <h2> <b> Keterangan File </b> </h2>
 <p> <b> File InputOutput.java </b> </p>
