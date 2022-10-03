@@ -728,7 +728,7 @@ public class MatrixOps {
         
         // Inisasi matriks konstanta (bagian kolom paling kanan)
         Matrix mConstant = mIn.getMResult(mIn);
-        Matrix mInverse = inverse(mOriginal);
+        Matrix mInverse = gaJoInverse(mOriginal);
 
         Matrix mResult;
 

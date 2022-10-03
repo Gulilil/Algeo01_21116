@@ -289,7 +289,8 @@ public class Main {
                                 
                                 m = io.readMatrix();
                                 Matrix mInverse = new Matrix(m.getRowLength(), m.getColLength());
-                                mInverse.setToIdentity();
+
+                                mInverse = mOps.gaJoInverse(m);
 
                                 printOnText = io.askUserPrint();
                                 if (printOnText){
