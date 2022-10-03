@@ -330,7 +330,6 @@ public class Main {
                     mIn = io.readMatrix();
                     double lastElement = mIn.getElmt(mIn.getRowLength()-1, 1);
                     if(Double.isNaN(lastElement)){
-                        System.out.println("Ada nan");
                         Matrix mTemp = mOps.delLastRow(mIn);
                         x = mIn.getElmt(mIn.getRowLength()-1, 0); 
                         text = interpolasi.bacaInterpolasi(mTemp, x); 

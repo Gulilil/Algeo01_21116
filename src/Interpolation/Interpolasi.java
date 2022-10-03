@@ -67,7 +67,7 @@ public class Interpolasi {
         for(int i =0 ; i<mConst.getRowLength();i++){
             result += mConst.getElmt(i,0)*Math.pow(xOutput, i);
         }
-        String str = "Hasil interpolasi dari " + Double.toString(xOutput) + " adalah " + Double.toString(result) + "\n" + "f(x) " + temp;
+        String str = "Hasil interpolasi dari " + Double.toString(xOutput) + " adalah " + Double.toString(result) + "\n" + "f(x) = " + temp;
         return str;
     }        
     
