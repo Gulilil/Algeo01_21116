@@ -22,8 +22,9 @@ Aljabar Linier dan Geometri </center> </h1>
 <li> Determinan 
 <li> Matriks Balikan
 <li> Interpolasi Polinom 
-<li> Interpolasi Bicubic + Bonus
+<li> Interpolasi Bicubic
 <li> Regresi Linear Berganda
+<li> Perbesaran Citra
 <li> Fungsi dan Prosedur lainnya
 </ul>
 
@@ -31,13 +32,13 @@ Aljabar Linier dan Geometri </center> </h1>
 <ul>
 <li> Cover 
 <li> Daftar Isi
-<li> Daftar Gambar dan Tabel ( Jika ada) 
 <li> Bab 1 - Deskripsi masalah
 <li> Bab 2 - Teori Singkat 
 <li> Bab 3 - Implementasi Pustaka dan Program Java
 <li> Bab 4 - Eksperimen (Hasil Eksekusi Program)
 <li> Bab 5 - Kesimpulan, saran, dan refleksi
 <li> Daftar Pustaka
+<li> Lampiran
 </ul>
 
 <h2> <b> Keterangan Folder </b> </h2>
@@ -69,8 +70,6 @@ Aljabar Linier dan Geometri </center> </h1>
 <p> File yang berisikan segala algoritma pengolahan antar 2 atau lebih matriks. </p>
 <p> <b> File Main.java </b> </p>
 <p> File yang berisikan program utama untuk menjalankan segala fungsi matriks. </p>
-<p> <b> File driver.java </b> </p>
-<p> File yang digunakan untuk melakukan testing sebelum dimasukkan ke dalam file Main. </p>
 <p> <b> File Interpolasi.java </b> </p>
 <p> File yang berisikan semua algoritma untuk melakukan fungsi interpolasi. </p>
 <p> <b> File BicubicInterpolation.java </b></p>
