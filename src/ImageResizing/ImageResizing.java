@@ -133,7 +133,7 @@ public class ImageResizing {
                 int pixel = image.getRGB(i, j);
                 int alpha = getAlpha(pixel);
 
-                int pxl = getRed(image.getRGB(i, j));
+                // int pxl = getRed(image.getRGB(i, j));
                 double right, bottom, rightBottom;
 
                 right = bi.interpolate(0.5, 0, m16x1);
@@ -147,7 +147,7 @@ public class ImageResizing {
                 //     right = bi.interpolate(0.4, 0, m16x1);
                 //     bottom = bi.interpolate(0, 0.4, m16x1);
                 //     rightBottom = bi.interpolate(0.4, 0.4, m16x1);
-                // } else if (pxl <= 153) {
+                // } else if (pxl <= 153) {+
                 //     right = bi.interpolate(0.6, 0, m16x1);
                 //     bottom = bi.interpolate(0, 0.6, m16x1);
                 //     rightBottom = bi.interpolate(0.6, 0.6, m16x1);
