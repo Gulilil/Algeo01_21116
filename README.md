@@ -38,8 +38,6 @@ Aljabar Linier dan Geometri </center> </h1>
 <li> Bab 4 - Eksperimen (Hasil Eksekusi Program)
 <li> Bab 5 - Kesimpulan, saran, dan refleksi
 <li> Daftar Pustaka
-<li> Lampiran
-
 </ul>
 
 <h2> <b> Keterangan Folder </b> </h2>
